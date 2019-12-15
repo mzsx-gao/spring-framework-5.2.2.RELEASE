@@ -20,9 +20,8 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.lang.Nullable;
 
 /**
- * A variation of {@link ImportSelector} that runs after all {@code @Configuration} beans
- * have been processed. This type of selector can be particularly useful when the selected
- * imports are {@code @Conditional}.
+ * 该类是{@link ImportSelector}的一个变种，它在所有的@Configuration处理完后再导入bean;
+ * 当@import导入的配置类是{@code @Conditional}时特别有用，说白了它跟ImportSelector的区别就是导入bean的时机不一样
  *
  * <p>Implementations can also extend the {@link org.springframework.core.Ordered}
  * interface or use the {@link org.springframework.core.annotation.Order} annotation to
