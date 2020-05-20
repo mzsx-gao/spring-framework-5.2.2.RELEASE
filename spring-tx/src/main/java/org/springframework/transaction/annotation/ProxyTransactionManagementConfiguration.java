@@ -26,14 +26,7 @@ import org.springframework.transaction.interceptor.TransactionAttributeSource;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 /**
- * {@code @Configuration} class that registers the Spring infrastructure beans
- * necessary to enable proxy-based annotation-driven transaction management.
- *
- * @author Chris Beams
- * @author Sebastien Deleuze
- * @since 3.1
- * @see EnableTransactionManagement
- * @see TransactionManagementConfigurationSelector
+ * 事务功能自动装配
  */
 @Configuration(proxyBeanMethods = false)
 public class ProxyTransactionManagementConfiguration extends AbstractTransactionManagementConfiguration {

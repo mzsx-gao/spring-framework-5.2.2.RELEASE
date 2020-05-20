@@ -815,8 +815,7 @@ class ConfigurationClassParser {
 				grouping.getImports().forEach(entry -> {
 					ConfigurationClass configurationClass = this.configurationClasses.get(entry.getMetadata());
 					try {
-						processImports(configurationClass, asSourceClass(configurationClass),
-								asSourceClasses(entry.getImportClassName()), false);
+						processImports(configurationClass, asSourceClass(configurationClass), asSourceClasses(entry.getImportClassName()), false);
 					}
 					catch (BeanDefinitionStoreException ex) {
 						throw ex;
@@ -862,7 +861,7 @@ class ConfigurationClassParser {
 		}
 	}
 
-
+	//该对象持有group和deferredImports参数
 	private static class DeferredImportSelectorGrouping {
 
 		private final DeferredImportSelector.Group group;
@@ -892,7 +891,7 @@ class ConfigurationClassParser {
 		}
 	}
 
-
+	//默认提供的分组对象
 	private static class DefaultDeferredImportSelectorGroup implements Group {
 
 		private final List<Entry> imports = new ArrayList<>();

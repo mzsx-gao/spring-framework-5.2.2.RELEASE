@@ -131,6 +131,7 @@ public class QualifierAnnotationAutowireCandidateResolver extends GenericTypeAwa
 
 
 	/**
+	 * 判断所提供的Bean-->BeanDefinitionHolder 是否是候选bean
 	 * Determine whether the provided bean definition is an autowire candidate.
 	 * <p>To be considered a candidate the bean's <em>autowire-candidate</em>
 	 * attribute must not have been set to 'false'. Also, if an annotation on
