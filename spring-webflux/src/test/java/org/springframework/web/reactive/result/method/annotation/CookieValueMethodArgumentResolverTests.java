@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Test fixture with {@link CookieValueMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link CookieValueMethodArgumentResolver}.
  *
  * @author Rossen Stoyanchev
  */

@@ -33,7 +33,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link ServletCookieValueMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link ServletCookieValueMethodArgumentResolver}.
  *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev

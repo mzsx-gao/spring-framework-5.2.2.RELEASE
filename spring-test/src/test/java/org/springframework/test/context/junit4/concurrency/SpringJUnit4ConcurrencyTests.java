@@ -79,7 +79,7 @@ public class SpringJUnit4ConcurrencyTests {
 			TimedTransactionalSpringRunnerTests.class,
 		// Web and Scopes
 			BasicAnnotationConfigWacSpringRuleTests.class,
-		// Spring MVC Test
+		// Spring MVC DynamicDataSourceTest
 	};
 
 

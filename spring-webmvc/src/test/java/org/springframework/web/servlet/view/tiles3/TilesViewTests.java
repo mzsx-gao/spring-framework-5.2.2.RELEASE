@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link TilesView}.
+ * DynamicDataSourceTest fixture for {@link TilesView}.
  *
  * @author mick semb wever
  * @author Sebastien Deleuze

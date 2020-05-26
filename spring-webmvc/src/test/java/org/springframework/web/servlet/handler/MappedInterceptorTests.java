@@ -36,7 +36,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link MappedInterceptor} tests.
+ * DynamicDataSourceTest fixture for {@link MappedInterceptor} tests.
  *
  * @author Rossen Stoyanchev
  */

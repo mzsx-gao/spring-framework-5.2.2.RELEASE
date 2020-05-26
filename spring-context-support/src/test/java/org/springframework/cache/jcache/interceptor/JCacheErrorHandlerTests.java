@@ -73,7 +73,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void getFail() {
-		UnsupportedOperationException exception = new UnsupportedOperationException("Test exception on get");
+		UnsupportedOperationException exception = new UnsupportedOperationException("DynamicDataSourceTest exception on get");
 		Object key = SimpleKeyGenerator.generateKey(0L);
 		willThrow(exception).given(this.cache).get(key);
 
@@ -83,7 +83,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void getPutNewElementFail() {
-		UnsupportedOperationException exception = new UnsupportedOperationException("Test exception on put");
+		UnsupportedOperationException exception = new UnsupportedOperationException("DynamicDataSourceTest exception on put");
 		Object key = SimpleKeyGenerator.generateKey(0L);
 		given(this.cache.get(key)).willReturn(null);
 		willThrow(exception).given(this.cache).put(key, 0L);
@@ -94,7 +94,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void getFailPutExceptionFail() {
-		UnsupportedOperationException exceptionOnPut = new UnsupportedOperationException("Test exception on put");
+		UnsupportedOperationException exceptionOnPut = new UnsupportedOperationException("DynamicDataSourceTest exception on put");
 		Object key = SimpleKeyGenerator.generateKey(0L);
 		given(this.cache.get(key)).willReturn(null);
 		willThrow(exceptionOnPut).given(this.errorCache).put(key, SimpleService.TEST_EXCEPTION);
@@ -103,7 +103,7 @@ public class JCacheErrorHandlerTests {
 			this.simpleService.getFail(0L);
 		}
 		catch (IllegalStateException ex) {
-			assertThat(ex.getMessage()).isEqualTo("Test exception");
+			assertThat(ex.getMessage()).isEqualTo("DynamicDataSourceTest exception");
 		}
 		verify(this.errorHandler).handleCachePutError(
 				exceptionOnPut, this.errorCache, key, SimpleService.TEST_EXCEPTION);
@@ -111,7 +111,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void putFail() {
-		UnsupportedOperationException exception = new UnsupportedOperationException("Test exception on put");
+		UnsupportedOperationException exception = new UnsupportedOperationException("DynamicDataSourceTest exception on put");
 		Object key = SimpleKeyGenerator.generateKey(0L);
 		willThrow(exception).given(this.cache).put(key, 234L);
 
@@ -121,7 +121,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void evictFail() {
-		UnsupportedOperationException exception = new UnsupportedOperationException("Test exception on evict");
+		UnsupportedOperationException exception = new UnsupportedOperationException("DynamicDataSourceTest exception on evict");
 		Object key = SimpleKeyGenerator.generateKey(0L);
 		willThrow(exception).given(this.cache).evict(key);
 
@@ -131,7 +131,7 @@ public class JCacheErrorHandlerTests {
 
 	@Test
 	public void clearFail() {
-		UnsupportedOperationException exception = new UnsupportedOperationException("Test exception on evict");
+		UnsupportedOperationException exception = new UnsupportedOperationException("DynamicDataSourceTest exception on evict");
 		willThrow(exception).given(this.cache).clear();
 
 		this.simpleService.clear();
@@ -181,7 +181,7 @@ public class JCacheErrorHandlerTests {
 	@CacheDefaults(cacheName = "test")
 	public static class SimpleService {
 
-		private static final IllegalStateException TEST_EXCEPTION = new IllegalStateException("Test exception");
+		private static final IllegalStateException TEST_EXCEPTION = new IllegalStateException("DynamicDataSourceTest exception");
 
 		private AtomicLong counter = new AtomicLong();
 

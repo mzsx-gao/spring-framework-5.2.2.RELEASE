@@ -64,7 +64,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link ResponseEntityExceptionHandler}.
+ * DynamicDataSourceTest fixture for {@link ResponseEntityExceptionHandler}.
  *
  * @author Rossen Stoyanchev
  */

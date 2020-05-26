@@ -42,7 +42,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link SubProtocolWebSocketHandler}.
+ * DynamicDataSourceTest fixture for {@link SubProtocolWebSocketHandler}.
  *
  * @author Rossen Stoyanchev
  * @author Andy Wilkinson

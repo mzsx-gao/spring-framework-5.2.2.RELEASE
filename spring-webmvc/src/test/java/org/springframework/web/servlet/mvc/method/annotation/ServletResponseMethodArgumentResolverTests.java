@@ -34,7 +34,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link ServletResponseMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link ServletResponseMethodArgumentResolver}.
  *
  * @author Arjen Poutsma
  */

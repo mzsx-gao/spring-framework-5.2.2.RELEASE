@@ -1193,7 +1193,7 @@ public class DataSourceTransactionManagerTests  {
 	}
 
 	/**
-	 * Test behavior if the first operation on a connection (getAutoCommit) throws SQLException.
+	 * DynamicDataSourceTest behavior if the first operation on a connection (getAutoCommit) throws SQLException.
 	 */
 	@Test
 	public void testTransactionWithExceptionOnBegin() throws Exception {

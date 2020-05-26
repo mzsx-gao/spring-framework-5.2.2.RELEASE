@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for
+ * DynamicDataSourceTest fixture for
  * {@link org.springframework.web.socket.config.annotation.WebMvcStompWebSocketEndpointRegistration}.
  *
  * @author Rossen Stoyanchev

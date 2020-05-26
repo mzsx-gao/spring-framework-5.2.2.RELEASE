@@ -100,7 +100,7 @@ public class MockWebResponseBuilderTests {
 	@Test
 	public void buildResponseHeaders() throws Exception {
 		this.response.addHeader("Content-Type", "text/html");
-		this.response.addHeader("X-Test", "value");
+		this.response.addHeader("X-DynamicDataSourceTest", "value");
 		Cookie cookie = new Cookie("cookieA", "valueA");
 		cookie.setDomain("domain");
 		cookie.setPath("/path");
@@ -116,7 +116,7 @@ public class MockWebResponseBuilderTests {
 		assertThat(header.getName()).isEqualTo("Content-Type");
 		assertThat(header.getValue()).isEqualTo("text/html");
 		header = responseHeaders.get(1);
-		assertThat(header.getName()).isEqualTo("X-Test");
+		assertThat(header.getName()).isEqualTo("X-DynamicDataSourceTest");
 		assertThat(header.getValue()).isEqualTo("value");
 		header = responseHeaders.get(2);
 		assertThat(header.getName()).isEqualTo("Set-Cookie");

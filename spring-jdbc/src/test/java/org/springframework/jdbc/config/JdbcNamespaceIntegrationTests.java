@@ -70,7 +70,7 @@ public class JdbcNamespaceIntegrationTests {
 
 	@Test
 	public void createWithAnonymousDataSourceAndDefaultDatabaseName() throws Exception {
-		assertCorrectSetupForSingleDataSource("jdbc-config-db-name-default-and-anonymous-datasource.xml",
+		assertCorrectSetupForSingleDataSource("jdbc-config-db-name-default-and-anonymous-dynamicdatasource.xml",
 			url -> url.endsWith(DEFAULT_DATABASE_NAME));
 	}
 

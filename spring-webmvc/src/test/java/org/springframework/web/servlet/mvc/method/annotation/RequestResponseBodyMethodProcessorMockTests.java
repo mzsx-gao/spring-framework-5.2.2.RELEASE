@@ -70,7 +70,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link RequestResponseBodyMethodProcessor} delegating to a
+ * DynamicDataSourceTest fixture for {@link RequestResponseBodyMethodProcessor} delegating to a
  * mock HttpMessageConverter.
  *
  * <p>Also see {@link RequestResponseBodyMethodProcessorTests}.

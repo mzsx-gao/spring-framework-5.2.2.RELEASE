@@ -22,7 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Test entity for EJB transaction support in the TestContext framework.
+ * DynamicDataSourceTest entity for EJB transaction support in the TestContext framework.
  *
  * @author Xavier Detant
  * @author Sam Brannen

@@ -176,7 +176,6 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource imple
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		if (iface.isInstance(this)) {
 			return (T) this;
@@ -190,7 +189,7 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource imple
 	}
 
 	/**
-	 * Retrieve the current target DataSource. Determines the
+	 * 检索当前目标数据源. Determines the
 	 * {@link #determineCurrentLookupKey() current lookup key}, performs
 	 * a lookup in the {@link #setTargetDataSources targetDataSources} map,
 	 * falls back to the specified

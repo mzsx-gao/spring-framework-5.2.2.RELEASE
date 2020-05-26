@@ -17,7 +17,7 @@
 package org.springframework.test.context.transaction.ejb.dao;
 
 /**
- * Test DAO for EJB transaction support in the TestContext framework.
+ * DynamicDataSourceTest DAO for EJB transaction support in the TestContext framework.
  *
  * @author Xavier Detant
  * @author Sam Brannen

@@ -20,10 +20,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.aop.Advisor;
 import org.springframework.aop.AopInvocationException;
@@ -194,6 +191,7 @@ public abstract class AopUtils {
 	 */
 	public static Method getMostSpecificMethod(Method method, @Nullable Class<?> targetClass) {
 		Class<?> specificTargetClass = (targetClass != null ? ClassUtils.getUserClass(targetClass) : null);
+		// 获取最为准确的方法，即如果传入的method只是一个接口方法，则会去找其实现类的同一方法进行解析,如果找不到返回null
 		Method resolvedMethod = ClassUtils.getMostSpecificMethod(method, specificTargetClass);
 		// If we are dealing with method with generic parameters, find the original method.
 		return BridgeMethodResolver.findBridgedMethod(resolvedMethod);
@@ -212,17 +210,13 @@ public abstract class AopUtils {
 	}
 
 	/**
-	 * Can the given pointcut apply at all on the given class?
-	 * <p>This is an important test as it can be used to optimize
-	 * out a pointcut for a class.
-	 * @param pc the static or dynamic pointcut to check
-	 * @param targetClass the class to test
-	 * @param hasIntroductions whether or not the advisor chain
-	 * for this bean includes any introductions
-	 * @return whether the pointcut can apply on any method
+	 * 切点和目标类是否匹配
 	 */
 	public static boolean canApply(Pointcut pc, Class<?> targetClass, boolean hasIntroductions) {
 		Assert.notNull(pc, "Pointcut must not be null");
+
+		// 获取当前Advisor的CalssFilter，并且调用其matches()方法判断当前切点表达式是否与目标bean匹配，
+		// 切点表达式例如:"execution(* my_demo.aop.aop_xml.ArithmeticCalculator.*(int, int))"
 		if (!pc.getClassFilter().matches(targetClass)) {
 			return false;
 		}
@@ -233,22 +227,22 @@ public abstract class AopUtils {
 			return true;
 		}
 
+		//TODO 这里为何要将MethodMatcher强转为IntroductionAwareMethodMatcher类型？
 		IntroductionAwareMethodMatcher introductionAwareMethodMatcher = null;
 		if (methodMatcher instanceof IntroductionAwareMethodMatcher) {
 			introductionAwareMethodMatcher = (IntroductionAwareMethodMatcher) methodMatcher;
 		}
 
-		Set<Class<?>> classes = new LinkedHashSet<>();
-		if (!Proxy.isProxyClass(targetClass)) {
-			classes.add(ClassUtils.getUserClass(targetClass));
-		}
-		classes.addAll(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
-
+		// 获取目标类的所有接口
+		Set<Class<?>> classes = new LinkedHashSet<Class<?>>(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
+		classes.add(targetClass);
 		for (Class<?> clazz : classes) {
+			// 获取目标接口的所有方法
 			Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
 			for (Method method : methods) {
-				if (introductionAwareMethodMatcher != null ?
-						introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions) :
+				// 如果当前MethodMatcher也是IntroductionAwareMethodMatcher类型，则使用该类型的方法进行匹配，从而达到提升效率的目的；
+				// 否则使用MethodMatcher.matches()方法进行匹配
+				if ((introductionAwareMethodMatcher != null && introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions)) ||
 						methodMatcher.matches(method, targetClass)) {
 					return true;
 				}
@@ -271,14 +265,7 @@ public abstract class AopUtils {
 	}
 
 	/**
-	 * Can the given advisor apply at all on the given class?
-	 * <p>This is an important test as it can be used to optimize out a advisor for a class.
-	 * This version also takes into account introductions (for IntroductionAwareMethodMatchers).
-	 * @param advisor the advisor to check
-	 * @param targetClass class we're testing
-	 * @param hasIntroductions whether or not the advisor chain for this bean includes
-	 * any introductions
-	 * @return whether the pointcut can apply on any method
+	 * 给定的advisor是否可以应用于给定的类上
 	 */
 	public static boolean canApply(Advisor advisor, Class<?> targetClass, boolean hasIntroductions) {
 		if (advisor instanceof IntroductionAdvisor) {
@@ -295,29 +282,32 @@ public abstract class AopUtils {
 	}
 
 	/**
-	 * Determine the sublist of the {@code candidateAdvisors} list
-	 * that is applicable to the given class.
-	 * @param candidateAdvisors the Advisors to evaluate
-	 * @param clazz the target class
-	 * @return sublist of Advisors that can apply to an object of the given class
-	 * (may be the incoming List as-is)
+	 * 寻找所有增强中适用于bean的增强
+	 * 方法里面主要将IntroductionAdvisor和普通的Advisor分开进行处理，并且最终都是通过canApply()方法进行过滤
 	 */
 	public static List<Advisor> findAdvisorsThatCanApply(List<Advisor> candidateAdvisors, Class<?> clazz) {
 		if (candidateAdvisors.isEmpty()) {
 			return candidateAdvisors;
 		}
-		List<Advisor> eligibleAdvisors = new ArrayList<>();
+
+		// 判断当前Advisor是否为IntroductionAdvisor，如果是，则按照IntroductionAdvisor的方式进行
+		// 过滤，这里主要的过滤逻辑在canApply()方法中
+		List<Advisor> eligibleAdvisors = new LinkedList<Advisor>();
 		for (Advisor candidate : candidateAdvisors) {
+			// 判断是否为IntroductionAdvisor，并且判断是否可以应用到当前类上
 			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {
 				eligibleAdvisors.add(candidate);
 			}
 		}
+
+		// 如果当前Advisor不是IntroductionAdvisor类型，则通过canApply()方法判断当前Advisor是否可以应用到当前bean
 		boolean hasIntroductions = !eligibleAdvisors.isEmpty();
 		for (Advisor candidate : candidateAdvisors) {
 			if (candidate instanceof IntroductionAdvisor) {
 				// already processed
 				continue;
 			}
+			// 判断是否可以应用到当前bean类型
 			if (canApply(candidate, clazz, hasIntroductions)) {
 				eligibleAdvisors.add(candidate);
 			}

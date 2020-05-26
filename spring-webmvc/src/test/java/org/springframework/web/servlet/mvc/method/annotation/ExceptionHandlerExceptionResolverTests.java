@@ -53,7 +53,7 @@ import org.springframework.web.util.NestedServletException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link ExceptionHandlerExceptionResolver}.
+ * DynamicDataSourceTest fixture with {@link ExceptionHandlerExceptionResolver}.
  *
  * @author Rossen Stoyanchev
  * @author Arjen Poutsma

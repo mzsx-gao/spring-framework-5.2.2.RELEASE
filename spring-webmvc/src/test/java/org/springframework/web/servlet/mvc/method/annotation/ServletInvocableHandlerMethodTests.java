@@ -59,7 +59,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test fixture with {@link ServletInvocableHandlerMethod}.
+ * DynamicDataSourceTest fixture with {@link ServletInvocableHandlerMethod}.
  *
  * @author Rossen Stoyanchev
  * @author Sam Brannen

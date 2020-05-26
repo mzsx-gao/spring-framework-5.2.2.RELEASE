@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link org.springframework.web.socket.adapter.jetty.JettyWebSocketHandlerAdapter}.
+ * DynamicDataSourceTest fixture for {@link org.springframework.web.socket.adapter.jetty.JettyWebSocketHandlerAdapter}.
  *
  * @author Rossen Stoyanchev
  */

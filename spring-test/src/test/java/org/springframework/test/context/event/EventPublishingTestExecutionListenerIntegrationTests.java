@@ -68,7 +68,7 @@ import static org.mockito.Mockito.verify;
  */
 public class EventPublishingTestExecutionListenerIntegrationTests {
 
-	private static final String THREAD_NAME_PREFIX = "Test-";
+	private static final String THREAD_NAME_PREFIX = "DynamicDataSourceTest-";
 
 	private static final CountDownLatch countDownLatch = new CountDownLatch(1);
 

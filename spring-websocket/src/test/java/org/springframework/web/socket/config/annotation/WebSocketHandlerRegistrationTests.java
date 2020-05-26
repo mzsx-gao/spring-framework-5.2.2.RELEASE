@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link AbstractWebSocketHandlerRegistration}.
+ * DynamicDataSourceTest fixture for {@link AbstractWebSocketHandlerRegistration}.
  *
  * @author Rossen Stoyanchev
  */

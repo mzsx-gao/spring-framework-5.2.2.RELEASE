@@ -55,7 +55,7 @@ public class ContextConfigurationWithPropertiesExtendingPropertiesTests extends
 		assertThat(this.dog.getName()).isEqualTo("Fido");
 
 		assertThat(this.testString2).as("The testString2 field should have been autowired.").isNotNull();
-		assertThat(this.testString2).isEqualTo("Test String #2");
+		assertThat(this.testString2).isEqualTo("DynamicDataSourceTest String #2");
 	}
 
 }

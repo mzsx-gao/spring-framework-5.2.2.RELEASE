@@ -37,7 +37,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link WebSocketConnectionManager}.
+ * DynamicDataSourceTest fixture for {@link WebSocketConnectionManager}.
  *
  * @author Rossen Stoyanchev
  */

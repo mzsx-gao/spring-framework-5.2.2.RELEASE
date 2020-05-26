@@ -31,7 +31,7 @@ import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with a {@link DefaultServletHandlerConfigurer}.
+ * DynamicDataSourceTest fixture with a {@link DefaultServletHandlerConfigurer}.
  *
  * @author Rossen Stoyanchev
  */

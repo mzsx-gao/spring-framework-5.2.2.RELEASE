@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
- * Test fixture for {@link TextMessage}.
+ * DynamicDataSourceTest fixture for {@link TextMessage}.
  *
  * @author Shinobu Aoki
  * @author Juergen Hoeller

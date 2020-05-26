@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 /**
- * Test fixture with a {@link InterceptorRegistry}, two {@link HandlerInterceptor}s and two
+ * DynamicDataSourceTest fixture with a {@link InterceptorRegistry}, two {@link HandlerInterceptor}s and two
  * {@link WebRequestInterceptor}s.
  *
  * @author Rossen Stoyanchev

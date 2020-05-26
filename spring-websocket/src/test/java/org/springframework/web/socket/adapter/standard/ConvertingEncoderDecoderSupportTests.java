@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 
 /**
- * Test for {@link org.springframework.web.socket.adapter.standard.ConvertingEncoderDecoderSupport}.
+ * DynamicDataSourceTest for {@link org.springframework.web.socket.adapter.standard.ConvertingEncoderDecoderSupport}.
  *
  * @author Phillip Webb
  */

@@ -37,7 +37,7 @@ import org.springframework.web.util.WebUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for testing {@link AbstractFlashMapManager} methods.
+ * DynamicDataSourceTest fixture for testing {@link AbstractFlashMapManager} methods.
  *
  * @author Rossen Stoyanchev
  * @author Sam Brannen

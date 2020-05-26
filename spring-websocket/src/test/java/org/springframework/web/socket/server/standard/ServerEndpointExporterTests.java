@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link ServerEndpointExporter}.
+ * DynamicDataSourceTest fixture for {@link ServerEndpointExporter}.
  *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller

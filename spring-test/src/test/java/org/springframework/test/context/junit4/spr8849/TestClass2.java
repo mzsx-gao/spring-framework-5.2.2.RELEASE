@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * This name of this class intentionally does not end with "Test" or "Tests"
+ * This name of this class intentionally does not end with "DynamicDataSourceTest" or "Tests"
  * since it should only be run as part of the test suite: {@link Spr8849Tests}.
  *
  * @author Mickael Leduque

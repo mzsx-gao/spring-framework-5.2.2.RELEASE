@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link OriginHandshakeInterceptor}.
+ * DynamicDataSourceTest fixture for {@link OriginHandshakeInterceptor}.
  *
  * @author Sebastien Deleuze
  */

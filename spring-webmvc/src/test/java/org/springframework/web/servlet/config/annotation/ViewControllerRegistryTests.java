@@ -33,7 +33,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with a {@link ViewControllerRegistry}.
+ * DynamicDataSourceTest fixture with a {@link ViewControllerRegistry}.
  *
  * @author Rossen Stoyanchev
  */

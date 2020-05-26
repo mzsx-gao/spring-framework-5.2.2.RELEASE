@@ -49,7 +49,7 @@ import static org.mockito.Mockito.mock;
 public class EntityManagerFactoryUtilsTests {
 
 	/*
-	 * Test method for
+	 * DynamicDataSourceTest method for
 	 * 'org.springframework.orm.jpa.EntityManagerFactoryUtils.doGetEntityManager(EntityManagerFactory)'
 	 */
 	@Test
@@ -112,7 +112,7 @@ public class EntityManagerFactoryUtilsTests {
 	}
 
 	/*
-	 * Test method for
+	 * DynamicDataSourceTest method for
 	 * 'org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessException(PersistenceException)'
 	 */
 	@Test

@@ -25,7 +25,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Test fixture for {@link DefaultMvcResult}.
+ * DynamicDataSourceTest fixture for {@link DefaultMvcResult}.
  *
  * @author Rossen Stoyanchev
  */

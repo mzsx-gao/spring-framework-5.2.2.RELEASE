@@ -77,7 +77,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 		if (advisorNames.length == 0) {
 			return new ArrayList<>();
 		}
-
+		// 对获取到的实现Advisor接口的bean的名称进行遍历
 		List<Advisor> advisors = new ArrayList<>();
 		for (String name : advisorNames) {
 			if (isEligibleBean(name)) {
@@ -88,6 +88,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 				}
 				else {
 					try {
+						// 将当前bean添加到结果中
 						advisors.add(this.beanFactory.getBean(name, Advisor.class));
 					}
 					catch (BeanCreationException ex) {

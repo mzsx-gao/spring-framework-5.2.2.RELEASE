@@ -39,7 +39,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link ServletModelAttributeMethodProcessor} specific tests.
+ * DynamicDataSourceTest fixture for {@link ServletModelAttributeMethodProcessor} specific tests.
  * Also see org.springframework.web.method.annotation.support.ModelAttributeMethodProcessorTests
  *
  * @author Rossen Stoyanchev

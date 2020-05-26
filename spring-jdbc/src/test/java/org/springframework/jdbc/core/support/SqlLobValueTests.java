@@ -43,7 +43,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test cases for the SQL LOB value:
+ * DynamicDataSourceTest cases for the SQL LOB value:
  *
  * BLOB:
  *   1. Types.BLOB: setBlobAsBytes (byte[])

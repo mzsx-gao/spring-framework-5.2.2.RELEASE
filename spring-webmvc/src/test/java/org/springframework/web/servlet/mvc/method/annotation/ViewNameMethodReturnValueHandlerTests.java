@@ -29,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link ViewNameMethodReturnValueHandler}.
+ * DynamicDataSourceTest fixture with {@link ViewNameMethodReturnValueHandler}.
  *
  * @author Rossen Stoyanchev
  */

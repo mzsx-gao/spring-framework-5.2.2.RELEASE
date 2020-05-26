@@ -141,7 +141,7 @@ class WebClientIntegrationTests {
 
 		Mono<String> result = this.webClient.get()
 				.uri("/greeting?name=Spring")
-				.header("X-Test-Header", "testvalue")
+				.header("X-DynamicDataSourceTest-Header", "testvalue")
 				.retrieve()
 				.bodyToMono(String.class);
 
@@ -151,7 +151,7 @@ class WebClientIntegrationTests {
 
 		expectRequestCount(1);
 		expectRequest(request -> {
-			assertThat(request.getHeader("X-Test-Header")).isEqualTo("testvalue");
+			assertThat(request.getHeader("X-DynamicDataSourceTest-Header")).isEqualTo("testvalue");
 			assertThat(request.getHeader(HttpHeaders.ACCEPT)).isEqualTo("*/*");
 			assertThat(request.getPath()).isEqualTo("/greeting?name=Spring");
 		});
@@ -165,7 +165,7 @@ class WebClientIntegrationTests {
 
 		Flux<String> result = this.webClient.get()
 				.uri("/greeting?name=Spring")
-				.header("X-Test-Header", "testvalue")
+				.header("X-DynamicDataSourceTest-Header", "testvalue")
 				.exchange()
 				.flatMapMany(response -> response.bodyToFlux(String.class));
 
@@ -175,7 +175,7 @@ class WebClientIntegrationTests {
 
 		expectRequestCount(1);
 		expectRequest(request -> {
-			assertThat(request.getHeader("X-Test-Header")).isEqualTo("testvalue");
+			assertThat(request.getHeader("X-DynamicDataSourceTest-Header")).isEqualTo("testvalue");
 			assertThat(request.getHeader(HttpHeaders.ACCEPT)).isEqualTo("*/*");
 			assertThat(request.getPath()).isEqualTo("/greeting?name=Spring");
 		});

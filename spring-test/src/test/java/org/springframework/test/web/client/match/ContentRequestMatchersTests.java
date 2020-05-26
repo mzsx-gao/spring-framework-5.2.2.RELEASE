@@ -82,7 +82,7 @@ public class ContentRequestMatchersTests {
 		this.request.getBody().write("test".getBytes());
 
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(() ->
-				MockRestRequestMatchers.content().string("Test").match(this.request));
+				MockRestRequestMatchers.content().string("DynamicDataSourceTest").match(this.request));
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class ContentRequestMatchersTests {
 		this.request.getBody().write("test".getBytes());
 
 		assertThatExceptionOfType(AssertionError.class).isThrownBy(() ->
-				MockRestRequestMatchers.content().bytes("Test".getBytes()).match(this.request));
+				MockRestRequestMatchers.content().bytes("DynamicDataSourceTest".getBytes()).match(this.request));
 	}
 
 	@Test

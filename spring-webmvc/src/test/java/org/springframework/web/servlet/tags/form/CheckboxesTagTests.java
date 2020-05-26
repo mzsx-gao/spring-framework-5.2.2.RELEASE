@@ -553,7 +553,7 @@ public class CheckboxesTagTests extends AbstractFormTagTests {
 	}
 
 	/**
-	 * Test case where items toString() doesn't fit the item ID
+	 * DynamicDataSourceTest case where items toString() doesn't fit the item ID
 	 */
 	@Test
 	public void collectionOfItemPets() throws Exception {

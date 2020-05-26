@@ -44,6 +44,9 @@ public class SpringTransactionAnnotationParser implements TransactionAnnotationP
 		return AnnotationUtils.isCandidateClass(targetClass, Transactional.class);
 	}
 
+	/**
+	 * 提取方法或类上的事务属性
+	 */
 	@Override
 	@Nullable
 	public TransactionAttribute parseTransactionAnnotation(AnnotatedElement element) {
@@ -61,6 +64,7 @@ public class SpringTransactionAnnotationParser implements TransactionAnnotationP
 		return parseTransactionAnnotation(AnnotationUtils.getAnnotationAttributes(ann, false, false));
 	}
 
+	//提取事务属性
 	protected TransactionAttribute parseTransactionAnnotation(AnnotationAttributes attributes) {
 		RuleBasedTransactionAttribute rbta = new RuleBasedTransactionAttribute();
 

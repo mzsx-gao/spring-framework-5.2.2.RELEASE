@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link WebSocketExtension}
+ * DynamicDataSourceTest fixture for {@link WebSocketExtension}
  * @author Brian Clozel
  */
 public class WebSocketExtensionTests {

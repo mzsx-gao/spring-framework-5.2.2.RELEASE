@@ -33,7 +33,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 /**
- * Test for SPR-10277 (multiple method chaining when building MockMvc).
+ * DynamicDataSourceTest for SPR-10277 (multiple method chaining when building MockMvc).
  *
  * @author Wesley Hall
  */

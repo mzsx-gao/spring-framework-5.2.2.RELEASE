@@ -57,21 +57,21 @@ public class XlsViewTests {
 			@Override
 			protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
 					HttpServletRequest request, HttpServletResponse response) throws Exception {
-				Sheet sheet = workbook.createSheet("Test Sheet");
+				Sheet sheet = workbook.createSheet("DynamicDataSourceTest Sheet");
 				Row row = sheet.createRow(0);
 				Cell cell = row.createCell(0);
-				cell.setCellValue("Test Value");
+				cell.setCellValue("DynamicDataSourceTest Value");
 			}
 		};
 
 		excelView.render(new HashMap<>(), request, response);
 
 		Workbook wb = new HSSFWorkbook(new ByteArrayInputStream(response.getContentAsByteArray()));
-		assertThat(wb.getSheetName(0)).isEqualTo("Test Sheet");
-		Sheet sheet = wb.getSheet("Test Sheet");
+		assertThat(wb.getSheetName(0)).isEqualTo("DynamicDataSourceTest Sheet");
+		Sheet sheet = wb.getSheet("DynamicDataSourceTest Sheet");
 		Row row = sheet.getRow(0);
 		Cell cell = row.getCell(0);
-		assertThat(cell.getStringCellValue()).isEqualTo("Test Value");
+		assertThat(cell.getStringCellValue()).isEqualTo("DynamicDataSourceTest Value");
 	}
 
 	@Test
@@ -81,21 +81,21 @@ public class XlsViewTests {
 			@Override
 			protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
 					HttpServletRequest request, HttpServletResponse response) throws Exception {
-				Sheet sheet = workbook.createSheet("Test Sheet");
+				Sheet sheet = workbook.createSheet("DynamicDataSourceTest Sheet");
 				Row row = sheet.createRow(0);
 				Cell cell = row.createCell(0);
-				cell.setCellValue("Test Value");
+				cell.setCellValue("DynamicDataSourceTest Value");
 			}
 		};
 
 		excelView.render(new HashMap<>(), request, response);
 
 		Workbook wb = new XSSFWorkbook(new ByteArrayInputStream(response.getContentAsByteArray()));
-		assertThat(wb.getSheetName(0)).isEqualTo("Test Sheet");
-		Sheet sheet = wb.getSheet("Test Sheet");
+		assertThat(wb.getSheetName(0)).isEqualTo("DynamicDataSourceTest Sheet");
+		Sheet sheet = wb.getSheet("DynamicDataSourceTest Sheet");
 		Row row = sheet.getRow(0);
 		Cell cell = row.getCell(0);
-		assertThat(cell.getStringCellValue()).isEqualTo("Test Value");
+		assertThat(cell.getStringCellValue()).isEqualTo("DynamicDataSourceTest Value");
 	}
 
 	@Test
@@ -105,21 +105,21 @@ public class XlsViewTests {
 			@Override
 			protected void buildExcelDocument(Map<String, Object> model, Workbook workbook,
 					HttpServletRequest request, HttpServletResponse response) throws Exception {
-				Sheet sheet = workbook.createSheet("Test Sheet");
+				Sheet sheet = workbook.createSheet("DynamicDataSourceTest Sheet");
 				Row row = sheet.createRow(0);
 				Cell cell = row.createCell(0);
-				cell.setCellValue("Test Value");
+				cell.setCellValue("DynamicDataSourceTest Value");
 			}
 		};
 
 		excelView.render(new HashMap<>(), request, response);
 
 		Workbook wb = new XSSFWorkbook(new ByteArrayInputStream(response.getContentAsByteArray()));
-		assertThat(wb.getSheetName(0)).isEqualTo("Test Sheet");
-		Sheet sheet = wb.getSheet("Test Sheet");
+		assertThat(wb.getSheetName(0)).isEqualTo("DynamicDataSourceTest Sheet");
+		Sheet sheet = wb.getSheet("DynamicDataSourceTest Sheet");
 		Row row = sheet.getRow(0);
 		Cell cell = row.getCell(0);
-		assertThat(cell.getStringCellValue()).isEqualTo("Test Value");
+		assertThat(cell.getStringCellValue()).isEqualTo("DynamicDataSourceTest Value");
 	}
 
 }

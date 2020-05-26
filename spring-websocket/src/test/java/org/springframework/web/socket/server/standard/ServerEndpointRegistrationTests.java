@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link ServerEndpointRegistration}.
+ * DynamicDataSourceTest fixture for {@link ServerEndpointRegistration}.
  *
  * @author Rossen Stoyanchev
  */

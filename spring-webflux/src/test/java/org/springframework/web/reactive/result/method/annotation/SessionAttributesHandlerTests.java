@@ -31,7 +31,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link SessionAttributesHandler}.
+ * DynamicDataSourceTest fixture with {@link SessionAttributesHandler}.
  * @author Rossen Stoyanchev
  */
 public class SessionAttributesHandlerTests {

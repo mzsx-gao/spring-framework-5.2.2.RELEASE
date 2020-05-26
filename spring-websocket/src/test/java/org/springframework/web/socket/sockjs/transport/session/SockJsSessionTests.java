@@ -42,7 +42,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Test fixture for {@link AbstractSockJsSession}.
+ * DynamicDataSourceTest fixture for {@link AbstractSockJsSession}.
  *
  * @author Rossen Stoyanchev
  */

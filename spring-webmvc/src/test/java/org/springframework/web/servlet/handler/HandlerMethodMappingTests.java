@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 
 /**
- * Test for {@link AbstractHandlerMethodMapping}.
+ * DynamicDataSourceTest for {@link AbstractHandlerMethodMapping}.
  *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev

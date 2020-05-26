@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link org.springframework.web.socket.server.support.DefaultHandshakeHandler}.
+ * DynamicDataSourceTest fixture for {@link org.springframework.web.socket.server.support.DefaultHandshakeHandler}.
  *
  * @author Rossen Stoyanchev
  */

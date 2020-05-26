@@ -35,7 +35,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.HEAD;
 import static org.springframework.web.servlet.mvc.method.RequestMappingInfo.paths;
 
 /**
- * Test fixture for {@link RequestMappingInfo} tests.
+ * DynamicDataSourceTest fixture for {@link RequestMappingInfo} tests.
  *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev

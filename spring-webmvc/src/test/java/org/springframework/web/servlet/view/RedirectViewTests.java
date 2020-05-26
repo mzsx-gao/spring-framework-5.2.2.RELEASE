@@ -394,7 +394,7 @@ public class RedirectViewTests {
 		}
 
 		/**
-		 * Test whether this callback method is called with correct args
+		 * DynamicDataSourceTest whether this callback method is called with correct args
 		 */
 		@Override
 		protected Map<String, Object> queryProperties(Map<String, Object> model) {

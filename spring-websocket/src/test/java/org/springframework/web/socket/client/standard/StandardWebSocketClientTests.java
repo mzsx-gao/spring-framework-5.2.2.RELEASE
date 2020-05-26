@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link StandardWebSocketClient}.
+ * DynamicDataSourceTest fixture for {@link StandardWebSocketClient}.
  *
  * @author Rossen Stoyanchev
  */

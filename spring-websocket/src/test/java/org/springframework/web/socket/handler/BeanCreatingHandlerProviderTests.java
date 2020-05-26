@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test fixture for {@link BeanCreatingHandlerProvider}.
+ * DynamicDataSourceTest fixture for {@link BeanCreatingHandlerProvider}.
  *
  * @author Rossen Stoyanchev
  */

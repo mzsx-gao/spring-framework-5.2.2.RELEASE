@@ -34,7 +34,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link ViewMethodReturnValueHandler}.
+ * DynamicDataSourceTest fixture with {@link ViewMethodReturnValueHandler}.
  *
  * @author Rossen Stoyanchev
  */

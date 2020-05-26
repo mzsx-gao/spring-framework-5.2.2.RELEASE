@@ -81,7 +81,7 @@ public class FrameworkExtensionTests {
 
 
 	/**
-	 * Test {@code RequestPostProcessor}.
+	 * DynamicDataSourceTest {@code RequestPostProcessor}.
 	 */
 	private static class TestRequestPostProcessor implements RequestPostProcessor {
 
@@ -109,7 +109,7 @@ public class FrameworkExtensionTests {
 
 
 	/**
-	 * Test {@code MockMvcConfigurer}.
+	 * DynamicDataSourceTest {@code MockMvcConfigurer}.
 	 */
 	private static class TestMockMvcConfigurer extends MockMvcConfigurerAdapter {
 

@@ -52,7 +52,7 @@ import org.springframework.web.util.UrlPathHelper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for the configuration in mvc-config-annotation-driven.xml.
+ * DynamicDataSourceTest fixture for the configuration in mvc-config-annotation-driven.xml.
  *
  * @author Rossen Stoyanchev
  * @author Brian Clozel

@@ -29,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with a ParameterizableViewController.
+ * DynamicDataSourceTest fixture with a ParameterizableViewController.
  *
  * @author Rossen Stoyanchev
  * @since 3.1.1

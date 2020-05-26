@@ -75,7 +75,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Test fixture for a {@link RequestResponseBodyMethodProcessor} with
+ * DynamicDataSourceTest fixture for a {@link RequestResponseBodyMethodProcessor} with
  * actual delegation to {@link HttpMessageConverter} instances. Also see
  * {@link RequestResponseBodyMethodProcessorMockTests}.
  *

@@ -54,7 +54,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
- * Test the effect of exceptions at different stages of request processing by
+ * DynamicDataSourceTest the effect of exceptions at different stages of request processing by
  * checking the error signals on the completion publisher.
  *
  * @author Rossen Stoyanchev

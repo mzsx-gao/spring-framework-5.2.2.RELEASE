@@ -33,7 +33,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test scenarios involving a mock server.
+ * DynamicDataSourceTest scenarios involving a mock server.
  * @author Rossen Stoyanchev
  */
 public class MockServerTests {

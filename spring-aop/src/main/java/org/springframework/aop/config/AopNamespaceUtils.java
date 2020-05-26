@@ -53,11 +53,22 @@ public abstract class AopNamespaceUtils {
 	private static final String EXPOSE_PROXY_ATTRIBUTE = "expose-proxy";
 
 
+	/**
+	 * 注册自动代理模式创建器(注解配置事务方式时会调用:<tx:annotation-driven/>);
+	 * 最终会注册InfrastructureAdvisorAutoProxyCreator类
+	 */
 	public static void registerAutoProxyCreatorIfNecessary(
 			ParserContext parserContext, Element sourceElement) {
 
+		/**
+		 * 注册自动代理模式创建器(注解配置事务方式时会调用:<tx:annotation-driven/>);
+		 * key=org.springframework.aop.config.internalAutoProxyCreator,类是InfrastructureAdvisorAutoProxyCreator.class
+		 */
 		BeanDefinition beanDefinition = AopConfigUtils.registerAutoProxyCreatorIfNecessary(
 				parserContext.getRegistry(), parserContext.extractSource(sourceElement));
+		/**
+		 * 将proxy-target-class和expose-proxy两个属性设置到beanDefinition的属性(propertyValues)中
+		 */
 		useClassProxyingIfNecessary(parserContext.getRegistry(), sourceElement);
 		registerComponentIfNecessary(beanDefinition, parserContext);
 	}

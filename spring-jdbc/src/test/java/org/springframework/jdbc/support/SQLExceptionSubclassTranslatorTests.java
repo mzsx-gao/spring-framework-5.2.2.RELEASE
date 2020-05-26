@@ -89,14 +89,14 @@ public class SQLExceptionSubclassTranslatorTests {
 		RecoverableDataAccessException rdaex2 = (RecoverableDataAccessException) sext.translate("task", "SQL", recoverableEx);
 		assertThat(rdaex2.getCause()).isEqualTo(recoverableEx);
 
-		// Test classic error code translation. We should move there next if the exception we pass in is not one
+		// DynamicDataSourceTest classic error code translation. We should move there next if the exception we pass in is not one
 		// of the new sub-classes.
 		SQLException sexEct = new SQLException("", "", 1);
 		BadSqlGrammarException bsgEct = (BadSqlGrammarException) sext.translate("task", "SQL-ECT", sexEct);
 		assertThat(bsgEct.getSql()).isEqualTo("SQL-ECT");
 		assertThat((Object) bsgEct.getSQLException()).isEqualTo(sexEct);
 
-		// Test fallback. We assume that no database will ever return this error code,
+		// DynamicDataSourceTest fallback. We assume that no database will ever return this error code,
 		// but 07xxx will be bad grammar picked up by the fallback SQLState translator
 		SQLException sexFbt = new SQLException("", "07xxx", 666666666);
 		BadSqlGrammarException bsgFbt = (BadSqlGrammarException) sext.translate("task", "SQL-FBT", sexFbt);

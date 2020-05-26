@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link HttpSessionHandshakeInterceptor}.
+ * DynamicDataSourceTest fixture for {@link HttpSessionHandshakeInterceptor}.
  *
  * @author Rossen Stoyanchev
  */

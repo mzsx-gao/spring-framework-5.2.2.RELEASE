@@ -33,7 +33,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link ContentNegotiationConfigurer} tests.
+ * DynamicDataSourceTest fixture for {@link ContentNegotiationConfigurer} tests.
  * @author Rossen Stoyanchev
  */
 public class ContentNegotiationConfigurerTests {

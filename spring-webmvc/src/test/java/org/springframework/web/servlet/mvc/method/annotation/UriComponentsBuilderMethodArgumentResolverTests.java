@@ -31,7 +31,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link UriComponentsBuilderMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link UriComponentsBuilderMethodArgumentResolver}.
  *
  * @author Rossen Stoyanchev
  */

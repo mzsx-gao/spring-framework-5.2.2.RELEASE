@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
  * (of course, you can link to any WebSphere DataSource through a bean reference):
  *
  * <pre class="code">
- * &lt;bean id="myDataSource" class="org.springframework.jdbc.datasource.WebSphereDataSourceAdapter"&gt;
+ * &lt;bean id="myDataSource" class="org.springframework.jdbc.dynamicdatasource.WebSphereDataSourceAdapter"&gt;
  *   &lt;property name="targetDataSource"&gt;
  *     &lt;bean class="org.springframework.jndi.JndiObjectFactoryBean"&gt;
  *       &lt;property name="jndiName" value="jdbc/myds"/&gt;

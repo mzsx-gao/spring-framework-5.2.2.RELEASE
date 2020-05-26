@@ -53,7 +53,7 @@ public class AtomFeedViewTests {
 
 		view.render(model, request, response);
 		assertThat(response.getContentType()).as("Invalid content-type").isEqualTo("application/atom+xml");
-		String expected = "<feed xmlns=\"http://www.w3.org/2005/Atom\">" + "<title>Test Feed</title>" +
+		String expected = "<feed xmlns=\"http://www.w3.org/2005/Atom\">" + "<title>DynamicDataSourceTest Feed</title>" +
 				"<entry><title>2</title><summary>This is entry 2</summary></entry>" +
 				"<entry><title>1</title><summary>This is entry 1</summary></entry>" + "</feed>";
 		assertThat(XmlContent.of(response.getContentAsString())).isSimilarToIgnoringWhitespace(expected);
@@ -64,7 +64,7 @@ public class AtomFeedViewTests {
 
 		@Override
 		protected void buildFeedMetadata(Map<String, Object>model, Feed feed, HttpServletRequest request) {
-			feed.setTitle("Test Feed");
+			feed.setTitle("DynamicDataSourceTest Feed");
 		}
 
 		@Override

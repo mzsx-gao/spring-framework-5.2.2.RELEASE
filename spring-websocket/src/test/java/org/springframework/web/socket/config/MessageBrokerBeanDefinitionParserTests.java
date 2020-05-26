@@ -93,7 +93,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test fixture for {@link MessageBrokerBeanDefinitionParser}.
+ * DynamicDataSourceTest fixture for {@link MessageBrokerBeanDefinitionParser}.
  * Also see test configuration files websocket-config-broker-*.xml.
  *
  * @author Brian Clozel

@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Test fixture for {@link HandshakeInterceptorChain}.
+ * DynamicDataSourceTest fixture for {@link HandshakeInterceptorChain}.
  *
  * @author Rossen Stoyanchev
  */

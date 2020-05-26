@@ -43,7 +43,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * "myRepeatableReadDataSource", "mySerializableDataSource" and "myDefaultDataSource":
  *
  * <pre class="code">
- * &lt;bean id="dataSourceRouter" class="org.springframework.jdbc.datasource.lookup.IsolationLevelDataSourceRouter"&gt;
+ * &lt;bean id="dataSourceRouter" class="org.springframework.jdbc.dynamicdatasource.lookup.IsolationLevelDataSourceRouter"&gt;
  *   &lt;property name="targetDataSources"&gt;
  *     &lt;map&gt;
  *       &lt;entry key="ISOLATION_REPEATABLE_READ" value-ref="myRepeatableReadDataSource"/&gt;
@@ -59,7 +59,7 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * without the need for separate DataSource bean definitions.
  *
  * <pre class="code">
- * &lt;bean id="dataSourceRouter" class="org.springframework.jdbc.datasource.lookup.IsolationLevelDataSourceRouter"&gt;
+ * &lt;bean id="dataSourceRouter" class="org.springframework.jdbc.dynamicdatasource.lookup.IsolationLevelDataSourceRouter"&gt;
  *   &lt;property name="targetDataSources"&gt;
  *     &lt;map&gt;
  *       &lt;entry key="ISOLATION_REPEATABLE_READ" value="java:comp/env/jdbc/myrrds"/&gt;

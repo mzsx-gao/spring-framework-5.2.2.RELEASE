@@ -32,7 +32,7 @@ import org.springframework.mock.web.test.MockServletContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link TilesConfigurer}.
+ * DynamicDataSourceTest fixture for {@link TilesConfigurer}.
  *
  * @author Nicolas Le Bas
  */

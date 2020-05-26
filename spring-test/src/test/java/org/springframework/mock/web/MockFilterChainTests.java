@@ -36,7 +36,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link MockFilterChain}.
+ * DynamicDataSourceTest fixture for {@link MockFilterChain}.
  *
  * @author Rob Winch
  */

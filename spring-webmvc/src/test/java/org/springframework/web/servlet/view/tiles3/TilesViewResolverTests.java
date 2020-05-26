@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link TilesViewResolver}.
+ * DynamicDataSourceTest fixture for {@link TilesViewResolver}.
  *
  * @author mick semb wever
  */

@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.web.method.MvcAnnotationPredicates.matrixAttribute;
 
 /**
- * Test fixture with {@link MatrixVariableMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link MatrixVariableMethodArgumentResolver}.
  *
  * @author Rossen Stoyanchev
  */

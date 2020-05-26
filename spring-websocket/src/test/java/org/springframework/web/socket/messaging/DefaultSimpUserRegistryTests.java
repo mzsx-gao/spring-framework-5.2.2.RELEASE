@@ -36,7 +36,7 @@ import org.springframework.web.socket.CloseStatus;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for
+ * DynamicDataSourceTest fixture for
  * {@link DefaultSimpUserRegistry}
  *
  * @author Rossen Stoyanchev

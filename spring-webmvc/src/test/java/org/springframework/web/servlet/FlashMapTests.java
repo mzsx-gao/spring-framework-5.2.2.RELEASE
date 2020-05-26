@@ -24,7 +24,7 @@ import org.springframework.util.MultiValueMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link FlashMap} tests.
+ * DynamicDataSourceTest fixture for {@link FlashMap} tests.
  *
  * @author Rossen Stoyanchev
  */

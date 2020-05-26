@@ -66,7 +66,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 
 /**
- * Test fixture with {@link RequestPartMethodArgumentResolver} and mock {@link HttpMessageConverter}.
+ * DynamicDataSourceTest fixture with {@link RequestPartMethodArgumentResolver} and mock {@link HttpMessageConverter}.
  *
  * @author Rossen Stoyanchev
  * @author Brian Clozel

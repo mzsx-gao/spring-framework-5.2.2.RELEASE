@@ -52,7 +52,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Test fixture for {@link DefaultSockJsService}.
+ * DynamicDataSourceTest fixture for {@link DefaultSockJsService}.
  *
  * @author Rossen Stoyanchev
  * @author Sebastien Deleuze

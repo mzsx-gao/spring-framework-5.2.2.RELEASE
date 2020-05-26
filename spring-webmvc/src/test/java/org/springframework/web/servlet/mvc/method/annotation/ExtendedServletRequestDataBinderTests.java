@@ -31,7 +31,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link ExtendedServletRequestDataBinder}.
+ * DynamicDataSourceTest fixture for {@link ExtendedServletRequestDataBinder}.
  *
  * @author Rossen Stoyanchev
  */

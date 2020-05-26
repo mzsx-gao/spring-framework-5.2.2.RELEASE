@@ -26,7 +26,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.TestPropertySource;
 
 /**
- * Test suite for tests that involve {@link TestPropertySource @TestPropertySource}.
+ * DynamicDataSourceTest suite for tests that involve {@link TestPropertySource @TestPropertySource}.
  *
  * <p>Note that tests included in this suite will be executed at least twice if
  * run from an automated build process, test runner, etc. that is not configured

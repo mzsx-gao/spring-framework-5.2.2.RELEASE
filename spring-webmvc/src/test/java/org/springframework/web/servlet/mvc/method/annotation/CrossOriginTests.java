@@ -57,7 +57,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Test fixture for {@link CrossOrigin @CrossOrigin} annotated methods.
+ * DynamicDataSourceTest fixture for {@link CrossOrigin @CrossOrigin} annotated methods.
  *
  * @author Sebastien Deleuze
  * @author Sam Brannen

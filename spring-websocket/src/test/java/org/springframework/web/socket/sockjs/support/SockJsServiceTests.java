@@ -45,7 +45,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link AbstractSockJsService}.
+ * DynamicDataSourceTest fixture for {@link AbstractSockJsService}.
  *
  * @author Rossen Stoyanchev
  * @author Sebastien Deleuze

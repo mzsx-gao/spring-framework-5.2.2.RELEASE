@@ -47,6 +47,15 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("serial")
 public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializable {
 
+	/**
+	 * 得到方法拦截器链（统一转化为MethodInterceptor）
+	 *
+	 * 1.遍历Advisor。
+	 * 2.如果是Advisor是PointcutAdvisor类型：得到该Advisor的Pointcut，判断要执行的目标对象的方法是否被这个Advisor增强。
+	 *   如果运行时需要做一些检测，则往返回列表中加入InterceptorAndDynamicMethodMatcher封装后的拦截器。否则直接加入拦截器到返回列表。
+	 * 3.如果Advisor是IntroducationAdvisor类型的，用该Advisor的classFilter判断目标对象的类是否被这个Advisor增强，是则得到拦截器，加入到返回列表
+	 * 4.如果Advisor既不是PointcutAdvisor类型也不是IntroducationAdvisor类型，则不用匹配，直接生成拦截器，加入到返回列表。
+	 */
 	@Override
 	public List<Object> getInterceptorsAndDynamicInterceptionAdvice(
 			Advised config, Method method, @Nullable Class<?> targetClass) {
@@ -76,7 +85,9 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 						match = mm.matches(method, actualClass);
 					}
 					if (match) {
+						// 把Advisor转成拦截器MethodInterceptor
 						MethodInterceptor[] interceptors = registry.getInterceptors(advisor);
+						//MethodMatcher在运行时是否需要做一些检测
 						if (mm.isRuntime()) {
 							// Creating a new object instance in the getInterceptors() method
 							// isn't a problem as we normally cache created chains.

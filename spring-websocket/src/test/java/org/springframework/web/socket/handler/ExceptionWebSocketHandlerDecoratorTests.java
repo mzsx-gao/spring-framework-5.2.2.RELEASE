@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
 /**
- * Test fixture for {@link ExceptionWebSocketHandlerDecorator}.
+ * DynamicDataSourceTest fixture for {@link ExceptionWebSocketHandlerDecorator}.
  *
  * @author Rossen Stoyanchev
  */

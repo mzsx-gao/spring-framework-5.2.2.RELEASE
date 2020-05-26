@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
- * Test fixture for {@link RedirectAttributesModelMap} tests.
+ * DynamicDataSourceTest fixture for {@link RedirectAttributesModelMap} tests.
  *
  * @author Rossen Stoyanchev
  * @since 3.1

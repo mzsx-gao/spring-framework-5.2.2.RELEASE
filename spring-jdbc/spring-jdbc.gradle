@@ -14,4 +14,10 @@ dependencies {
 	optional("org.apache.derby:derbyclient")
 	optional("org.jetbrains.kotlin:kotlin-reflect")
 	optional("org.jetbrains.kotlin:kotlin-stdlib")
+	//===自己添加开始===下面两个jar是为了测试事务时使用
+	compile(project(":spring-aop"))
+	optional("org.aspectj:aspectjweaver:1.8.9")
+	optional("mysql:mysql-connector-java:8.0.11")
+	optional("log4j:log4j:1.2.17")//这个jar包是为了在spring-jdbc执行测试代码时可以打印日志
+	//===自己添加结束===============================
 }

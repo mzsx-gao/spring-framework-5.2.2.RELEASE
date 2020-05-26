@@ -27,7 +27,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with a {@link CorsRegistry}.
+ * DynamicDataSourceTest fixture with a {@link CorsRegistry}.
  *
  * @author Sebastien Deleuze
  */

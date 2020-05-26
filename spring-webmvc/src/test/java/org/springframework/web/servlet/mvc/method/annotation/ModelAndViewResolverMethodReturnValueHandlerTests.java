@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test fixture with {@link ModelAndViewResolverMethodReturnValueHandler}.
+ * DynamicDataSourceTest fixture with {@link ModelAndViewResolverMethodReturnValueHandler}.
  *
  * @author Rossen Stoyanchev
  */

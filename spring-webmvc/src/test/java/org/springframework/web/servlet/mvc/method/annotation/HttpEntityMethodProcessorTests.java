@@ -50,7 +50,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link HttpEntityMethodProcessor} delegating to
+ * DynamicDataSourceTest fixture with {@link HttpEntityMethodProcessor} delegating to
  * actual {@link HttpMessageConverter} instances.
  *
  * <p>Also see {@link HttpEntityMethodProcessorMockTests}.

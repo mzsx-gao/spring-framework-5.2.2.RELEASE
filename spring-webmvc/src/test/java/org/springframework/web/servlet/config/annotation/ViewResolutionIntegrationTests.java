@@ -211,7 +211,7 @@ public class ViewResolutionIntegrationTests {
 	}
 
 	/**
-	 * Test @EnableWebMvc in the presence of pre-existing ViewResolver.
+	 * DynamicDataSourceTest @EnableWebMvc in the presence of pre-existing ViewResolver.
 	 */
 	@Configuration
 	static class ExistingViewResolverConfig extends AbstractWebConfig {

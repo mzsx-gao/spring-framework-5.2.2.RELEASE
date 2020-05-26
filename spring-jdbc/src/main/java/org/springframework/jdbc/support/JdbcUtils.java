@@ -317,7 +317,7 @@ public abstract class JdbcUtils {
 	 * Extract database meta-data via the given DatabaseMetaDataCallback.
 	 * <p>This method will open a connection to the database and retrieve the database meta-data.
 	 * Since this method is called before the exception translation feature is configured for
-	 * a datasource, this method can not rely on the SQLException translation functionality.
+	 * a dynamicdatasource, this method can not rely on the SQLException translation functionality.
 	 * <p>Any exceptions will be wrapped in a MetaDataAccessException. This is a checked exception
 	 * and any calling code should catch and handle this exception. You can just log the
 	 * error and hope for the best, but there is probably a more serious error that will

@@ -17,7 +17,7 @@
 package org.springframework.web.servlet.tags.form;
 
 /**
- * Test related data types for {@code org.springframework.web.servlet.tags.form} package.
+ * DynamicDataSourceTest related data types for {@code org.springframework.web.servlet.tags.form} package.
  *
  * @author Scott Andrews
  */

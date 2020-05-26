@@ -70,7 +70,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Test fixture for {@link StompSubProtocolHandler} tests.
+ * DynamicDataSourceTest fixture for {@link StompSubProtocolHandler} tests.
  * @author Rossen Stoyanchev
  */
 public class StompSubProtocolHandlerTests {

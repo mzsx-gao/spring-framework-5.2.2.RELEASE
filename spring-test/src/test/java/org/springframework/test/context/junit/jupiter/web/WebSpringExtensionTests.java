@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
- * Integration tests which demonstrate use of the Spring MVC Test Framework and
+ * Integration tests which demonstrate use of the Spring MVC DynamicDataSourceTest Framework and
  * the Spring TestContext Framework with JUnit Jupiter and the
  * {@link SpringExtension} (via a custom
  * {@link SpringJUnitWebConfig @SpringJUnitWebConfig} composed annotation).

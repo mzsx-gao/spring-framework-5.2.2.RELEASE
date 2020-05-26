@@ -55,7 +55,7 @@ public class CustomDefaultContextLoaderClassSpringRunnerTests {
 		assertThat(this.cat.getName()).isEqualTo("Garfield");
 
 		assertThat(this.testString).as("The testString field should have been autowired.").isNotNull();
-		assertThat(this.testString).isEqualTo("Test String");
+		assertThat(this.testString).isEqualTo("DynamicDataSourceTest String");
 	}
 
 

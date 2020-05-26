@@ -45,7 +45,7 @@ import static org.mockito.BDDMockito.willAnswer;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test fixture for {@link DelegatingWebFluxConfiguration} tests.
+ * DynamicDataSourceTest fixture for {@link DelegatingWebFluxConfiguration} tests.
  *
  * @author Brian Clozel
  */

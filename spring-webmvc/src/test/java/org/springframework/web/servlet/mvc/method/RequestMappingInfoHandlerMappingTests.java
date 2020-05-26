@@ -63,7 +63,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Test fixture with {@link RequestMappingInfoHandlerMapping}.
+ * DynamicDataSourceTest fixture with {@link RequestMappingInfoHandlerMapping}.
  *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev

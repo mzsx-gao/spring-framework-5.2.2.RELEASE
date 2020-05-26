@@ -34,7 +34,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test case for {@link AbstractDispatcherServletInitializer}.
+ * DynamicDataSourceTest case for {@link AbstractDispatcherServletInitializer}.
  *
  * @author Arjen Poutsma
  */

@@ -63,7 +63,7 @@ import org.springframework.web.socket.sockjs.transport.handler.XhrStreamingTrans
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for HandlersBeanDefinitionParser.
+ * DynamicDataSourceTest fixture for HandlersBeanDefinitionParser.
  * See test configuration files websocket-config-handlers-*.xml.
  *
  * @author Brian Clozel

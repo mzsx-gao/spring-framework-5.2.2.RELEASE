@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link WebSocketHandlerDecorator}.
+ * DynamicDataSourceTest fixture for {@link WebSocketHandlerDecorator}.
  *
  * @author Rossen Stoyanchev
  */

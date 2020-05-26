@@ -35,7 +35,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with {@link PathVariableMapMethodArgumentResolver}.
+ * DynamicDataSourceTest fixture with {@link PathVariableMapMethodArgumentResolver}.
  *
  * @author Rossen Stoyanchev
  */

@@ -68,11 +68,14 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	}
 
 
+	/**
+	 * 得到需要应用到给定bean上的所有advice和advisor
+	 */
 	@Override
 	@Nullable
 	protected Object[] getAdvicesAndAdvisorsForBean(
 			Class<?> beanClass, String beanName, @Nullable TargetSource targetSource) {
-
+		//找到符合条件的advisors
 		List<Advisor> advisors = findEligibleAdvisors(beanClass, beanName);
 		if (advisors.isEmpty()) {
 			return DO_NOT_PROXY;
@@ -81,19 +84,19 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	}
 
 	/**
-	 * Find all eligible Advisors for auto-proxying this class.
-	 * @param beanClass the clazz to find advisors for
-	 * @param beanName the name of the currently proxied bean
-	 * @return the empty List, not {@code null},
-	 * if there are no pointcuts or interceptors
-	 * @see #findCandidateAdvisors
-	 * @see #sortAdvisors
-	 * @see #extendAdvisors
+	 * 找到符合条件的advisors,包含两个步骤：
+	 * 1.获取所有的增强
+	 * 2.寻找所有增强中适用于bean的增强
 	 */
 	protected List<Advisor> findEligibleAdvisors(Class<?> beanClass, String beanName) {
+		//获取所有的增强,AOP实现方式中 "xml文件配置方式"和"注解方式"的区别就在这里，也就是获取通知拦截器的方式不一样，其它都一样；
+		//对于注解方式，该方法会调到AnnotationAwareAspectJAutoProxyCreator#findCandidateAdvisors
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
+		//寻找所有增强中适用于bean的增强
 		List<Advisor> eligibleAdvisors = findAdvisorsThatCanApply(candidateAdvisors, beanClass, beanName);
+		// 提供的hook方法，用于对目标Advisor进行扩展（对于xml方式配置的aop切面情况，这里会添加拦截器ExposeInvocationInterceptor）
 		extendAdvisors(eligibleAdvisors);
+		// 对需要代理的Advisor按照一定的规则进行排序
 		if (!eligibleAdvisors.isEmpty()) {
 			eligibleAdvisors = sortAdvisors(eligibleAdvisors);
 		}
@@ -101,8 +104,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	}
 
 	/**
-	 * Find all candidate Advisors to use in auto-proxying.
-	 * @return the List of candidate Advisors
+	 * 获取所有的增强
 	 */
 	protected List<Advisor> findCandidateAdvisors() {
 		Assert.state(this.advisorRetrievalHelper != null, "No BeanFactoryAdvisorRetrievalHelper available");
@@ -110,13 +112,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	}
 
 	/**
-	 * Search the given candidate Advisors to find all Advisors that
-	 * can apply to the specified bean.
-	 * @param candidateAdvisors the candidate Advisors
-	 * @param beanClass the target's bean class
-	 * @param beanName the target's bean name
-	 * @return the List of applicable Advisors
-	 * @see ProxyCreationContext#getCurrentProxiedBeanName()
+	 * 从candidateAdvisors中筛选出所有可以对目标bean进行增强的切面
 	 */
 	protected List<Advisor> findAdvisorsThatCanApply(
 			List<Advisor> candidateAdvisors, Class<?> beanClass, String beanName) {

@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test SockJS Transport.
+ * DynamicDataSourceTest SockJS Transport.
  *
  * @author Rossen Stoyanchev
  */

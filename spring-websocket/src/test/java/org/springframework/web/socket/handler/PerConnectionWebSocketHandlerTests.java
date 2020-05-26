@@ -26,7 +26,7 @@ import org.springframework.web.socket.WebSocketSession;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture for {@link PerConnectionWebSocketHandler}.
+ * DynamicDataSourceTest fixture for {@link PerConnectionWebSocketHandler}.
  *
  * @author Rossen Stoyanchev
  */

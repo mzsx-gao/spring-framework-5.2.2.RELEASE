@@ -74,7 +74,7 @@ public class BaseViewTests {
 	}
 
 	/**
-	 * Test attribute passing, NOT CSV parsing.
+	 * DynamicDataSourceTest attribute passing, NOT CSV parsing.
 	 */
 	@Test
 	public void renderWithStaticAttributesNoCollision() throws Exception {
@@ -196,7 +196,7 @@ public class BaseViewTests {
 	}
 
 	/**
-	 * Test only the CSV parsing implementation.
+	 * DynamicDataSourceTest only the CSV parsing implementation.
 	 */
 	@Test
 	public void attributeCSVParsingIgnoresNull() {

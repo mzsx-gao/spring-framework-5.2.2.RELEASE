@@ -43,7 +43,7 @@ import org.springframework.web.servlet.view.xml.MarshallingView;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test fixture with a {@link ViewResolverRegistry}.
+ * DynamicDataSourceTest fixture with a {@link ViewResolverRegistry}.
  *
  * @author Sebastien Deleuze
  * @author Rossen Stoyanchev

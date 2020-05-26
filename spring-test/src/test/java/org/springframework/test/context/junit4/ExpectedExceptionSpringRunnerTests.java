@@ -28,7 +28,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import static org.springframework.test.context.junit4.JUnitTestingUtils.runTestsAndAssertCounters;
 
 /**
- * Verifies proper handling of JUnit's {@link Test#expected() &#064;Test(expected = ...)}
+ * Verifies proper handling of JUnit's {@link Test#expected() &#064;DynamicDataSourceTest(expected = ...)}
  * support in conjunction with the {@link SpringRunner}.
  *
  * @author Sam Brannen

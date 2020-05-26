@@ -113,7 +113,7 @@ public class JdbcTemplateTests {
 
 	@Test
 	public void testBeanProperties() throws Exception {
-		assertThat(this.template.getDataSource() == this.dataSource).as("datasource ok").isTrue();
+		assertThat(this.template.getDataSource() == this.dataSource).as("dynamicdatasource ok").isTrue();
 		assertThat(this.template.isIgnoreWarnings()).as("ignores warnings by default").isTrue();
 		this.template.setIgnoreWarnings(false);
 		boolean condition = !this.template.isIgnoreWarnings();
@@ -314,7 +314,7 @@ public class JdbcTemplateTests {
 	}
 
 	/**
-	 * Test that we see a runtime exception come back.
+	 * DynamicDataSourceTest that we see a runtime exception come back.
 	 */
 	@Test
 	public void testExceptionComesBack() throws Exception {
@@ -339,7 +339,7 @@ public class JdbcTemplateTests {
 	}
 
 	/**
-	 * Test update with static SQL.
+	 * DynamicDataSourceTest update with static SQL.
 	 */
 	@Test
 	public void testSqlUpdate() throws Exception {
@@ -356,7 +356,7 @@ public class JdbcTemplateTests {
 	}
 
 	/**
-	 * Test update with dynamic SQL.
+	 * DynamicDataSourceTest update with dynamic SQL.
 	 */
 	@Test
 	public void testSqlUpdateWithArguments() throws Exception {
@@ -981,7 +981,7 @@ public class JdbcTemplateTests {
 	}
 
 	/**
-	 * Test that we see an SQLException translated using Error Code.
+	 * DynamicDataSourceTest that we see an SQLException translated using Error Code.
 	 * If we provide the SQLExceptionTranslator, we shouldn't use a connection
 	 * to get the metadata
 	 */

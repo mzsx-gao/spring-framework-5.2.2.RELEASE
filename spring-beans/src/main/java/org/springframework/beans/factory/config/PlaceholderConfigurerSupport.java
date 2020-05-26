@@ -36,7 +36,7 @@ import org.springframework.util.StringValueResolver;
  * Example XML bean definition:
  *
  * <pre class="code">
- * &lt;bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"/&gt;
+ * &lt;bean id="dataSource" class="org.springframework.jdbc.dynamicdatasource.DriverManagerDataSource"/&gt;
  *   &lt;property name="driverClassName" value="${driver}"/&gt;
  *   &lt;property name="url" value="jdbc:${dbname}"/&gt;
  * &lt;/bean&gt;

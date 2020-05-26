@@ -78,7 +78,7 @@ import static org.springframework.http.MediaType.TEXT_PLAIN;
 import static org.springframework.web.servlet.HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE;
 
 /**
- * Test fixture for {@link HttpEntityMethodProcessor} delegating to a mock
+ * DynamicDataSourceTest fixture for {@link HttpEntityMethodProcessor} delegating to a mock
  * {@link HttpMessageConverter}.
  *
  * <p>Also see {@link HttpEntityMethodProcessorTests}.

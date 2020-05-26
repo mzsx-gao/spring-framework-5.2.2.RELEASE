@@ -199,11 +199,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Unbind a resource for the given key from the current thread.
-	 * @param key the key to unbind (usually the resource factory)
-	 * @return the previously bound value (usually the active resource object)
-	 * @throws IllegalStateException if there is no value bound to the thread
-	 * @see ResourceTransactionManager#getResourceFactory()
+	 * 解绑当前线程绑定的资源
 	 */
 	public static Object unbindResource(Object key) throws IllegalStateException {
 		Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);
@@ -227,7 +223,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Actually remove the value of the resource that is bound for the given key.
+	 * 删除当前线程绑定的key为"actualKey"的资源
 	 */
 	@Nullable
 	private static Object doUnbindResource(Object actualKey) {
