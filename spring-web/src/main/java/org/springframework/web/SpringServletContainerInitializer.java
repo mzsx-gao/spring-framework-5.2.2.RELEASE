@@ -169,6 +169,7 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 		servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath");
 		AnnotationAwareOrderComparator.sort(initializers);
 		for (WebApplicationInitializer initializer : initializers) {
+			System.out.println("spring-web收集的实现了WebApplicationInitializer接口的类:"+initializer);
 			initializer.onStartup(servletContext);
 		}
 	}

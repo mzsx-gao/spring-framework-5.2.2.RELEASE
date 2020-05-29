@@ -457,12 +457,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	}
 
 	/**
-	 * Overridden to implement check for "redirect:" prefix.
-	 * <p>Not possible in {@code loadView}, since overridden
-	 * {@code loadView} versions in subclasses might rely on the
-	 * superclass always creating instances of the required view class.
-	 * @see #loadView
-	 * @see #requiredViewClass
+	 * 创建视图对象
 	 */
 	@Override
 	protected View createView(String viewName, Locale locale) throws Exception {
@@ -472,7 +467,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 			return null;
 		}
 
-		// Check for special "redirect:" prefix.
+		// 处理前缀为"redirect:"的情况
 		if (viewName.startsWith(REDIRECT_URL_PREFIX)) {
 			String redirectUrl = viewName.substring(REDIRECT_URL_PREFIX.length());
 			RedirectView view = new RedirectView(redirectUrl,
@@ -484,7 +479,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 			return applyLifecycleMethods(REDIRECT_URL_PREFIX, view);
 		}
 
-		// Check for special "forward:" prefix.
+		// 处理前缀为"forward:"的情况
 		if (viewName.startsWith(FORWARD_URL_PREFIX)) {
 			String forwardUrl = viewName.substring(FORWARD_URL_PREFIX.length());
 			InternalResourceView view = new InternalResourceView(forwardUrl);

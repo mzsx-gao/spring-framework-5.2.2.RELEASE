@@ -214,12 +214,8 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 	}
 
 	/**
-	 * Uses method and type-level @{@link RequestMapping} annotations to create
-	 * the RequestMappingInfo.
-	 * @return the created RequestMappingInfo, or {@code null} if the method
-	 * does not have a {@code @RequestMapping} annotation.
-	 * @see #getCustomMethodCondition(Method)
-	 * @see #getCustomTypeCondition(Class)
+	 * 根据方法上面的@RequestMapping注解创建RequestMappingInfo.
+	 * 这里会先看方法上有没有@RequestMapping注解，如果有，则再看类上面有没有@RequestMapping注解，如果有则组合两者的value值为请求路径
 	 */
 	@Override
 	@Nullable

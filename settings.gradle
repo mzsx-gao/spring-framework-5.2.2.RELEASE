@@ -36,3 +36,5 @@ rootProject.name = "spring-framework-5.2.2.RELEASE"
 rootProject.children.each {project ->
 	project.buildFileName = "${project.name}.gradle"
 }
+include 'my-springmvc-anno'
+
