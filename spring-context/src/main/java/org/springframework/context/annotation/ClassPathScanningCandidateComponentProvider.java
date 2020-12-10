@@ -413,11 +413,16 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		return candidates;
 	}
 
+	/**
+	 * 扫描classpath下所有的bean定义
+	 */
 	private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
 		Set<BeanDefinition> candidates = new LinkedHashSet<>();
 		try {
+			// 扫描路径类似:classpath*:my_demo/annotation/**/*.class
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
 					resolveBasePackage(basePackage) + '/' + this.resourcePattern;
+			//通过PathMatchingResourcePatternResolver来找寻资源,常用的Resource为FileSystemResource
 			Resource[] resources = getResourcePatternResolver().getResources(packageSearchPath);
 			boolean traceEnabled = logger.isTraceEnabled();
 			boolean debugEnabled = logger.isDebugEnabled();
@@ -427,15 +432,23 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 				}
 				if (resource.isReadable()) {
 					try {
+						//生成MetadataReader对象->SimpleMetadataReader，内部包含AnnotationMetadataReadingVisitor注解访问处理类
 						MetadataReader metadataReader = getMetadataReaderFactory().getMetadataReader(resource);
+
+						//扫描满足条件的类
+						//判断class是否不属于excludeFilters集合内但至少符合一个includeFilters集合
 						if (isCandidateComponent(metadataReader)) {
+							//包装为ScannedGenericBeanDefinition对象
 							ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
+							//保存文件资源
 							sbd.setResource(resource);
 							sbd.setSource(resource);
+							//判断class文件是否不为接口或者抽象类并且是独立的
 							if (isCandidateComponent(sbd)) {
 								if (debugEnabled) {
 									logger.debug("Identified candidate component class: " + resource);
 								}
+								//完成验证加入集合中
 								candidates.add(sbd);
 							}
 							else {

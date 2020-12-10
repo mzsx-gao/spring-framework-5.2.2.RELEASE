@@ -406,6 +406,7 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
+	 * 解析元素为BeanDefinitionHolder对象，解析过程中如果报错则返回null
 	 * Parses the supplied {@code <bean>} element. May return {@code null}
 	 * if there were errors during parse. Errors are reported to the
 	 * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
@@ -1372,10 +1373,12 @@ public class BeanDefinitionParserDelegate {
 	}
 
 	/**
-	 * Parse a custom element (outside of the default namespace).
-	 * @param ele the element to parse
-	 * @param containingBd the containing bean definition (if any)
-	 * @return the resulting bean definition
+	 * 解析自定义标签:
+	 * 1.根据当前解析标签的头信息找到对应的namespaceUri
+	 * 2.加载spring所有jar中的spring.handlers文件，并建立映射关系
+	 * 3.根据namespaceUri从映射关系中找到对应的实现了NamespaceHandler接口的类
+	 * 4.调用类的init方法，init方法是注册了各种自定义标签的解析类
+	 * 5.根据namespaceUri找到对应的解析类，然后调用parse方法完成标签解析
 	 */
 	@Nullable
 	public BeanDefinition parseCustomElement(Element ele, @Nullable BeanDefinition containingBd) {
@@ -1401,13 +1404,7 @@ public class BeanDefinitionParserDelegate {
 		return decorateBeanDefinitionIfRequired(ele, originalDef, null);
 	}
 
-	/**
-	 * Decorate the given bean definition through a namespace handler, if applicable.
-	 * @param ele the current element
-	 * @param originalDef the current bean definition
-	 * @param containingBd the containing bean definition (if any)
-	 * @return the decorated bean definition
-	 */
+	//对bean进行进一步的装饰，主要是应用在bean的属性或者子标签有自定义元素的情况
 	public BeanDefinitionHolder decorateBeanDefinitionIfRequired(
 			Element ele, BeanDefinitionHolder originalDef, @Nullable BeanDefinition containingBd) {
 

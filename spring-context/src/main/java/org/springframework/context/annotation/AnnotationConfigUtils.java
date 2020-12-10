@@ -138,12 +138,13 @@ public abstract class AnnotationConfigUtils {
 	}
 
 	/**
-	 * Register all relevant annotation post processors in the given registry.
-	 * @param registry the registry to operate on
-	 * @param source the configuration source element (already extracted)
-	 * that this registration was triggered from. May be {@code null}.
-	 * @return a Set of BeanDefinitionHolders, containing all bean definitions
-	 * that have actually been registered by this call
+	 * 注册所有相关的注解后处理器到beanFactory中，供后续spring调用统一接口进行解析
+	 *
+	 * ConfigurationClassPostProcessor          解析`@Configuration`注解类
+	 * AutowiredAnnotationBeanPostProcessor     解析`@Autowired/@Value`注解
+	 * RequiredAnnotationBeanPostProcessor      解析`@Required`注解
+	 * CommonAnnotationBeanPostProcessor        解析`@Resource`注解
+	 * PersistenceAnnotationBeanPostProcessor   解析JPA注解，持久层
 	 */
 	public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 			BeanDefinitionRegistry registry, @Nullable Object source) {
@@ -160,19 +161,30 @@ public abstract class AnnotationConfigUtils {
 
 		Set<BeanDefinitionHolder> beanDefs = new LinkedHashSet<>(8);
 
+		/**
+		 * 注册ConfigurationClassPostProcessor后处理器，解析`@Configuration`注解类
+		 * beanName:org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+		 */
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(ConfigurationClassPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 
+		/**
+		 * 注册AutowiredAnnotationBeanPostProcessor后处理器，解析`@Autowired/@Value`注解
+		 * beanName:org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+		 */
 		if (!registry.containsBeanDefinition(AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(AutowiredAnnotationBeanPostProcessor.class);
 			def.setSource(source);
 			beanDefs.add(registerPostProcessor(registry, def, AUTOWIRED_ANNOTATION_PROCESSOR_BEAN_NAME));
 		}
 
-		// Check for JSR-250 support, and if present add the CommonAnnotationBeanPostProcessor.
+		/**
+		 * 注册CommonAnnotationBeanPostProcessor后处理器，解析`@Resource`注解
+		 * beanName:org.springframework.context.annotation.internalCommonAnnotationProcessor
+		 */
 		if (jsr250Present && !registry.containsBeanDefinition(COMMON_ANNOTATION_PROCESSOR_BEAN_NAME)) {
 			RootBeanDefinition def = new RootBeanDefinition(CommonAnnotationBeanPostProcessor.class);
 			def.setSource(source);
