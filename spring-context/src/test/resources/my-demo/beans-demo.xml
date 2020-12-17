@@ -79,8 +79,8 @@
         <!--3.Bean 后置处理器对 IOC 容器里的所有 Bean 实例逐一处理, 而非单一实例.-->
           <!--其典型应用是: 检查 Bean 属性的正确性或根据特定的标准更改 Bean 的属性-->
     <!--&ndash;&gt;-->
-    <!--<bean class="my_demo.demo.MyBeanPostProcessor"></bean>-->
+    <bean class="my_demo.demo.MyBeanPostProcessor"></bean>
 
-    <!--<bean class="my_demo.demo.MyBeanFactoryPostProcessor"></bean>-->
+    <bean class="my_demo.demo.MyBeanFactoryPostProcessor"></bean>
 
 </beans>

@@ -530,13 +530,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				//会将web应用相关的scopes注册进beanFactory中,包括:("request", "session", "globalSession", "application")
 				postProcessBeanFactory(beanFactory);
 
-				/*
-                激活注册的BeanFactoryPostProcessor;
-                BeanFactoryPostProcessor的典型应用:PropertyPlaceHolderConfiguer
+				/**
+				 * 激活注册的BeanFactoryPostProcessor;
+				 * BeanFactoryPostProcessor的典型应用:PropertyPlaceHolderConfiguer
                  */
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				//注册BeanPostProcessor,介入到bean创建过程
+				//注册BeanPostProcessor,介入到bean创建过程,也就是把实现BeanPostProcessor接口的类提前实例化
 				registerBeanPostProcessors(beanFactory);
 
 				// 该方法的主要作用就是提取配置中定义的messageSource进行初始化，如果用户没有设置资源文件，则spring默认提供了DelegatingMessageSource
@@ -662,11 +662,33 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		// Tell the internal bean factory to use the context's class loader etc.
 		beanFactory.setBeanClassLoader(getClassLoader());
+		/*
+		注册语言解析器对SPEL进行解析；
+		bean在初始化的时候会有属性填充的一步，这时就会从beanFactory中拿到这个语言解析器进行解析；
+		应用语言解析器的调用主要是在解析依赖注入bean的时候以及在完成bean的初始化和属性获取后进行属性填充的时候
+		 */
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
+		/*
+		增加属性注册编辑器，比如bean的属性为Date类型，配置文件中配置的是字符串，就需要用到属性注册编辑器来将字符串转换为Date类型；
+		ResourceEditorRegistrar类的registerCustomEditors（）方法就是注册了一系列的常用类型的属性编辑器；
+		在bean的初始化后会调用ResourceEditorRegistrar类的registerCustomEditors（）方法进行批量的通用属性编辑器注册，注册
+		后，在属性填充的环节便可以直接让spring使用这些属性编辑器进行属性的解析了
+		 */
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
+		//添加ApplicationContextAwareProcessor处理器，这里主要是实现这些Aware接口的bean在被初始化后可以取得一些对应的资源
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+		/**
+		 * 当spring将ApplicationContextAwareProcessor注册后，那么在ApplicationContextAwareProcessor的invokeAwareInterfaces方法
+		 * 间接调用的Aware类已经不是普通的bean了，如ResourceLoaderAware、ApplicationContextAware等，那么当然需要在spring做bean的
+		 * 依赖注入的时候忽略他们，在ignoreDependencyInterface的作用正是在此;
+		 * 这里调用ignoreDependencyInterface方法后，所有实现这些接口的类中属性的setter方法的参数类型是这些接口时，不会自动装配这个属性，
+		 * 而是统一由框架设置依赖；
+		 * 比如:ApplicationContextAwareProcessor中的postProcessBeforeInitialization（）方法就是在bean初始化之前调用，这个方法里面的
+		 * invokeAwareInterfaces方法会统一处理这些属性的依赖注入；
+		 * 具体spring是怎样实现忽略这些属性的依赖注入请参考ignoreDependencyInterface方法和ignoreDependencyType方法的注释
+		 */
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -676,6 +698,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// BeanFactory interface not registered as resolvable type in a plain factory.
 		// MessageSource registered (and found for autowiring) as a bean.
+		/**
+		 * 设置了几个自动装配的特殊规则；
+		 * 当注册了依赖解析后，例如注册了对BeanFactory.class的解析依赖后，当bean的属性注入的时候，一旦检测到属性为BeanFactory类型便会
+		 * 将beanFactory的实例注入进入
+		 */
 		beanFactory.registerResolvableDependency(BeanFactory.class, beanFactory);
 		beanFactory.registerResolvableDependency(ResourceLoader.class, this);
 		beanFactory.registerResolvableDependency(ApplicationEventPublisher.class, this);
@@ -691,7 +718,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
 		}
 
-		// Register default environment beans.
+		// 注册默认的环境相关的bean(environment,systemProperties,systemEnvironment)
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
 		}
@@ -837,13 +864,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * Doesn't affect other listeners, which can be added without being beans.
 	 */
 	protected void registerListeners() {
-		// Register statically specified listeners first.
+		//硬编码方式注册的监听器处理
 		for (ApplicationListener<?> listener : getApplicationListeners()) {
 			getApplicationEventMulticaster().addApplicationListener(listener);
 		}
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let post-processors apply to them!
+		//配置方法注册的监听器处理
 		String[] listenerBeanNames = getBeanNamesForType(ApplicationListener.class, true, false);
 		for (String listenerBeanName : listenerBeanNames) {
 			getApplicationEventMulticaster().addApplicationListenerBean(listenerBeanName);
@@ -860,15 +888,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	/**
-	 * Finish the initialization of this context's bean factory,
-	 * initializing all remaining singleton beans.
+	 * 初始化剩下的单例bean(非延迟加载的)
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
-		// Initialize conversion service for this context.
-		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
-				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
-			beanFactory.setConversionService(
-					beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
+		//初始化转换器
+		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) && beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
+			beanFactory.setConversionService(beanFactory.getBean(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class));
 		}
 
 		// Register a default embedded value resolver if no bean post-processor
@@ -887,10 +912,17 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Stop using the temporary ClassLoader for type matching.
 		beanFactory.setTempClassLoader(null);
 
-		// Allow for caching all bean definition metadata, not expecting further changes.
+		//冻结所有的bean定义，说明注册的bean定义将不能被修改或进行任何进一步的处理
 		beanFactory.freezeConfiguration();
 
-		// Instantiate all remaining (non-lazy-init) singletons.
+		/**
+		 * 初始化所有的非延迟加载的单例bean,该方法是spring中最重要的方法，没有之一，着重看:
+		 * 1.bean的实例化过程
+		 * 2.ioc
+		 * 3.注解支持
+		 * 4.BeanPostProcessor的执行
+		 * 5.Aop的入口
+		 */
 		beanFactory.preInstantiateSingletons();
 	}
 

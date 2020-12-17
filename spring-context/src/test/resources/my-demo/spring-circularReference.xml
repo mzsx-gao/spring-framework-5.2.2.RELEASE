@@ -17,21 +17,21 @@
 
 
     <!-- 测试bean的作用域是prototype -->
-    <bean id="prototypeTest" class="my_demo.prototype.PrototypeTest" scope="prototype">
-        <property name="username" value="xiaogao"></property>
-        <property name="prototypeTest2" ref="prototypeTest2"></property>
-    </bean>
+    <!--<bean id="prototypeTest" class="my_demo.prototype.PrototypeTest" scope="prototype">-->
+        <!--<property name="username" value="xiaogao"></property>-->
+        <!--<property name="prototypeTest2" ref="prototypeTest2"></property>-->
+    <!--</bean>-->
 
-    <bean id="prototypeTest2" class="my_demo.prototype.PrototypeTest2" scope="prototype">
-        <property name="username" value="xiaogao"></property>
-    </bean>
+    <!--<bean id="prototypeTest2" class="my_demo.prototype.PrototypeTest2" scope="prototype">-->
+        <!--<property name="username" value="xiaogao"></property>-->
+    <!--</bean>-->
 
     <!--测试prototype类型的bean的循环依赖 -->
-    <bean id="prototypeTestA" class="my_demo.prototype.PrototypeTestA"  scope="prototype">
-        <property name="prototypeTestB" ref="prototypeTestB"/>
-    </bean>
-    <bean id="prototypeTestB" class="my_demo.prototype.PrototypeTestB"  scope="prototype">
-        <property name="prototypeTestA" ref="prototypeTestA"/>
-    </bean>
+    <!--<bean id="prototypeTestA" class="my_demo.prototype.PrototypeTestA"  scope="prototype">-->
+        <!--<property name="prototypeTestB" ref="prototypeTestB"/>-->
+    <!--</bean>-->
+    <!--<bean id="prototypeTestB" class="my_demo.prototype.PrototypeTestB"  scope="prototype">-->
+        <!--<property name="prototypeTestA" ref="prototypeTestA"/>-->
+    <!--</bean>-->
 
 </beans>
