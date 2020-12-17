@@ -515,6 +515,7 @@ public class BeanDefinitionParserDelegate {
 		try {
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
+			//解析bean标签的属性，并把解析出来的属性设置到beanDefinition对象中
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
@@ -523,6 +524,7 @@ public class BeanDefinitionParserDelegate {
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
 
 			parseConstructorArgElements(ele, bd);
+			//解析bean元素的property属性，存到beanDefinition的(MutablePropertyValues propertyValues)属性中
 			parsePropertyElements(ele, bd);
 			parseQualifierElements(ele, bd);
 
