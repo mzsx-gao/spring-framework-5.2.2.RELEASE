@@ -101,7 +101,7 @@ public abstract class AbstractApplicationEventMulticaster
 		return this.beanFactory;
 	}
 
-
+	//添加ApplicationListener
 	@Override
 	public void addApplicationListener(ApplicationListener<?> listener) {
 		synchronized (this.retrievalMutex) {
@@ -116,6 +116,7 @@ public abstract class AbstractApplicationEventMulticaster
 		}
 	}
 
+	//添加监听器
 	@Override
 	public void addApplicationListenerBean(String listenerBeanName) {
 		synchronized (this.retrievalMutex) {
@@ -162,16 +163,9 @@ public abstract class AbstractApplicationEventMulticaster
 	}
 
 	/**
-	 * Return a Collection of ApplicationListeners matching the given
-	 * event type. Non-matching listeners get excluded early.
-	 * @param event the event to be propagated. Allows for excluding
-	 * non-matching listeners early, based on cached matching information.
-	 * @param eventType the event type
-	 * @return a Collection of ApplicationListeners
-	 * @see org.springframework.context.ApplicationListener
+	 * 获取符合条件(event、eventType)的ApplicationListeners
 	 */
-	protected Collection<ApplicationListener<?>> getApplicationListeners(
-			ApplicationEvent event, ResolvableType eventType) {
+	protected Collection<ApplicationListener<?>> getApplicationListeners(ApplicationEvent event, ResolvableType eventType) {
 
 		Object source = event.getSource();
 		Class<?> sourceType = (source != null ? source.getClass() : null);
@@ -183,9 +177,8 @@ public abstract class AbstractApplicationEventMulticaster
 			return retriever.getApplicationListeners();
 		}
 
-		if (this.beanClassLoader == null ||
-				(ClassUtils.isCacheSafe(event.getClass(), this.beanClassLoader) &&
-						(sourceType == null || ClassUtils.isCacheSafe(sourceType, this.beanClassLoader)))) {
+		if (this.beanClassLoader == null || (ClassUtils.isCacheSafe(event.getClass(), this.beanClassLoader) &&
+				(sourceType == null || ClassUtils.isCacheSafe(sourceType, this.beanClassLoader)))) {
 			// Fully synchronized building and caching of a ListenerRetriever
 			synchronized (this.retrievalMutex) {
 				retriever = this.retrieverCache.get(cacheKey);
@@ -193,8 +186,7 @@ public abstract class AbstractApplicationEventMulticaster
 					return retriever.getApplicationListeners();
 				}
 				retriever = new ListenerRetriever(true);
-				Collection<ApplicationListener<?>> listeners =
-						retrieveApplicationListeners(eventType, sourceType, retriever);
+				Collection<ApplicationListener<?>> listeners = retrieveApplicationListeners(eventType, sourceType, retriever);
 				this.retrieverCache.put(cacheKey, retriever);
 				return listeners;
 			}
@@ -206,11 +198,7 @@ public abstract class AbstractApplicationEventMulticaster
 	}
 
 	/**
-	 * Actually retrieve the application listeners for the given event and source type.
-	 * @param eventType the event type
-	 * @param sourceType the event source type
-	 * @param retriever the ListenerRetriever, if supposed to populate one (for caching purposes)
-	 * @return the pre-filtered list of application listeners for the given event and source type
+	 * 通过给定的eventType和sourceType检索出所有符合的listeners
 	 */
 	private Collection<ApplicationListener<?>> retrieveApplicationListeners(
 			ResolvableType eventType, @Nullable Class<?> sourceType, @Nullable ListenerRetriever retriever) {
@@ -241,8 +229,7 @@ public abstract class AbstractApplicationEventMulticaster
 			for (String listenerBeanName : listenerBeans) {
 				try {
 					if (supportsEvent(beanFactory, listenerBeanName, eventType)) {
-						ApplicationListener<?> listener =
-								beanFactory.getBean(listenerBeanName, ApplicationListener.class);
+						ApplicationListener<?> listener = beanFactory.getBean(listenerBeanName, ApplicationListener.class);
 						if (!allListeners.contains(listener) && supportsEvent(listener, eventType, sourceType)) {
 							if (retriever != null) {
 								if (beanFactory.isSingleton(listenerBeanName)) {
@@ -411,9 +398,7 @@ public abstract class AbstractApplicationEventMulticaster
 
 
 	/**
-	 * Helper class that encapsulates a specific set of target listeners,
-	 * allowing for efficient retrieval of pre-filtered listeners.
-	 * <p>An instance of this helper gets cached per event type and source type.
+	 * 封装一组特定监听器的Helper类，允许有效地检索预先过滤的侦听器
 	 */
 	private class ListenerRetriever {
 

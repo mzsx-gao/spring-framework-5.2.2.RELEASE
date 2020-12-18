@@ -17,7 +17,7 @@ public class Main {
 
     @Test
     public void testListener(){
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("property.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("my-demo/property.xml");
         MsgEvent event = new MsgEvent("hello,testListener","内容");
         ctx.publishEvent(event);
     }
