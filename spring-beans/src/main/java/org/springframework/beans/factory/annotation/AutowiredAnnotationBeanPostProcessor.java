@@ -240,7 +240,10 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		this.beanFactory = (ConfigurableListableBeanFactory) beanFactory;
 	}
 
-
+	/**
+	 * 1.收集字段和方法上的@Autowired和@Value注解，然后放到InjectionMetadata对象中
+	 * 2.将@Autowired或者@Value注解修饰的字段或者方法设置到beanDefinition的externallyManagedConfigMembers属性中
+	 */
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, beanType, null);
@@ -440,6 +443,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	}
 
 
+	//收集字段和方法上的@Autowired和@Value注解，然后放到InjectionMetadata对象中
 	private InjectionMetadata findAutowiringMetadata(String beanName, Class<?> clazz, @Nullable PropertyValues pvs) {
 		// Fall back to class name as cache key, for backwards compatibility with custom callers.
 		String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());
@@ -460,6 +464,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		return metadata;
 	}
 
+	//收集字段和方法上的@Autowired和@Value注解，然后放到InjectionMetadata对象中
 	private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
 		if (!AnnotationUtils.isCandidateClass(clazz, this.autowiredAnnotationTypes)) {
 			return InjectionMetadata.EMPTY;
@@ -518,6 +523,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		return InjectionMetadata.forElements(elements, clazz);
 	}
 
+	//查找字段或者方法上的@Autowired或者@Value注解
 	@Nullable
 	private MergedAnnotation<?> findAutowiredAnnotation(AccessibleObject ao) {
 		MergedAnnotations annotations = MergedAnnotations.from(ao);

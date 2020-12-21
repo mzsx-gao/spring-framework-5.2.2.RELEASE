@@ -305,12 +305,18 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	}
 
 
+	/**
+	 * 1.完成了@Resource 注解的属性或者方法的收集
+	 * 2.对@PostConstruct 和@PreDestory 支持
+	 */
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		//扫描@PostConstruct @PreDestory
+		//最终设置到beanDefinition中的externallyManagedInitMethods,externallyManagedDestroyMethods属性中
 		super.postProcessMergedBeanDefinition(beanDefinition, beanType, beanName);
 		//扫描@Resource，扫描属性和方法上是否有@Resource注解，如果有则收集起来封装成对象
 		InjectionMetadata metadata = findResourceMetadata(beanName, beanType, null);
+		//设置到beanDefinition的externallyManagedConfigMembers属性中
 		metadata.checkConfigMembers(beanDefinition);
 	}
 
@@ -370,6 +376,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 		return metadata;
 	}
 
+	//收集@Resource的方法和字段，放到一起封装到Metadata里面
 	private InjectionMetadata buildResourceMetadata(final Class<?> clazz) {
 		if (!AnnotationUtils.isCandidateClass(clazz, resourceAnnotationTypes)) {
 			return InjectionMetadata.EMPTY;
@@ -450,7 +457,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 			targetClass = targetClass.getSuperclass();
 		}
 		while (targetClass != null && targetClass != Object.class);
-		//收集@Resource的方法和字段，放到一起封装到Metadata里面
+
 		return InjectionMetadata.forElements(elements, clazz);
 	}
 

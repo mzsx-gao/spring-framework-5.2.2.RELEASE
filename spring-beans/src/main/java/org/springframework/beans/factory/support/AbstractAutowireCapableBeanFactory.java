@@ -581,12 +581,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			mbd.resolvedTargetType = beanType;
 		}
 
-		// Allow post-processors to modify the merged bean definition.
-		// 检测是否有后置处理；如果有后置处理，则允许后置处理修改 BeanDefinition
+		/**
+		 * BeanPostProcessor对类中注解的装配过程，比较重要的有:
+		 * CommonAnnotationBeanPostProcessor 支持了@PostConstruct,@PreDestory,@Resource注解
+		 * AutowiredAnnotationBeanPostProcessor 支持@Autowired,@Value注解
+		 */
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				try {
-					// 后置处理修改 BeanDefinition
 					applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
 				} catch (Throwable ex) {
 					throw new BeanCreationException(mbd.getResourceDescription(), beanName,

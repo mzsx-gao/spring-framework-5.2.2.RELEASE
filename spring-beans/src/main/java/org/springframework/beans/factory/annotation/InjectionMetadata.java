@@ -88,7 +88,8 @@ public class InjectionMetadata {
 		this.injectedElements = elements;
 	}
 
-
+	// 将this.injectedElements中的元素（例如@Autowired,@Value，@Resource修饰的字段或者方法）
+	// 设置到beanDefinition的externallyManagedConfigMembers属性中
 	public void checkConfigMembers(RootBeanDefinition beanDefinition) {
 		Set<InjectedElement> checkedElements = new LinkedHashSet<>(this.injectedElements.size());
 		for (InjectedElement element : this.injectedElements) {
