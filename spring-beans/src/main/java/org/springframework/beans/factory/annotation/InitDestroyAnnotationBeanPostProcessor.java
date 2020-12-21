@@ -229,6 +229,8 @@ public class InitDestroyAnnotationBeanPostProcessor
 			final List<LifecycleElement> currInitMethods = new ArrayList<>();
 			final List<LifecycleElement> currDestroyMethods = new ArrayList<>();
 
+			// 循环遍历类中的所有的方法，判断方法上是否有@PostConstruct 注解如果有的话加入到 initMethods 集合，
+			// 判断方法上是否有@PreDestroy 注解，如果有加入到 destroyMethods 集合中去
 			ReflectionUtils.doWithLocalMethods(targetClass, method -> {
 				if (this.initAnnotationType != null && method.isAnnotationPresent(this.initAnnotationType)) {
 					LifecycleElement element = new LifecycleElement(method);

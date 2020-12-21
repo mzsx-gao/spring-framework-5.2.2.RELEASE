@@ -232,7 +232,7 @@ class ConstructorResolver {
 								paramNames = pnd.getParameterNames(candidate);
 							}
 						}
-						//获取参数值,改方法会触发
+						//获取参数值,改方法会触发构造函数中参数的getBean操作，会实例化参数的值
 						argsHolder = createArgumentArray(beanName, mbd, resolvedValues, bw, paramTypes, paramNames,
 								getUserDeclaredConstructor(candidate), autowiring, candidates.length == 1);
 					}
@@ -300,7 +300,7 @@ class ConstructorResolver {
 		}
 
 		Assert.state(argsToUse != null, "Unresolved constructor arguments");
-		// 实例化bean
+		// 实例化bean（通过简单的反射实例化）
 		bw.setBeanInstance(instantiate(beanName, mbd, constructorToUse, argsToUse));
 		return bw;
 	}
@@ -385,19 +385,9 @@ class ConstructorResolver {
 	}
 
 	/**
-	 * Instantiate the bean using a named factory method. The method may be static, if the
-	 * bean definition parameter specifies a class, rather than a "factory-bean", or
-	 * an instance variable on a factory object itself configured using Dependency Injection.
-	 * <p>Implementation requires iterating over the static or instance methods with the
-	 * name specified in the RootBeanDefinition (the method may be overloaded) and trying
-	 * to match with the parameters. We don't have the types attached to constructor args,
-	 * so trial and error is the only way to go here. The explicitArgs array may contain
-	 * argument values passed in programmatically via the corresponding getBean method.
-	 * @param beanName the name of the bean
-	 * @param mbd the merged bean definition for the bean
-	 * @param explicitArgs argument values passed in programmatically via the getBean
-	 * method, or {@code null} if none (-> use constructor argument values from bean definition)
-	 * @return a BeanWrapper for the new instance
+	 * 使用factory-method实例化bean,两种情况会调到这个方法
+	 * 1.xml配置文件配置bean的factory-bean属性
+	 * 2.某个方法加@Bean注解
 	 */
 	public BeanWrapper instantiateUsingFactoryMethod(
 			String beanName, RootBeanDefinition mbd, @Nullable Object[] explicitArgs) {
