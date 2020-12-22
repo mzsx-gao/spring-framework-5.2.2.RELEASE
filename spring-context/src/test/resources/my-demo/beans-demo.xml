@@ -10,10 +10,10 @@
             byName: 若属性名和某一个 bean 的 id 名一致, 即可完成自动装配. 若没有 id 一致的, 则无法完成自动装配
             在使用 XML 配置时, 自动装配用的不多. 但在基于 注解 的配置时, 自动装配使用的较多
             -->
-    <!--<bean id="dao" class="my_demo.helloworld.ref.Dao">-->
-        <!--<property name="dataSource" value="C3P0"></property>-->
-    <!--</bean>-->
-    <!--<bean id="service" class="my_demo.helloworld.ref.Service" autowire="byName"></bean>-->
+    <bean id="dao" class="my_demo.helloworld.ref.Dao">
+        <property name="dataSource" value="C3P0"></property>
+    </bean>
+    <bean id="service" class="my_demo.helloworld.ref.Service" autowire="byName"></bean>
 
 
     <!--&lt;!&ndash; bean的作用域:-->
@@ -47,11 +47,11 @@
          4.正则表达式匹配
      -->
     <!-- 字面量的表示 -->
-    <bean id="spel" class="my_demo.demo.SPELCar">
-        <property name="maxSpeed" value="#{5+6}" />
-        <property name="price" value="#{89.7}" />
-        <property name="company" value="#{'公司'}" />
-    </bean>
+    <!--<bean id="spel" class="my_demo.demo.SPELCar">-->
+        <!--<property name="maxSpeed" value="#{5+6}" />-->
+        <!--<property name="price" value="#{89.7}" />-->
+        <!--<property name="company" value="#{'公司'}" />-->
+    <!--</bean>-->
 
     <!-- 引用bean属性和方法 -->
     <!--<bean id="spel2" class="my_demo.demo.SPELCar">-->

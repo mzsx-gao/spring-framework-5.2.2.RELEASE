@@ -1480,6 +1480,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
+					//这里会触发AutowiredAnnotationBeanPostProcessor和CommonAnnotationBeanPostProcessor对@Value,@Autowired,@Resource的处理
 					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
 					if (pvsToUse == null) {
 						if (filteredPds == null) {
@@ -1560,6 +1561,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected void autowireByType(
 			String beanName, AbstractBeanDefinition mbd, BeanWrapper bw, MutablePropertyValues pvs) {
 
+		// 获取 TypeConverter 实例
+		// 使用自定义的 TypeConverter，用于取代默认的 PropertyEditor 机制
 		TypeConverter converter = getCustomTypeConverter();
 		if (converter == null) {
 			converter = bw;
@@ -1847,8 +1850,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				return null;
 			}, getAccessControlContext());
 		} else {
-			//激活aware方法，这个方法只处理这3个aware接口:BeanNameAware/BeanClassLoaderAware/BeanFactoryAware,而其它的aware
-			//接口都是在ApplicationContextAwareProcessor类里面处理的
+			// 激活aware方法，这个方法只处理这3个aware接口:BeanNameAware/BeanClassLoaderAware/BeanFactoryAware,
+			// 而其它的aware接口都是在ApplicationContextAwareProcessor类里面处理的
 			invokeAwareMethods(beanName, bean);
 		}
 
@@ -1858,12 +1861,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			 * 处理器before方法调用;
 			 * 重要处理器:
 			 * 1.ConfigurationPropertiesBindingPostProcessor是springboot用来处理@ConfigurationProperties注解的
+			 * 2.InitDestroyAnnotationBeanPostProcessor是用来调用@PostConstruct修饰的方法
+			 * 3.ApplicationContextAwareProcessor用来处理各种aware接口
 			 */
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
 		try {
-			//调用自定义的init方法
+			//调用自定义的init方法,afterProperties(),init-method属性调用
 			invokeInitMethods(beanName, wrappedBean, mbd);
 		} catch (Throwable ex) {
 			throw new BeanCreationException(
