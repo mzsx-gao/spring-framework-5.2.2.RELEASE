@@ -43,6 +43,8 @@ import org.springframework.lang.Nullable;
  * @since 1.2
  * @see org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator#setCustomTargetSourceCreators
  * @see org.springframework.aop.framework.autoproxy.target.LazyInitTargetSourceCreator
+ * 该接口和BeanPostProcessor接口的区别是切入bean创建过程时机不对，这个类是切入实例化出bean对象(即反射出java对象)前后调用，
+ * BeanPostProcessor是切入bean对象实例化完成并且属性填充完成后，在对bean进行初始化的过程中调用
  */
 public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
@@ -69,6 +71,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * @see #postProcessAfterInstantiation
 	 * @see org.springframework.beans.factory.support.AbstractBeanDefinition#getBeanClass()
 	 * @see org.springframework.beans.factory.support.AbstractBeanDefinition#getFactoryMethodName()
+	 * bean实例化之前调用
+	 * @see AutowireCapableBeanFactory#createBean(Class, int, boolean)
 	 */
 	@Nullable
 	default Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
@@ -89,6 +93,8 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * instances being invoked on this bean instance.
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @see #postProcessBeforeInstantiation
+	 * bean实例化之后调用,即实例化bean对象后，属性填充之前
+	 * 调用地方:AutowireCapableBeanFactory#doCreateBean#populateBean#ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)
 	 */
 	default boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
 		return true;
