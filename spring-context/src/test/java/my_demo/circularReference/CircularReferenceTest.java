@@ -5,11 +5,14 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.transaction.Transactional;
+
 /**
  * @Description: 循环依赖测试
  * @Auther: gaoshudian
  * @Date: 2019/9/11 22:17
  */
+
 public class CircularReferenceTest {
 
     ApplicationContext ac = null;

@@ -610,9 +610,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			 * addSingletonFactory:
 			 * 为避免后期循环依赖,可以在bean初始化完成之前将创建实例的ObjectFactory加入工厂的三级缓存中(singletonFactories)
 			 *
-			 * getEarlyBeanReference:
-			 * 对bean再一次依赖引用，主要应用SmartInstantiationAwareBeanPostProcessor
-			 * 其中我们熟知的AOP就是在这里将advice动态织入bean中，若没有则直接返回bean，不做任何处理
+			 * getEarlyBeanReference:获取对bean的早期引用
+			 * 有两种情况：
+			 * 1.直接返回bean对象本身，不做任何处理
+			 * 2.我们熟知的AOP就是在这里将advice动态织入bean中，比如，A依赖B，B依赖A,但是A上面加有@Transactional注解，此时当B中去寻找
+			 * 依赖A时，取到的不是A对象本身，而是A的代理对象
 			 */
 			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
 		}
@@ -986,19 +988,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	}
 
 	/**
-	 * Obtain a reference for early access to the specified bean,
-	 * typically for the purpose of resolving a circular reference.
-	 *
-	 * @param beanName the name of the bean (for error handling purposes)
-	 * @param mbd      the merged bean definition for the bean
-	 * @param bean     the raw bean instance
-	 * @return the object to expose as bean reference
+	 * 获取对bean的早期引用，三级缓存对象工厂singletonFactory.getObject()会调到这里
 	 */
 	protected Object getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean) {
 		Object exposedObject = bean;
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
+					//正常依赖的属性是普通bean对象时不会走到这里，特殊情况下如果依赖的属性是bean代理对象时,会走到这里；
+					//此时的后处理器是:AbstractAutoProxyCreator
 					SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;
 					exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);
 				}

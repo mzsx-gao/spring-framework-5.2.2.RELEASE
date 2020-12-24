@@ -180,14 +180,19 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 */
 	@Nullable
 	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
+		//先从一级缓存中拿
 		Object singletonObject = this.singletonObjects.get(beanName);
-		//缓存中的bean为空，且当前bean正在创建
-		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {//缓存中的bean为空，且当前bean正在创建
 			synchronized (this.singletonObjects) {
+				/**
+				 * 从二级缓存中拿
+				 * 二级缓存存在的意义:
+				 * 当循环依赖中有超过两次对同一个bean的依赖时，就需要用到二级缓存，不需要再从三级缓存中拿了
+				 * 比如:A依赖B和C,B和C都依赖A,此时当B去找A的依赖时从三级缓存中拿，C去找A时就可以直接从二级缓存中拿
+				 */
 				singletonObject = this.earlySingletonObjects.get(beanName);
-				//earlySingletonObjects中没有，且允许提前创建
-				if (singletonObject == null && allowEarlyReference) {
-					// 从 singletonFactories 中获取对应的 ObjectFactory
+				if (singletonObject == null && allowEarlyReference) {//earlySingletonObjects中没有，且允许提前创建
+					// 从三级缓存中拿
 					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
 					if (singletonFactory != null) {
 						singletonObject = singletonFactory.getObject();
