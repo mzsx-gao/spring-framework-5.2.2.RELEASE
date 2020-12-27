@@ -14,7 +14,7 @@ import org.springframework.context.annotation.*;
 //        TestImportBeanDefinitionRegistrar.class})
 @Import(TestDeferredImportSelector.class)
 //这里是测试ConfigurationClassParser怎么解析@PropertySource注解的
-//@PropertySource(value = "my-demo/configClassTest/test.properties")
+//@PropertySource(value = "my-demo/configClassTest/application.properties")
 //测试@ImportResource的用法
 //@ImportResource(value = "my-demo/configClassTest/testImportResource.xml")
 //@ComponentScan

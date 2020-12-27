@@ -24,7 +24,7 @@ import org.junit.platform.launcher.TestPlan;
 
 /**
  * JUnit Platform {@link TestExecutionListener} that configures Java Util Logging
- * (JUL) from a file named {@code jul-test.properties} in the root of the classpath.
+ * (JUL) from a file named {@code jul-application.properties} in the root of the classpath.
  *
  * <p>This allows for projects to configure JUL for a test suite, analogous to
  * log4j's support via {@code log4j2-test.xml}.

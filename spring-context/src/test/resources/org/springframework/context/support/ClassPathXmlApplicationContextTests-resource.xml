@@ -10,7 +10,7 @@
 			<value>classpath:org/springframework/beans/factory/xml/test.properties</value>
 		</constructor-arg>
 		<constructor-arg name="resource">
-			<value>test.properties</value>
+			<value>../../../../application.properties</value>
 		</constructor-arg>
 	</bean>
 

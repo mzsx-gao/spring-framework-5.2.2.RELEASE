@@ -134,7 +134,7 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 						@Override
 						@Nullable
 						public String getProperty(String key) {
-							return this.source.getProperty(key);
+							return this.source.getProperty(key);//source就是Environment对象
 						}
 					}
 				);

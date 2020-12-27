@@ -38,8 +38,8 @@ public class DemoTest {
     //测试引用外部属性文件
     @Test
     public void test3(){
-        DataSource dataSource = (DataSource) ctx.getBean("dataSource");
-        System.out.println(dataSource);
+        PlaceHolder placeHolder = (PlaceHolder) ctx.getBean("placeHolder");
+        System.out.println(placeHolder);
     }
 
     //测试SPEL

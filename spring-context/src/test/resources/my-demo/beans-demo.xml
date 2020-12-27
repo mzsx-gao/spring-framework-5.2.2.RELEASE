@@ -26,18 +26,13 @@
 
 
     <!-- 导入外部的资源文件 -->
-    <!--<context:property-placeholder location="classpath:db.properties"/>-->
+    <context:property-placeholder location="classpath:application.properties"/>
 
-    <!-- 配置数据源 -->
-    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-        <!--<property name="user" value="${jdbc.user}"></property>-->
-        <!--<property name="password" value="${jdbc.password}"></property>-->
-        <!--<property name="driverClass" value="${jdbc.driverClass}"></property>-->
-        <!--<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>-->
-
-        <!--<property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>-->
-        <!--<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>-->
-    <!--</bean>-->
+    <!-- 测试属性占位符 -->
+    <bean id="placeHolder" class="my_demo.demo.PlaceHolder">
+        <property name="user" value="${placeHolder.user}"></property>
+        <property name="password" value="${placeHolder.password}"></property>
+    </bean>
 
 
     <!-- 测试 SpEL: 可以为属性进行动态的赋值(了解)

@@ -70,7 +70,7 @@ public class ClassPathXmlApplicationContextTests {
 	private static final String CLASS_WITH_PLACEHOLDER_CONTEXT = "classWithPlaceholder.xml";
 	private static final String ALIAS_THAT_OVERRIDES_PARENT_CONTEXT = PATH + "aliasThatOverridesParent.xml";
 	private static final String ALIAS_FOR_PARENT_CONTEXT = PATH + "aliasForParent.xml";
-	private static final String TEST_PROPERTIES = "test.properties";
+	private static final String TEST_PROPERTIES = "application.properties";
 
 
 	@Test

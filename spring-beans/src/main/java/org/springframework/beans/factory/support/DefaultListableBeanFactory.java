@@ -1214,7 +1214,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return new Jsr330Factory().createDependencyProvider(descriptor, requestingBeanName);
 		}
 		else {
-			// 为实际依赖关系目标的延迟解析构建代理,默认实现返回null
+			// 为实际依赖关系目标的延迟解析构建代理,默认实现返回null;例如:构造函数上加@Lazy注解
 			Object result = getAutowireCandidateResolver().getLazyResolutionProxyIfNecessary(descriptor, requestingBeanName);
 			if (result == null) {
 				// 通用处理逻辑
