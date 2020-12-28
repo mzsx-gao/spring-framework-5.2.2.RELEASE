@@ -2,11 +2,13 @@ package my_demo.annotation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 //若注解没有指定 bean 的 id, 则类名第一个字母小写即为 bean 的 id
 @Service
-public class UserService{
+public class UserService implements EnvironmentAware {
 
     /**
      * 当有多个候选者时，确定出正确的候选者
@@ -32,5 +34,11 @@ public class UserService{
 
     public void setLike(String like) {
         this.like = like;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        System.out.println(like);
+        System.out.println(environment.getProperty("placeHolder.love"));//拿不到
     }
 }
