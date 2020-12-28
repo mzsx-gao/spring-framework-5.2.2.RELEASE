@@ -74,6 +74,7 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	 * {@linkplain #processProperties process} properties against the given bean factory.
 	 * @throws BeanInitializationException if any properties cannot be loaded
 	 */
+	//已过时，没有把从Environment中取属性值整合进来，子类(PropertySourcesPlaceholderConfigurer)实现了
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		try {

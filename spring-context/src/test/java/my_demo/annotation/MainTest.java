@@ -11,6 +11,7 @@ public class MainTest {
 		
 		UserService userService = (UserService) ctx.getBean("userService");
 		userService.addNew(new User());
+		System.out.println(userService.getLike());
 		
 	}
 	

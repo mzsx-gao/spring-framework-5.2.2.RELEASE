@@ -130,6 +130,7 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 			this.propertySources = new MutablePropertySources();
 			//配置环境属性源
 			if (this.environment != null) {
+				//把environment对象封装成PropertySource对象MutablePropertySources中的list中
 				this.propertySources.addLast(
 					new PropertySource<Environment>(ENVIRONMENT_PROPERTIES_PROPERTY_SOURCE_NAME, this.environment) {
 						@Override
@@ -141,7 +142,7 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 				);
 			}
 			try {
-				//配置本地属性源
+				//加载本地配置文件中的属性值包装成properties对象后，最终包装成PropertySource对象
 				PropertySource<?> localPropertySource = new PropertiesPropertySource(LOCAL_PROPERTIES_PROPERTY_SOURCE_NAME, mergeProperties());
 				if (this.localOverride) {
 					this.propertySources.addFirst(localPropertySource);
@@ -164,12 +165,13 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	 */
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess,
 			final ConfigurablePropertyResolver propertyResolver) throws BeansException {
-
+		//设置占位符的前缀后缀
 		propertyResolver.setPlaceholderPrefix(this.placeholderPrefix);
 		propertyResolver.setPlaceholderSuffix(this.placeholderSuffix);
+		//设分割符 :
 		propertyResolver.setValueSeparator(this.valueSeparator);
-		// 构建字符串值解析器,ignoreUnresolvablePlaceholders是否忽略无法解析的占位符,
-		// 其实这里还是委托PropertySourcesPropertyResolver去实现占位符的解析
+		// 构建字符串值解析器,其实这里还是委托PropertySourcesPropertyResolver去实现占位符的解析
+		// @Value的依赖注入会调过来
 		StringValueResolver valueResolver = strVal -> {
 			String resolved = (this.ignoreUnresolvablePlaceholders ?
 					propertyResolver.resolvePlaceholders(strVal) :
@@ -179,7 +181,7 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 			}
 			return (resolved.equals(this.nullValue) ? null : resolved);
 		};
-		//占位符解析
+		//核心流程。把占位符${xxx}替换成真正的值
 		doProcessProperties(beanFactoryToProcess, valueResolver);
 	}
 

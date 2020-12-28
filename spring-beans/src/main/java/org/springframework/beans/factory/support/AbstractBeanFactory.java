@@ -909,6 +909,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		return !this.embeddedValueResolvers.isEmpty();
 	}
 
+	//解析@Value中的值
 	@Override
 	@Nullable
 	public String resolveEmbeddedValue(@Nullable String value) {
@@ -916,7 +917,12 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			return null;
 		}
 		String result = value;
+		/**
+		 * this.embeddedValueResolvers是在PropertySourcesPlaceholderConfigurer的postProcessBeanFactory方法中添加到beanFactory
+		 * @see org.springframework.beans.factory.config.PlaceholderConfigurerSupport#doProcessProperties 方法最后一行
+		 */
 		for (StringValueResolver resolver : this.embeddedValueResolvers) {
+			//解析出@Value中的占位符对应的值如:@Value("${gsd.name}")
 			result = resolver.resolveStringValue(result);
 			if (result == null) {
 				return null;

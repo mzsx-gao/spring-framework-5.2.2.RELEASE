@@ -1,5 +1,7 @@
 package my_demo.demo;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * 名称: PlaceHolder
  * 描述: 测试占位符解析
@@ -8,8 +10,11 @@ package my_demo.demo;
  * @date 2020/12/27 20:43
  */
 public class PlaceHolder {
+
     private String user = null;
     private String password = null;
+
+
 
     public String getUser() {
         return user;

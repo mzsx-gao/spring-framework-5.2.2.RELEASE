@@ -583,8 +583,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		/**
 		 * BeanPostProcessor对类中注解的装配过程，比较重要的有:
+		 *
 		 * CommonAnnotationBeanPostProcessor 支持了@PostConstruct,@PreDestory,@Resource注解
-		 * AutowiredAnnotationBeanPostProcessor 支持@Autowired,@Value注解
+		 * 		收集@Resource注解设置到beanDefinition的 “externallyManagedConfigMembers” 属性中
+		 * 		收集@PostConstruct,@PreDestory注解设置到beanDefinition的 “externallyManagedInitMethods”,“externallyManagedDestroyMethods”
+		 *
+		 * AutowiredAnnotationBeanPostProcessor支持了@Autowired和@Value注解
+		 * 		将@Autowired或者@Value注解修饰的字段或者方法设置到beanDefinition的 “externallyManagedConfigMembers” 属性中
 		 */
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {

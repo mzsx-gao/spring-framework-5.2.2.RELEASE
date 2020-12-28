@@ -8,4 +8,7 @@
 	<!-- 配置自动扫描的包: 需要加入 aop 对应的 jar 包 -->
 	<context:component-scan base-package="my_demo.annotation"></context:component-scan>
 
+	<!-- 导入外部的资源文件 -->
+	<context:property-placeholder location="classpath:application.properties"/>
+
 </beans>

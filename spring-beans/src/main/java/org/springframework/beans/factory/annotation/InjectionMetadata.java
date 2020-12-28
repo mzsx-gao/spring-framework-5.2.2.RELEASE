@@ -105,6 +105,7 @@ public class InjectionMetadata {
 		this.checkedElements = checkedElements;
 	}
 
+	//将需要依赖注入的元素(checkedElements)设置到bean实例的相应属性上
 	public void inject(Object target, @Nullable String beanName, @Nullable PropertyValues pvs) throws Throwable {
 		Collection<InjectedElement> checkedElements = this.checkedElements;
 		Collection<InjectedElement> elementsToIterate =
