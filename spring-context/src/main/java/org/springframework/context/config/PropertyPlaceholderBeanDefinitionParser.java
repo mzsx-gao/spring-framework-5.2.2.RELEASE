@@ -24,12 +24,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.util.StringUtils;
 
 /**
- * Parser for the {@code <context:property-placeholder/>} element.
- *
- * @author Juergen Hoeller
- * @author Dave Syer
- * @author Chris Beams
- * @since 2.5
+ * 解析<context:property-placeholder/>标签
  */
 class PropertyPlaceholderBeanDefinitionParser extends AbstractPropertyLoadingBeanDefinitionParser {
 
@@ -41,17 +36,11 @@ class PropertyPlaceholderBeanDefinitionParser extends AbstractPropertyLoadingBea
 	@Override
 	@SuppressWarnings("deprecation")
 	protected Class<?> getBeanClass(Element element) {
-		// As of Spring 3.1, the default value of system-properties-mode has changed from
-		// 'FALLBACK' to 'ENVIRONMENT'. This latter value indicates that resolution of
-		// placeholders against system properties is a function of the Environment and
-		// its current set of PropertySources.
+		// 从3.1版本开始，system-properties-mode的默认值从'FALLBACK'改为'ENVIRONMENT'
 		if (SYSTEM_PROPERTIES_MODE_DEFAULT.equals(element.getAttribute(SYSTEM_PROPERTIES_MODE_ATTRIBUTE))) {
 			return PropertySourcesPlaceholderConfigurer.class;
 		}
-
-		// The user has explicitly specified a value for system-properties-mode: revert to
-		// PropertyPlaceholderConfigurer to ensure backward compatibility with 3.0 and earlier.
-		// This is deprecated; to be removed along with PropertyPlaceholderConfigurer itself.
+		//3.0之前用PropertyPlaceholderConfigurer
 		return org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.class;
 	}
 

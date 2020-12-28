@@ -140,8 +140,7 @@ public abstract class PropertiesLoaderSupport {
 
 
 	/**
-	 * Return a merged Properties instance containing both the
-	 * loaded properties and properties set on this FactoryBean.
+	 * 加载配置文件的属性到Properties对象中
 	 */
 	protected Properties mergeProperties() throws IOException {
 		Properties result = new Properties();
@@ -166,10 +165,7 @@ public abstract class PropertiesLoaderSupport {
 	}
 
 	/**
-	 * Load properties into the given instance.
-	 * @param props the Properties instance to load into
-	 * @throws IOException in case of I/O errors
-	 * @see #setLocations
+	 * 加载配置文件
 	 */
 	protected void loadProperties(Properties props) throws IOException {
 		if (this.locations != null) {
@@ -178,8 +174,7 @@ public abstract class PropertiesLoaderSupport {
 					logger.trace("Loading properties file from " + location);
 				}
 				try {
-					PropertiesLoaderUtils.fillProperties(
-							props, new EncodedResource(location, this.fileEncoding), this.propertiesPersister);
+					PropertiesLoaderUtils.fillProperties(props, new EncodedResource(location, this.fileEncoding), this.propertiesPersister);
 				}
 				catch (FileNotFoundException | UnknownHostException ex) {
 					if (this.ignoreResourceNotFound) {
