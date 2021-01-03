@@ -239,7 +239,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					"postProcessBeanFactory already called on this post-processor against " + registry);
 		}
 		this.registriesPostProcessed.add(registryId);
-
+		//处理所有的@Configuration类，比如@Import注解，@Bean方法，@Component注解，会向容器注册一系列bean
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -303,8 +303,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		if (registry instanceof SingletonBeanRegistry) {
 			sbr = (SingletonBeanRegistry) registry;
 			if (!this.localBeanNameGeneratorSet) {
-				BeanNameGenerator generator = (BeanNameGenerator) sbr.getSingleton(
-						AnnotationConfigUtils.CONFIGURATION_BEAN_NAME_GENERATOR);
+				BeanNameGenerator generator = (BeanNameGenerator) sbr.getSingleton(AnnotationConfigUtils.CONFIGURATION_BEAN_NAME_GENERATOR);
 				if (generator != null) {
 					this.componentScanBeanNameGenerator = generator;
 					this.importBeanNameGenerator = generator;
@@ -324,7 +323,15 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		Set<BeanDefinitionHolder> candidates = new LinkedHashSet<>(configCandidates);
 		Set<ConfigurationClass> alreadyParsed = new HashSet<>(configCandidates.size());
 		do {
-			//解析配置类
+			/**
+			 * 解析配置类,核心流程：
+			 * 1.@PropertySource注解，解析出来最终设置到当前environment的PropertySources属性中
+			 * 2.@ComponentScan注解，扫描相应路径下的带@Compenent注解的类，递归调用 this.parse 方法
+			 * 3.@Import注解，将要导入的类存在parser.configurationClasses属性中（导入ImportBeanDefinitionRegistrar时解析出来
+			 * 		放入ConfigurationClass的importBeanDefinitionRegistrars属性中）
+			 * 4.@ImportResource注解，最终加入到ConfigurationClass中的ImportedResource属性中
+			 * 5.检测出配置类所有的@Bean方法，将声明@Bean注解的bean方法存入ConfigurationClass的beanMethods属性中
+			 */
 			parser.parse(candidates);
 			parser.validate();
 

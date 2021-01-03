@@ -221,6 +221,7 @@ class ConfigurationClassParser {
 
 	//解析配置类
 	protected void processConfigurationClass(ConfigurationClass configClass) throws IOException {
+		//是否需要跳过
 		if (this.conditionEvaluator.shouldSkip(configClass.getMetadata(), ConfigurationPhase.PARSE_CONFIGURATION)) {
 			return;
 		}
@@ -301,6 +302,7 @@ class ConfigurationClassParser {
 						bdCand = holder.getBeanDefinition();
 					}
 					if (ConfigurationClassUtils.checkConfigurationClassCandidate(bdCand, this.metadataReaderFactory)) {
+						//递归解析
 						parse(bdCand.getBeanClassName(), holder.getBeanName());
 					}
 				}
@@ -312,7 +314,7 @@ class ConfigurationClassParser {
 		 *  Import的作用:
 		 *     1.用来导入@Configuration注解的配置类
 		 *     2.导入ImportSelector的实现类
-		 *     3.导入ImportBeanDefinitionRegistrar的实现类。
+		 *     3.导入ImportBeanDefinitionRegistrar的实现类
 		 *     4.声明一个bean(即普通的JAVA类)
 		 * 执行完该方法后，会将1，2，4直接放入this.configurationClasses中，将3放入ConfigurationClass的importBeanDefinitionRegistrars属性中
 		 */
@@ -439,9 +441,8 @@ class ConfigurationClassParser {
 
 
 	/**
-	 * Process the given <code>@PropertySource</code> annotation metadata.
-	 * @param propertySource metadata for the <code>@PropertySource</code> annotation found
-	 * @throws IOException if loading a property source failed
+	 * 处理@PropertySource注解，内部会把@PropertySource注解中的配置文件封装成ResourcePropertySource对象添加到
+	 * this.environment的propertySources属性中
 	 */
 	private void processPropertySource(AnnotationAttributes propertySource) throws IOException {
 		String name = propertySource.getString("name");
@@ -480,6 +481,7 @@ class ConfigurationClassParser {
 		}
 	}
 
+	//添加propertySource到this.environment中
 	private void addPropertySource(PropertySource<?> propertySource) {
 		String name = propertySource.getName();
 		MutablePropertySources propertySources = ((ConfigurableEnvironment) this.environment).getPropertySources();
@@ -591,8 +593,8 @@ class ConfigurationClassParser {
 										this.environment, this.resourceLoader, this.registry);
 						configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());
 					}
+					//作为普通的配置类处理
 					else {
-						//作为普通的配置类处理
 						this.importStack.registerImport(currentSourceClass.getMetadata(), candidate.getMetadata().getClassName());
 						processConfigurationClass(candidate.asConfigClass(configClass));
 					}
@@ -791,8 +793,8 @@ class ConfigurationClassParser {
 	/**
 	 * 延时导入分组处理类：
 	 * 1.register方法:包装DeferredImportSelectorGrouping对象，该对象持有group和deferredImports参数
-	 * 2.processGroupImports方法:调用DeferredImportSelectorGrouping对象的getImports()获取要导入的bean,最后调用processImports走
-	 * 普通的@Import注解的逻辑；这里getImports()方法是关键，内部会调用group的process()方法和selectImports()方法，而这两个方法是子类扩展的关键
+	 * 2.processGroupImports方法:调用DeferredImportSelectorGrouping对象的getImports()获取要导入的bean,最后调用processImports走普通
+	 * 的@Import注解的逻辑；这里getImports()方法是关键，内部会调用group的process()方法和selectImports()方法，而这两个方法是子类扩展的关键
 	 */
 	private class DeferredImportSelectorGroupingHandler {
 
@@ -840,7 +842,7 @@ class ConfigurationClassParser {
 
 	}
 
-
+	//该对象持有 ConfigurationClass 和 DeferredImportSelector
 	private static class DeferredImportSelectorHolder {
 
 		private final ConfigurationClass configurationClass;
@@ -877,13 +879,11 @@ class ConfigurationClassParser {
 		}
 
 		/**
-		 * Return the imports defined by the group.
-		 * @return each import with its associated configuration class
+		 * 获取deferredImports导入的bean,当前例子内部会调用TestDeferredImportSelector的selectImports方法
 		 */
 		public Iterable<Group.Entry> getImports() {
 			for (DeferredImportSelectorHolder deferredImport : this.deferredImports) {
-				//调用group的peocess方法，这里是一个扩展点，子类扩展process()方法和selectImports()方法，最终目的是提供到导入
-				//到spring容器中的bean
+				//这里是一个扩展点，子类扩展process()方法和selectImports()方法，最终目的是提供导入到spring容器中的bean
 				this.group.process(deferredImport.getConfigurationClass().getMetadata(), deferredImport.getImportSelector());
 			}
 			//调用group的selectImports方法获取要导入的bean(封装为Group.Entry对象)

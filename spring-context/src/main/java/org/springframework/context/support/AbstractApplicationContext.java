@@ -531,8 +531,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				/**
-				 * 激活注册的BeanFactoryPostProcessor;
-				 * BeanFactoryPostProcessor的典型应用:PropertyPlaceHolderConfiguer
+				 * 激活注册的BeanFactoryPostProcessor，比如:
+				 * 1.PropertySourcesPlaceholderConfigurer:处理属性占位符
+				 * 2.ConfigurationClassPostProcessor：处理配置类(springboot就是用的配置类思想)
                  */
 				invokeBeanFactoryPostProcessors(beanFactory);
 

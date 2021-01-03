@@ -12,8 +12,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class DemoApplicationTests {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        String[] beanDefinitionNames = annotationConfigApplicationContext.getBeanDefinitionNames();
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         System.out.println("--------------------------------------------------------");
         for (String beanDefinitionName: beanDefinitionNames) {
             System.out.println(beanDefinitionName);

@@ -1,4 +1,4 @@
-package my_demo.customer;
+package my_demo.customerTag;
 
 
 import org.junit.Test;
@@ -12,7 +12,7 @@ public class CustomTagTest {
 
 	@Test
 	public void helloworld(){
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans-customer.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("beans-customerTag.xml");
         SimpleDateFormat info = (SimpleDateFormat) ctx.getBean("dateFormat");
         System.out.println(info.format(new Date()));
     }

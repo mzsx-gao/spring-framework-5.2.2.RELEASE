@@ -1,4 +1,4 @@
-package my_demo.customer;
+package my_demo.customerTag;
 
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 

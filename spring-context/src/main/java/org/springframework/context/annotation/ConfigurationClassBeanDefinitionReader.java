@@ -111,8 +111,6 @@ class ConfigurationClassBeanDefinitionReader {
 
 
 	/**
-	 * Read {@code configurationModel}, registering bean definitions
-	 * with the registry based on its contents.
 	 * 注册配置类中涉及到的所有beanDefinition
 	 */
 	public void loadBeanDefinitions(Set<ConfigurationClass> configurationModel) {
@@ -138,11 +136,18 @@ class ConfigurationClassBeanDefinitionReader {
 			return;
 		}
 
-		//注册普通的配置类
+		//注册普通的配置类，这里判断如果是@Import注解导入的配置类才处理，其它情况比如说如果是@ComponentScan扫描到的配置类，由于扫描的
+		//过程已经注册过了，所以不需要再次注册了
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
-		//注册@Bean注解的方法
+		/**
+		 * 注册@Bean注解的方法为spring容器中的bean,此时注册到spring容器中的beanDefinition特征:
+		 * 	没有beanClass属性；beanName属性是方法名；factoryBeanName属性值就是配置类的beanName；factoryMethodName属性值是@Bean标识的方法名，
+		 * 	isFactoryMethodUnique属性值为true
+		 * 这样在创建bean实例时在createBeanInstance方法内部就会调用instantiateUsingFactoryMethod方法来实例化
+		 * @see org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#createBeanInstance
+		 */
 		for (BeanMethod beanMethod : configClass.getBeanMethods()) {
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}

@@ -1215,8 +1215,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 		/**
 		 * 如果有 FactoryMethodName 属性 是反射调用类中的 factoryMethod 方法。
-		 * 这要知道@Bean方法的原理，实际上spring会扫描有@bean注解的方法，然后把方法名称设置到 BeanDefinition 的factoryMethod 属性中，
+		 * 这就是@Bean方法的原理，实际上spring会扫描有@bean注解的方法，然后把方法名称设置到 BeanDefinition 的factorymethodName 属性中，
 		 * 接下来就会调到下面的方法实现@Bean方法的调用，如果有 factorymethodName 直接返回
+		 *
+		 * @Bean 注解设置factoryMethodName属性在源码中位置:
+		 * ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsForConfigurationClass#loadBeanDefinitionsForBeanMethod
 		 */
 		if (mbd.getFactoryMethodName() != null) {
 			return instantiateUsingFactoryMethod(beanName, mbd, args);
