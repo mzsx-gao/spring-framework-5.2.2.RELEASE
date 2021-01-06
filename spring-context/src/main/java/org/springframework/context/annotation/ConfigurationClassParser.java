@@ -636,7 +636,7 @@ class ConfigurationClassParser {
 
 
 	/**
-	 * Factory method to obtain a {@link SourceClass} from a {@link ConfigurationClass}.
+	 * 将配置类转换成{@link SourceClass}
 	 */
 	private SourceClass asSourceClass(ConfigurationClass configurationClass) throws IOException {
 		AnnotationMetadata metadata = configurationClass.getMetadata();
@@ -647,7 +647,7 @@ class ConfigurationClassParser {
 	}
 
 	/**
-	 * Factory method to obtain a {@link SourceClass} from a {@link Class}.
+	 * 通过 Class 对象获取 {@link SourceClass}
 	 */
 	SourceClass asSourceClass(@Nullable Class<?> classType) throws IOException {
 		if (classType == null || classType.getName().startsWith("java.lang.annotation.")) {
@@ -668,7 +668,7 @@ class ConfigurationClassParser {
 	}
 
 	/**
-	 * Factory method to obtain {@link SourceClass SourceClasss} from class names.
+	 * 根据classNames获取{@link SourceClass SourceClasss}
 	 */
 	private Collection<SourceClass> asSourceClasses(String... classNames) throws IOException {
 		List<SourceClass> annotatedClasses = new ArrayList<>(classNames.length);
@@ -679,7 +679,7 @@ class ConfigurationClassParser {
 	}
 
 	/**
-	 * Factory method to obtain a {@link SourceClass} from a class name.
+	 * 根据 class name 获取{@link SourceClass}
 	 */
 	SourceClass asSourceClass(@Nullable String className) throws IOException {
 		if (className == null || className.startsWith("java.lang.annotation.")) {
@@ -688,16 +688,13 @@ class ConfigurationClassParser {
 		if (className.startsWith("java")) {
 			// Never use ASM for core java types
 			try {
-				return new SourceClass(ClassUtils.forName(className,
-						this.resourceLoader.getClassLoader()));
+				return new SourceClass(ClassUtils.forName(className, this.resourceLoader.getClassLoader()));
 			}
 			catch (ClassNotFoundException ex) {
-				throw new NestedIOException(
-						"Failed to load class [" + className + "]", ex);
+				throw new NestedIOException("Failed to load class [" + className + "]", ex);
 			}
 		}
-		return new SourceClass(
-				this.metadataReaderFactory.getMetadataReader(className));
+		return new SourceClass(this.metadataReaderFactory.getMetadataReader(className));
 	}
 
 
@@ -926,8 +923,7 @@ class ConfigurationClassParser {
 
 
 	/**
-	 * Simple wrapper that allows annotated source classes to be dealt with
-	 * in a uniform manner, regardless of how they are loaded.
+	 * 简单的包装器，可以用统一的方法处理带注解的类
 	 */
 	private class SourceClass implements Ordered {
 
