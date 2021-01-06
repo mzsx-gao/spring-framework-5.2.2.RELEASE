@@ -121,8 +121,11 @@ class ConfigurationClassBeanDefinitionReader {
 	}
 
 	/**
-	 * Read a particular {@link ConfigurationClass}, registering bean definitions
-	 * for the class itself and all of its {@link Bean} methods.
+	 * 注册beanDefinition
+	 * 1.configClass自身
+	 * 2.configClass内部的@Bean方法
+	 * 3.注册@ImportResource注解的配置文件中的bean
+	 * 4.注册ImportBeanDefinitionRegistrar的实现类中的bean
 	 */
 	private void loadBeanDefinitionsForConfigurationClass(
 			ConfigurationClass configClass, TrackedConditionEvaluator trackedConditionEvaluator) {

@@ -4,7 +4,14 @@ import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.AnnotationMetadata;
 
-public class TestDeferredImportSelector implements DeferredImportSelector, Ordered {
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestDeferredImportSelector implements DeferredImportSelector {
+    @Override
+    public Class<? extends Group> getImportGroup() {
+        return MyDeferredImportSelectorGroup.class;
+    }
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
@@ -12,8 +19,22 @@ public class TestDeferredImportSelector implements DeferredImportSelector, Order
         return new String[]{"my_demo.configClassTest.TestBean5"};
     }
 
-    @Override
-    public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
+    private static class MyDeferredImportSelectorGroup implements Group {
+
+        private final List<Entry> imports = new ArrayList<>();
+
+        //收集需要实例化的类
+        @Override
+        public void process(AnnotationMetadata metadata, DeferredImportSelector selector) {
+            for (String importClassName : selector.selectImports(metadata)) {
+                this.imports.add(new Entry(metadata, importClassName));
+            }
+        }
+
+        //返回要实例化的类
+        @Override
+        public Iterable<Entry> selectImports() {
+            return this.imports;
+        }
     }
 }

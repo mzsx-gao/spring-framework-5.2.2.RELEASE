@@ -571,7 +571,7 @@ class ConfigurationClassParser {
 								this.environment, this.resourceLoader, this.registry);
 
 						if (selector instanceof DeferredImportSelector) {
-							//spring 5.0开始这里有变动
+							//spring 5.0开始这里有变动,springboot会使用到
 							this.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);
 						}
 						else {
@@ -591,6 +591,8 @@ class ConfigurationClassParser {
 						ImportBeanDefinitionRegistrar registrar =
 								ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,
 										this.environment, this.resourceLoader, this.registry);
+						//加入到ConfigurationClass的importBeanDefinitionRegistrars中，后面会调用注册方法
+                        //调用注册方法位置:ConfigurationClassBeanDefinitionReader#loadBeanDefinitionsForConfigurationClass
 						configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());
 					}
 					//作为普通的配置类处理
@@ -792,9 +794,6 @@ class ConfigurationClassParser {
 
 	/**
 	 * 延时导入分组处理类：
-	 * 1.register方法:包装DeferredImportSelectorGrouping对象，该对象持有group和deferredImports参数
-	 * 2.processGroupImports方法:调用DeferredImportSelectorGrouping对象的getImports()获取要导入的bean,最后调用processImports走普通
-	 * 的@Import注解的逻辑；这里getImports()方法是关键，内部会调用group的process()方法和selectImports()方法，而这两个方法是子类扩展的关键
 	 */
 	private class DeferredImportSelectorGroupingHandler {
 
@@ -802,8 +801,14 @@ class ConfigurationClassParser {
 
 		private final Map<AnnotationMetadata, ConfigurationClass> configurationClasses = new HashMap<>();
 
+        /**
+         * register方法:包装DeferredImportSelectorGrouping对象，该对象持有group和deferredImports参数
+         */
 		public void register(DeferredImportSelectorHolder deferredImport) {
+		    //返回实现了Group接口的实现类,可以自定义，也可以不定义，此时在createGroup方法内部默认使用DefaultDeferredImportSelectorGroup
 			Class<? extends Group> group = deferredImport.getImportSelector().getImportGroup();
+            // DeferredImportSelectorGrouping对象封装了group和deferredImport；
+            // 该对象的getImports方法会调用group对象的process()方法和selectImports()方法
 			DeferredImportSelectorGrouping grouping = this.groupings.computeIfAbsent(
 					(group != null ? group : deferredImport),
 					key -> new DeferredImportSelectorGrouping(createGroup(group)));
@@ -812,8 +817,13 @@ class ConfigurationClassParser {
 					deferredImport.getConfigurationClass());
 		}
 
+        /**
+         * processGroupImports方法:调用DeferredImportSelectorGrouping对象的getImports()获取要导入的bean,
+         * 最后调用processImports走普通的@Import注解的逻辑；
+         */
 		public void processGroupImports() {
 			for (DeferredImportSelectorGrouping grouping : this.groupings.values()) {
+                //这里getImports()方法是关键，内部会调用group的process()方法和selectImports()方法，而这两个方法是子类扩展的关键
 				grouping.getImports().forEach(entry -> {
 					ConfigurationClass configurationClass = this.configurationClasses.get(entry.getMetadata());
 					try {
@@ -831,6 +841,8 @@ class ConfigurationClassParser {
 			}
 		}
 
+		//如果自己定义DeferredImportSelector的实现类时重写getImportGroup()方法自己定义了Group的实现类，则使用自定义的，否则
+        //使用默认的DefaultDeferredImportSelectorGroup
 		private Group createGroup(@Nullable Class<? extends Group> type) {
 			Class<? extends Group> effectiveType = (type != null ? type : DefaultDeferredImportSelectorGroup.class);
 			Group group = ParserStrategyUtils.instantiateClass(effectiveType, Group.class,
@@ -896,13 +908,16 @@ class ConfigurationClassParser {
 
 		private final List<Entry> imports = new ArrayList<>();
 
+		//收集需要实例化的类
 		@Override
 		public void process(AnnotationMetadata metadata, DeferredImportSelector selector) {
+		    //调用DeferredImportSelector的selectImports()方法
 			for (String importClassName : selector.selectImports(metadata)) {
 				this.imports.add(new Entry(metadata, importClassName));
 			}
 		}
 
+		//返回要实例化的类
 		@Override
 		public Iterable<Entry> selectImports() {
 			return this.imports;

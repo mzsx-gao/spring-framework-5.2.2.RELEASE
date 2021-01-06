@@ -22,17 +22,6 @@ import org.springframework.lang.Nullable;
 /**
  * 该类是{@link ImportSelector}的一个变种，它在所有的@Configuration处理完后再导入bean;
  * 当@import导入的配置类是{@code @Conditional}时特别有用，说白了它跟ImportSelector的区别就是导入bean的时机不一样
- *
- * <p>Implementations can also extend the {@link org.springframework.core.Ordered}
- * interface or use the {@link org.springframework.core.annotation.Order} annotation to
- * indicate a precedence against other {@link DeferredImportSelector DeferredImportSelectors}.
- *
- * <p>Implementations may also provide an {@link #getImportGroup() import group} which
- * can provide additional sorting and filtering logic across different selectors.
- *
- * @author Phillip Webb
- * @author Stephane Nicoll
- * @since 4.0
  */
 public interface DeferredImportSelector extends ImportSelector {
 
