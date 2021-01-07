@@ -27,9 +27,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.lang.Nullable;
 
 /**
- * Caching implementation of the {@link MetadataReaderFactory} interface,
- * caching a {@link MetadataReader} instance per Spring {@link Resource} handle
- * (i.e. per ".class" file).
+ * 描述: CachingMetadataReaderFactory 类在SimpleMetadataReaderFactory的基础上增加了缓存功能，
+ * 对 Resource-MetadataReader 的映射做了本地缓存
  *
  * @author Juergen Hoeller
  * @author Costin Leau
@@ -130,6 +129,7 @@ public class CachingMetadataReaderFactory extends SimpleMetadataReaderFactory {
 				MetadataReader metadataReader = this.metadataReaderCache.get(resource);
 				if (metadataReader == null) {
 					metadataReader = super.getMetadataReader(resource);
+					//缓存到本地缓存
 					this.metadataReaderCache.put(resource, metadataReader);
 				}
 				return metadataReader;

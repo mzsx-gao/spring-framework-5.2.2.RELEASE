@@ -28,30 +28,31 @@ import org.springframework.core.type.ClassMetadata;
 import org.springframework.lang.Nullable;
 
 /**
- * {@link MetadataReader} implementation based on an ASM
- * {@link org.springframework.asm.ClassReader}.
- *
- * @author Juergen Hoeller
- * @author Costin Leau
- * @since 2.5
+ * 描述: SimpleMetadataReader 为MetadataReader的默认实现，在创建SimpleMetadataReader时
+ * 通过ASM{@link org.springframework.asm.ClassReader}字节码操控框架读取class资源流生成
+ * classMetadata与annotationMetadata
  */
 final class SimpleMetadataReader implements MetadataReader {
 
 	private static final int PARSING_OPTIONS = ClassReader.SKIP_DEBUG
 			| ClassReader.SKIP_CODE | ClassReader.SKIP_FRAMES;
 
+	//class类IO流资源引用
 	private final Resource resource;
 
+	//class类完整注释元数据
 	private final AnnotationMetadata annotationMetadata;
 
 
 	SimpleMetadataReader(Resource resource, @Nullable ClassLoader classLoader) throws IOException {
+		//注解元数据读取访问者读取注解元数据
 		SimpleAnnotationMetadataReadingVisitor visitor = new SimpleAnnotationMetadataReadingVisitor(classLoader);
 		getClassReader(resource).accept(visitor, PARSING_OPTIONS);
 		this.resource = resource;
 		this.annotationMetadata = visitor.getMetadata();
 	}
 
+	//通过ASM字节码操控框架读取class
 	private static ClassReader getClassReader(Resource resource) throws IOException {
 		try (InputStream is = new BufferedInputStream(resource.getInputStream())) {
 			try {

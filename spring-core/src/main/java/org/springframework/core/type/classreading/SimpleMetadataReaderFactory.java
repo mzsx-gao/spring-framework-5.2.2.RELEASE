@@ -34,6 +34,7 @@ import org.springframework.util.ClassUtils;
  */
 public class SimpleMetadataReaderFactory implements MetadataReaderFactory {
 
+	// 资源加载器，此类可以根据路径将给定的path生成IO流资源
 	private final ResourceLoader resourceLoader;
 
 
@@ -78,6 +79,7 @@ public class SimpleMetadataReaderFactory implements MetadataReaderFactory {
 			String resourcePath = ResourceLoader.CLASSPATH_URL_PREFIX +
 					ClassUtils.convertClassNameToResourcePath(className) + ClassUtils.CLASS_FILE_SUFFIX;
 			Resource resource = this.resourceLoader.getResource(resourcePath);
+			//调用资源创建MetadataReader
 			return getMetadataReader(resource);
 		}
 		catch (FileNotFoundException ex) {
@@ -98,6 +100,9 @@ public class SimpleMetadataReaderFactory implements MetadataReaderFactory {
 		}
 	}
 
+	/**
+	 *  根据class资源创建MetadataReader，默认实现
+	 */
 	@Override
 	public MetadataReader getMetadataReader(Resource resource) throws IOException {
 		return new SimpleMetadataReader(resource, this.resourceLoader.getClassLoader());
