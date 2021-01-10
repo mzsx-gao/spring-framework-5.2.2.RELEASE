@@ -7,7 +7,7 @@ import org.springframework.core.type.AnnotationMetadata;
 
 /**
  * 名称: TestImportBeanDefinitionRegistrar.java
- * 描述: TODO
+ * 描述: 通过实现ImportBeanDefinitionRegistrar接口来注册bean
  *
  * @author gaoshudian
  * @date 2019/11/28 11:49 AM
