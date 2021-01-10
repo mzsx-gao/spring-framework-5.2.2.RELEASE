@@ -3,7 +3,7 @@ package my_demo.configClassTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * 名称: DemoApplicationTests.java
+ * 名称: ConfigurationTests.java
  * 描述: 测试@Import注解的用法
  *
  * @author gaoshudian
