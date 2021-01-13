@@ -234,7 +234,7 @@ public abstract class AopUtils {
 		}
 
 		// 获取目标类的所有接口
-		Set<Class<?>> classes = new LinkedHashSet<Class<?>>(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
+		Set<Class<?>> classes = new LinkedHashSet<>(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
 		classes.add(targetClass);
 		for (Class<?> clazz : classes) {
 			// 获取目标接口的所有方法
@@ -292,7 +292,7 @@ public abstract class AopUtils {
 
 		// 判断当前Advisor是否为IntroductionAdvisor，如果是，则按照IntroductionAdvisor的方式进行
 		// 过滤，这里主要的过滤逻辑在canApply()方法中
-		List<Advisor> eligibleAdvisors = new LinkedList<Advisor>();
+		List<Advisor> eligibleAdvisors = new LinkedList<>();
 		for (Advisor candidate : candidateAdvisors) {
 			// 判断是否为IntroductionAdvisor，并且判断是否可以应用到当前类上
 			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {

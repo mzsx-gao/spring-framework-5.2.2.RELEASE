@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AopAutoconfigTest {
 
     /**
-     * 真正的AOP示例（注解方式）
+     * aop自动装配方式
      */
     @Test
     public void testAop(){

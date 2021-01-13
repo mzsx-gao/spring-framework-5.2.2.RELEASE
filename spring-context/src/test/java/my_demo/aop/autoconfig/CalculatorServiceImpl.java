@@ -3,7 +3,7 @@ package my_demo.aop.autoconfig;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalculatorImpl implements ICalculatorService {
+public class CalculatorServiceImpl implements ICalculatorService {
 
 	@Override
 	public int add(int i, int j) {
