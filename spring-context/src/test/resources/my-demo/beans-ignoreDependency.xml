@@ -16,9 +16,9 @@
         </constructor-arg>
     </bean>
 
-    <bean id="listHolder" class="my_demo.ignoreDependency.ignoreDependencyType.ListHolder" autowire="byType"/>
-    <bean id="ii" class="my_demo.ignoreDependency.ignoredDependencyInterface.IgnoreInterfaceImpl" autowire="byType"/>
-    <bean class="my_demo.ignoreDependency.ignoreDependencyType.IgnoreAutowiringProcessor"/>
-    <bean class="my_demo.ignoreDependency.ignoredDependencyInterface.IgnoreAutowiringProcessor2"/>
+    <bean id="listHolder" class="my_demo.baseioc.ignoreDependency.ignoreDependencyType.ListHolder" autowire="byType"/>
+    <bean id="ii" class="my_demo.baseioc.ignoreDependency.ignoredDependencyInterface.IgnoreInterfaceImpl" autowire="byType"/>
+    <bean class="my_demo.baseioc.ignoreDependency.ignoreDependencyType.IgnoreAutowiringProcessor"/>
+    <bean class="my_demo.baseioc.ignoreDependency.ignoredDependencyInterface.IgnoreAutowiringProcessor2"/>
 
 </beans>

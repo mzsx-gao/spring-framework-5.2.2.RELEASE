@@ -13,25 +13,25 @@
 	1.通过属性注入: 通过 setter 方法注入属性值
 	2.通过构造器注入属性值(要求: 在 Bean 中必须有对应的构造器)
 	-->
-	<bean id="helloWorld" class="my_demo.helloworld.HelloWorld">
+	<bean id="helloWorld" class="my_demo.baseioc.helloworld.HelloWorld">
 		<property name="user" value="Tom"></property>
 	</bean>
     <!--<alias name="helloWorld" alias="test1,test2"/>-->
 
-	<bean id="helloWorld2" class="my_demo.helloworld.HelloWorld">
+	<bean id="helloWorld2" class="my_demo.baseioc.helloworld.HelloWorld">
 		<constructor-arg value="Mike"></constructor-arg>
 	</bean>
 
 	<!-- 若一个 bean 有多个构造器, 如何通过构造器来为 bean 的属性赋值 -->
 	<!-- 可以根据 index 和 value 进行更加精确的定位. (了解) -->
-	<bean id="car" class="my_demo.helloworld.Car">
+	<bean id="car" class="my_demo.baseioc.helloworld.Car">
 		<constructor-arg value="KUGA" index="1"></constructor-arg>
 		<constructor-arg value="ChangAnFord" index="0"></constructor-arg>
 		<constructor-arg value="250000" type="float"></constructor-arg>
 	</bean>
 
     <!-- 若字面值中包含特殊字符, 则可以使用 DCDATA 来进行赋值. (了解) -->
-	<bean id="car2" class="my_demo.helloworld.Car">
+	<bean id="car2" class="my_demo.baseioc.helloworld.Car">
 		<constructor-arg value="ChangAnMazda"></constructor-arg>
 		<constructor-arg>
 			<value><![CDATA[<ATARZA>]]></value>
@@ -40,18 +40,18 @@
 	</bean>
 
 	<!--bean的引用 -->
-	<bean id="dao" class="my_demo.helloworld.ref.Dao"></bean>
+	<bean id="dao" class="my_demo.baseioc.helloworld.ref.Dao"></bean>
 
-	<bean id="service" class="my_demo.helloworld.ref.Service">
+	<bean id="service" class="my_demo.baseioc.helloworld.ref.Service">
 		<property name="dao" ref="dao"></property>
 	</bean>
 
 	<!-- 声明使用内部 bean
 	     内部 bean, 类似于匿名内部类对象. 不能被外部的 bean 来引用, 也没有必要设置 id 属性
 	-->
-	<bean id="service2" class="my_demo.helloworld.ref.Service">
+	<bean id="service2" class="my_demo.baseioc.helloworld.ref.Service">
 		<property name="dao">
-			<bean class="my_demo.helloworld.ref.Dao">
+			<bean class="my_demo.baseioc.helloworld.ref.Dao">
 				<property name="dataSource" value="c3p0"></property>
 			</bean>
 		</property>
@@ -59,20 +59,20 @@
 
 
 	<!-- 设置级联属性(了解),这样这里设置的dataSource为'DBCP2'会覆盖上面设置的'c3p0' -->
-	<bean id="action" class="my_demo.helloworld.ref.Action">
+	<bean id="action" class="my_demo.baseioc.helloworld.ref.Action">
 		<property name="service" ref="service2"></property>
 		<property name="service.dao.dataSource" value="DBCP2"></property>
 	</bean>
 
 
 	<!-- 为 Dao 的 dataSource 属性赋值为 null, 适用于若某一个 bean 的属性值不是 null, 使用时需要为其设置为 null(了解) -->
-	<bean id="dao2" class="my_demo.helloworld.ref.Dao">
+	<bean id="dao2" class="my_demo.baseioc.helloworld.ref.Dao">
 		<property name="dataSource"><null/></property>
 	</bean>
 
 
 	<!-- 装配集合属性 -->
-	<bean id="user" class="my_demo.helloworld.User">
+	<bean id="user" class="my_demo.baseioc.helloworld.User">
 		<property name="userName" value="Jack"></property>
 		<property name="cars">
 			<list>
@@ -85,7 +85,7 @@
 
 
 	<!-- 装配map属性 -->
-	<bean id="userMap" class="my_demo.helloworld.User2">
+	<bean id="userMap" class="my_demo.baseioc.helloworld.User2">
 		<property name="userName" value="Jack"></property>
 		<property name="cars">
 			<map>
@@ -96,7 +96,7 @@
 	</bean>
 
 	<!--以下面方式装配集合属性-->
-	<bean id="injectTest" class="my_demo.helloworld.ListInjectTest" >
+	<bean id="injectTest" class="my_demo.baseioc.helloworld.ListInjectTest" >
 		<property name="list[0]" value="gao"></property>
 		<property name="list[1]" value="gao1"></property>
 
@@ -107,7 +107,7 @@
 
 
 	<!-- 装配properties属性 -->
-	<bean id="dataSource" class="my_demo.helloworld.DataSource">
+	<bean id="dataSource" class="my_demo.baseioc.helloworld.DataSource">
 		<property name="properties">
 			<props>
 				<prop key="user">root</prop>
@@ -125,7 +125,7 @@
         <ref bean="car2"/>
     </util:list>
 
-    <bean id="user2" class="my_demo.helloworld.User">
+    <bean id="user2" class="my_demo.baseioc.helloworld.User">
         <property name="userName" value="Rose"></property>
         <!--引用外部声明的 list-->
         <property name="cars" ref="cars"></property>
@@ -134,7 +134,7 @@
 
 
     <!-- 使用p命名空间为bean的属性赋值,需要先导入p命名空间,相对于传统的方式更加简洁 -->
-    <bean id="user3" class="my_demo.helloworld.User"
+    <bean id="user3" class="my_demo.baseioc.helloworld.User"
           p:cars-ref="cars" p:userName="Titannic"></bean>
 
 

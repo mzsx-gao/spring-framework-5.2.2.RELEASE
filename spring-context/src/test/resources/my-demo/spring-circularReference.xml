@@ -5,32 +5,32 @@
 
 
     <!-- 测试bean的作用域是singleton -->
-    <bean id="a" class="my_demo.circularReference.A">
+    <bean id="a" class="my_demo.baseioc.circularReference.A">
         <property name="b" ref="b"></property>
         <property name="username" value="jack"></property>
         <!--<constructor-arg name="b" ref="b"></constructor-arg>-->
     </bean>
-    <bean id="b" class="my_demo.circularReference.B">
+    <bean id="b" class="my_demo.baseioc.circularReference.B">
         <property name="a" ref="a"></property>
         <!--<constructor-arg name="a" ref="a"></constructor-arg>-->
     </bean>
 
 
     <!-- 测试bean的作用域是prototype -->
-    <!--<bean id="prototypeTest" class="my_demo.prototype.PrototypeTest" scope="prototype">-->
+    <!--<bean id="prototypeTest" class="my_demo.baseioc.prototype.PrototypeTest" scope="prototype">-->
         <!--<property name="username" value="xiaogao"></property>-->
         <!--<property name="prototypeTest2" ref="prototypeTest2"></property>-->
     <!--</bean>-->
 
-    <!--<bean id="prototypeTest2" class="my_demo.prototype.PrototypeTest2" scope="prototype">-->
+    <!--<bean id="prototypeTest2" class="my_demo.baseioc.prototype.PrototypeTest2" scope="prototype">-->
         <!--<property name="username" value="xiaogao"></property>-->
     <!--</bean>-->
 
     <!--测试prototype类型的bean的循环依赖 -->
-    <!--<bean id="prototypeTestA" class="my_demo.prototype.PrototypeTestA"  scope="prototype">-->
+    <!--<bean id="prototypeTestA" class="my_demo.baseioc.prototype.PrototypeTestA"  scope="prototype">-->
         <!--<property name="prototypeTestB" ref="prototypeTestB"/>-->
     <!--</bean>-->
-    <!--<bean id="prototypeTestB" class="my_demo.prototype.PrototypeTestB"  scope="prototype">-->
+    <!--<bean id="prototypeTestB" class="my_demo.baseioc.prototype.PrototypeTestB"  scope="prototype">-->
         <!--<property name="prototypeTestA" ref="prototypeTestA"/>-->
     <!--</bean>-->
 
