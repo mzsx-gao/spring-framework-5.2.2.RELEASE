@@ -9,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @author gaoshudian
  * @date 2019/11/28 11:50 AM
  */
-public class DemoApplicationTests {
+public class MainTests {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);

@@ -1,14 +1,14 @@
 package my_demo.configClassTest;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class ComponentScanTest {
+@Service
+public class MyService {
     @Value("test.name")
     private String name;
 
-    public ComponentScanTest(){
+    public MyService(){
         System.out.println("这个类的name是："+name);
     }
 
