@@ -27,6 +27,7 @@ import org.springframework.aop.MethodBeforeAdvice;
 /**
  * Adapter to enable {@link org.springframework.aop.MethodBeforeAdvice}
  * to be used in the Spring AOP framework.
+ * 将MethodBeforeAdvice转换为MethodInterceptor类型的MethodBeforeAdviceInterceptor
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

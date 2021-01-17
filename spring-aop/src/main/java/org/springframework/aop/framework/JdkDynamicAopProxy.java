@@ -184,7 +184,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 				return equals(args[0]);
 			}
 			else if (!this.hashCodeDefined && AopUtils.isHashCodeMethod(method)) {
-				//如果方法是hashCode()方法，并且目标对象没有定义equals方法的话，就会直接调用而不会增强
+				//如果方法是hashCode()方法，并且目标对象没有定义hashCode方法的话，就会直接调用而不会增强
 				return hashCode();
 			}
 			else if (method.getDeclaringClass() == DecoratingProxy.class) {

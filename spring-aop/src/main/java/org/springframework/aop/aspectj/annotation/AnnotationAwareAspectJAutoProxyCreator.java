@@ -91,7 +91,7 @@ public class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorA
 	 */
 	@Override
 	protected List<Advisor> findCandidateAdvisors() {
-		// 调用父类方法加载配置文件中的AOP声明
+		// 加载配置文件中的AOP声明或者实现PointcutAdvisor接口的bean,自定义的切面在这里加载
 		List<Advisor> advisors = super.findCandidateAdvisors();
 		// 获取bean的注解增强
 		if (this.aspectJAdvisorsBuilder != null) {

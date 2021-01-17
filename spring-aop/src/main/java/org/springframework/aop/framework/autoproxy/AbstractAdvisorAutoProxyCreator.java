@@ -94,9 +94,9 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 		List<Advisor> candidateAdvisors = findCandidateAdvisors();
 		//寻找所有增强中适用于bean的增强
 		List<Advisor> eligibleAdvisors = findAdvisorsThatCanApply(candidateAdvisors, beanClass, beanName);
-		// 提供的hook方法，用于对目标Advisor进行扩展（对于xml方式配置的aop切面情况，这里会添加拦截器ExposeInvocationInterceptor）
+		// 提供的hook方法，用于对目标Advisor进行扩展,这里会添加DefaultPointcutAdvisor(内部的advice是ExposeInvocationInterceptor）
 		extendAdvisors(eligibleAdvisors);
-		// 对需要代理的Advisor按照一定的规则进行排序
+		// 对需要代理的Advisor按照一定的规则进行排序(加@Order注解或者实现Order接口)
 		if (!eligibleAdvisors.isEmpty()) {
 			eligibleAdvisors = sortAdvisors(eligibleAdvisors);
 		}

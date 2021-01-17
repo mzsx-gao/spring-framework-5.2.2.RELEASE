@@ -10,7 +10,7 @@ public class AopAutoconfigTest {
      * aop自动装配方式
      */
     @Test
-    public void testAop(){
+    public void test(){
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
         ICalculatorService arithmeticCalculator = ctx.getBean(ICalculatorService.class);
         System.out.println("获取的bean是代理类..."+arithmeticCalculator.getClass().getName());

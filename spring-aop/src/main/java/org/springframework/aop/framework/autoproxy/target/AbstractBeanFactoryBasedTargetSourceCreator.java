@@ -86,11 +86,11 @@ public abstract class AbstractBeanFactoryBasedTargetSourceCreator
 	// Implementation of the TargetSourceCreator interface
 	//---------------------------------------------------------------------
 
+	//获取TargetSource对象
 	@Override
 	@Nullable
 	public final TargetSource getTargetSource(Class<?> beanClass, String beanName) {
-		AbstractBeanFactoryBasedTargetSource targetSource =
-				createBeanFactoryBasedTargetSource(beanClass, beanName);
+		AbstractBeanFactoryBasedTargetSource targetSource = createBeanFactoryBasedTargetSource(beanClass, beanName);
 		if (targetSource == null) {
 			return null;
 		}
@@ -98,7 +98,7 @@ public abstract class AbstractBeanFactoryBasedTargetSourceCreator
 		if (logger.isDebugEnabled()) {
 			logger.debug("Configuring AbstractBeanFactoryBasedTargetSource: " + targetSource);
 		}
-
+		//新创建一个beanFactory
 		DefaultListableBeanFactory internalBeanFactory = getInternalBeanFactoryForBean(beanName);
 
 		// We need to override just this bean definition, as it may reference other beans
@@ -148,6 +148,7 @@ public abstract class AbstractBeanFactoryBasedTargetSourceCreator
 
 		// Filter out BeanPostProcessors that are part of the AOP infrastructure,
 		// since those are only meant to apply to beans defined in the original factory.
+		// 删除处理AOP切面的BeanPostProcessors，防止目标bean被切面拦截生成代理
 		internalBeanFactory.getBeanPostProcessors().removeIf(beanPostProcessor ->
 				beanPostProcessor instanceof AopInfrastructureBean);
 

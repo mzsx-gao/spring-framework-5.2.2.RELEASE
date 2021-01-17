@@ -629,7 +629,7 @@ public abstract class AbstractAspectJAdvice implements Advice, AspectJPrecedence
 	// As above, but in this case we are given the join point.
 	protected Object invokeAdviceMethod(JoinPoint jp, @Nullable JoinPointMatch jpMatch,
 			@Nullable Object returnValue, @Nullable Throwable t) throws Throwable {
-
+		//argBinding封装调用切面方法的参数
 		return invokeAdviceMethodWithGivenArgs(argBinding(jp, jpMatch, returnValue, t));
 	}
 

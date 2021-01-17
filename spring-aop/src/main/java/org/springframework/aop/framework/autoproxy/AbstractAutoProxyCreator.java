@@ -429,26 +429,23 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		ProxyFactory proxyFactory = new ProxyFactory();
 		proxyFactory.copyFrom(this);
 
-		/**
-		 下面这个if里面的核心逻辑:
-		 当 xml 中没有配置 proxyTargetClass 属性，默认为 false
-		 1.如果被代理 bean 对应的 bean definition ，它的 attributes 属性中，存在key为"org.springframework.aop.framework.autoproxy.AutoProxyUtils.preserveTargetClass"
-		 值为 true 的键值对,那么设置 proxyTargetClass 为 ture
-		 2.否则过滤所有接口，如果有合适的接口存在(即：接口不能为 Aware、InitializingBean 等容器的回调接口，也不能是内部语言接口），则proxyTargetClass 为 false;
-		 如果没有合适的接口，proxyTargetClass 还是设置为 true
-		 */
+		//proxyTargetClass的值决定了是用jdk的代理还是用cglib的代理
 		if (!proxyFactory.isProxyTargetClass()) {
 			/**
-			 * 如果被代理 bean 对应的 bean definition 属性中，存在org.springframework.aop.framework.autoproxy.AutoProxyUtils.preserveTargetClass为 key，
-			 * 且 值为 true 的 attributes,那么设置 proxyTargetClass 为 ture；
-			 *
-			 * 比如:<aop:scoped-proxy/>这个标签内部的实现中就会调用下面代码来设置这个key为true的attributes
-			 * ScopedProxyUtils#createScopedProxy#targetDefinition.setAttribute(AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);
+			 * 如果被代理 bean 对应的 bean definition 属性中，存在属性“org.springframework.aop.framework.autoproxy
+			 * .AutoProxyUtils.preserveTargetClass”且值为“true”,那么设置 proxyTargetClass 为 ture；
+			 * 比如:
+			 * 1.<aop:scoped-proxy/>这个标签内部的实现中就会调用下面代码来设置这个key为true的attributes
+			 * 		ScopedProxyUtils#createScopedProxy#targetDefinition.setAttribute(
+			 * 		AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);
+			 * 2.spring中的配置类(加@Configuration注解)的beanDefinition中也会有这个属性且值为true
 			 */
 			if (shouldProxyTargetClass(beanClass, beanName)) {
 				proxyFactory.setProxyTargetClass(true);
 			}
 			else {
+				//过滤所有接口，如果有合适的接口存在(即：接口不能为 Aware、InitializingBean 等容器的回调接口，也不能是内部语言接口），
+				//则proxyTargetClass 为 false;如果没有合适的接口，proxyTargetClass 还是设置为 true
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}
