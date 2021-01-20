@@ -61,7 +61,8 @@ public class RequestScopedProxyTests {
 		RequestContextHolder.setRequestAttributes(requestAttributes);
 
 		try {
-			assertThat(request.getAttribute("scopedTarget." + name)).isNull();
+//			assertThat(request.getAttribute("scopedTarget." + name)).isNull();
+			//这里调用bean.getName()其实是调用代理bean的getName，最终会调用通过beanFactory的getBean方法获取真实的bean实例
 			assertThat(bean.getName()).isEqualTo("scoped");
 			assertThat(request.getAttribute("scopedTarget." + name)).isNotNull();
 			TestBean target = (TestBean) request.getAttribute("scopedTarget." + name);

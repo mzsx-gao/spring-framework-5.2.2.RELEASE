@@ -260,9 +260,6 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			}
 		}
 
-		// Create proxy here if we have a custom TargetSource.
-		// Suppresses unnecessary default instantiation of the target bean:
-		// The TargetSource will handle target instances in a custom fashion.
 		//如果我们有一个自定义的TargetSource，则在这里创建代理
 		TargetSource targetSource = getCustomTargetSource(beanClass, beanName);
 		if (targetSource != null) {
@@ -494,7 +491,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * 对拦截器或者通知进行包装，包装成Advisor对象
 	 */
 	protected Advisor[] buildAdvisors(@Nullable String beanName, @Nullable Object[] specificInterceptors) {
-		//解析注册的所有interceptorName
+		//解析注册的所有interceptorName，全局拦截器，参考my_demo.aop.autoconfig.advice.GirlAdvice
 		Advisor[] commonInterceptors = resolveInterceptorNames();
 
 		List<Object> allInterceptors = new ArrayList<>();

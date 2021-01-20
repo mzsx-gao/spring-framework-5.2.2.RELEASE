@@ -11,7 +11,7 @@ import org.springframework.aop.target.AbstractBeanFactoryBasedTargetSource;
  */
 public class CustomTargetSource extends AbstractBeanFactoryBasedTargetSource {
     @Override
-    public Object getTarget() throws Exception {
+    public Object getTarget(){
         return getBeanFactory().getBean(getTargetBeanName());
     }
 }

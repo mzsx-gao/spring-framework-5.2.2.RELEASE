@@ -1,5 +1,6 @@
 package my_demo.aop.autoconfig;
 
+import my_demo.aop.autoconfig.scopedProxy.MyBean;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,4 +19,13 @@ public class AopAutoconfigTest {
 //        arithmeticCalculator.div(21, 0);
     }
 
+    //测试scopeProxy
+	@Test
+	public void test2() {
+		AnnotationConfigApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
+		MyBean bean = aa.getBean(MyBean.class);
+		for (int i = 0; i < 10; i++) {
+			bean.tet();
+		}
+	}
 }
