@@ -58,7 +58,8 @@ public abstract class ScopedProxyUtils {
 
 		String originalBeanName = definition.getBeanName();
 		BeanDefinition targetDefinition = definition.getBeanDefinition();
-		//原始beanName加前缀"scopedTarget."
+
+		//原始beanName加前缀"scopedTarget.",例如:scopedTarget.scopedProxyBean
 		String targetBeanName = getTargetBeanName(originalBeanName);
 
 		// Create a scoped proxy definition for the original bean name,
@@ -71,7 +72,7 @@ public abstract class ScopedProxyUtils {
 
 		proxyDefinition.getPropertyValues().add("targetBeanName", targetBeanName);
 		if (proxyTargetClass) {
-			//org.springframework.aop.framework.autoproxy.AutoProxyUtils.preserveTargetClass
+			// key值为：org.springframework.aop.framework.autoproxy.AutoProxyUtils.preserveTargetClass
 			targetDefinition.setAttribute(AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);
 			// ScopedProxyFactoryBean's "proxyTargetClass" default is TRUE, so we don't need to set it explicitly here.
 		}
@@ -86,16 +87,16 @@ public abstract class ScopedProxyUtils {
 			proxyDefinition.copyQualifiersFrom((AbstractBeanDefinition) targetDefinition);
 		}
 
-		// 容器在查找自动装配对象时，将不考虑该bean，即它不会被考虑作为其它bean自动装配的候选者，
-		// 但是该bean本身还是可以使用自动装配来注入其它bean的;特别是对于scoped代理
+		// 容器在查找自动装配对象时，将不考虑该bean，即它不会被考虑作为其它bean自动装配的候选者，但是该bean本身还是可以使用自动装配来注入
+		// 其它bean的;特别是对于scoped代理;
+		// 目的是让其它bean依赖注入这个bean时，不要注入目标bean->targetDefinition，而是注入代理bean->proxyDefinition
 		targetDefinition.setAutowireCandidate(false);
 		targetDefinition.setPrimary(false);
 
-		// Register the target bean as separate bean in the factory.
+		// 注册目标bean "scopedTarget.scopedProxyBean" -> targetDefinition
 		registry.registerBeanDefinition(targetBeanName, targetDefinition);
 
-		// Return the scoped proxy definition as primary bean definition
-		// (potentially an inner bean).
+		// 返回代理beanDefinition		"scopedProxyBean" -> proxyDefinition
 		return new BeanDefinitionHolder(proxyDefinition, originalBeanName, definition.getAliases());
 	}
 

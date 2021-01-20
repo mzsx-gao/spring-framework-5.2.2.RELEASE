@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class AopAutoconfigTest {
+public class ClientTest {
 
     /**
      * aop自动装配方式
@@ -24,7 +24,7 @@ public class AopAutoconfigTest {
 	public void test2() {
 		AnnotationConfigApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
 		MyBean bean = aa.getBean(MyBean.class);
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2; i++) {
 			bean.tet();
 		}
 	}

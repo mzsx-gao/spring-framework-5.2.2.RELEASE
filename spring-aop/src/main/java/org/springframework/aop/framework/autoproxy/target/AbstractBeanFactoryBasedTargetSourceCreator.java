@@ -98,7 +98,7 @@ public abstract class AbstractBeanFactoryBasedTargetSourceCreator
 		if (logger.isDebugEnabled()) {
 			logger.debug("Configuring AbstractBeanFactoryBasedTargetSource: " + targetSource);
 		}
-		//新创建一个beanFactory
+		//新创建一个beanFactory,这个beanFactory中只有自定义的targetSource关心的bean,内部会删除处理AOP切面的BeanPostProcessors
 		DefaultListableBeanFactory internalBeanFactory = getInternalBeanFactoryForBean(beanName);
 
 		// We need to override just this bean definition, as it may reference other beans
@@ -111,7 +111,7 @@ public abstract class AbstractBeanFactoryBasedTargetSourceCreator
 		}
 		internalBeanFactory.registerBeanDefinition(beanName, bdCopy);
 
-		// Complete configuring the PrototypeTargetSource.
+		// 设置targetSource的targetBeanName和beanFactory
 		targetSource.setTargetBeanName(beanName);
 		targetSource.setBeanFactory(internalBeanFactory);
 

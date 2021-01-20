@@ -283,7 +283,7 @@ public abstract class AnnotationConfigUtils {
 		if (scopedProxyMode.equals(ScopedProxyMode.NO)) {//大部分都会走到这里
 			return definition;
 		}
-		//少部分情况，配置了proxyMode = ScopedProxyMode.TARGET_CLASS或者配置文件中有<aop:scoped-proxy/>会走下来
+		//少部分情况，bean的@Scope注解里配置了proxyMode = ScopedProxyMode.TARGET_CLASS或配置文件中有<aop:scoped-proxy/>会走下来
 		boolean proxyTargetClass = scopedProxyMode.equals(ScopedProxyMode.TARGET_CLASS);
 		return ScopedProxyCreator.createScopedProxy(definition, registry, proxyTargetClass);
 	}

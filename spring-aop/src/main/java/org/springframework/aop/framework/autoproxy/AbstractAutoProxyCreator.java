@@ -394,8 +394,9 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	@Nullable
 	protected TargetSource getCustomTargetSource(Class<?> beanClass, String beanName) {
 		// We can't create fancy target sources for directly registered singletons.
-		if (this.customTargetSourceCreators != null &&
-				this.beanFactory != null && this.beanFactory.containsBean(beanName)) {
+		// this.customTargetSourceCreators可以通过BeanFactoryPostProcessor的实现类中set进去，
+		// 参考my_demo.aop.autoconfig.MyBeanFactoryPostProcessor
+		if (this.customTargetSourceCreators != null && this.beanFactory != null && this.beanFactory.containsBean(beanName)) {
 			for (TargetSourceCreator tsc : this.customTargetSourceCreators) {
 				TargetSource ts = tsc.getTargetSource(beanClass, beanName);
 				if (ts != null) {

@@ -94,6 +94,7 @@ public class ScopedProxyFactoryBean extends ProxyConfig
 
 		ProxyFactory pf = new ProxyFactory();
 		pf.copyFrom(this);
+		//调用代理类的方法时会通过targetSource.getObject()方法获取目标实例
 		pf.setTargetSource(this.scopedTargetSource);
 
 		Assert.notNull(this.targetBeanName, "Property 'targetBeanName' is required");
@@ -113,7 +114,7 @@ public class ScopedProxyFactoryBean extends ProxyConfig
 		// Add the AopInfrastructureBean marker to indicate that the scoped proxy
 		// itself is not subject to auto-proxying! Only its target bean is.
 		pf.addInterface(AopInfrastructureBean.class);
-
+		//生成目标类的代理类
 		this.proxy = pf.getProxy(cbf.getBeanClassLoader());
 	}
 

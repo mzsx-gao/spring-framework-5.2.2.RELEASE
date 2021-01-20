@@ -4,6 +4,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
+/**
+ * 生成ScopedProxyBean的代理类的beandefinition的beanClass是ScopedProxyFactoryBean，在MyBean依赖注入ScopedProxyBean属性时
+ * 触发ScopedProxyFactoryBean的getObject()方法获取目标bean;
+ * 源码实现的地方:
+ *
+ */
 @Component
 @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ScopedProxyBean {
