@@ -1,6 +1,7 @@
 package my_demo.aop.autoconfig;
 
 import my_demo.aop.autoconfig.scopedProxy.MyBean;
+import my_demo.aop.autoconfig.service.StudentService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -28,4 +29,13 @@ public class ClientTest {
 			bean.tet();
 		}
 	}
+
+    @Test
+    public void test3() {
+        AnnotationConfigApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
+        StudentService bean = aa.getBean(StudentService.class);
+        System.out.println(bean);
+//        bean.sleep(new ArrayList());
+        bean.eat("Jack");
+    }
 }
