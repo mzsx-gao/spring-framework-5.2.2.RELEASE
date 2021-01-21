@@ -14,6 +14,7 @@ import java.util.List;
 
 @Component
 public class StudentServicePointCut implements Pointcut, MethodMatcher {
+
     @Override
     public ClassFilter getClassFilter() {
         return ClassFilter.TRUE;

@@ -233,9 +233,10 @@ public abstract class AopUtils {
 			introductionAwareMethodMatcher = (IntroductionAwareMethodMatcher) methodMatcher;
 		}
 
-		// 获取目标类的所有接口
+		// 获取目标类实现的所有接口以及目标类本身
 		Set<Class<?>> classes = new LinkedHashSet<>(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
 		classes.add(targetClass);
+		//上面获取到的classes中的所有类只要有一个方法满足拦截条件，就返回true
 		for (Class<?> clazz : classes) {
 			// 获取目标接口的所有方法
 			Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
