@@ -236,12 +236,13 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	/**
 	 * 这段代码中主要是根据this.dataSource来获取ConnectionHolder，
 	 * 这个ConnectionHolder是放在TransactionSynchronizationManager的ThreadLocal中持有的，其实意思就是将connectionHolder跟当前线程绑定
-	 * 如果是第一次来获取，肯定得到是null，第二次就不为空
+	 * 如果是第一次来获取，肯定得到是null，第二次就不为空，因为第一次获取后会绑定到ThreadLoal中，这是在下面的doBegin方法最后面处理的
 	 */
 	@Override
 	protected Object doGetTransaction() {
 		DataSourceTransactionObject txObject = new DataSourceTransactionObject();
 		txObject.setSavepointAllowed(isNestedTransactionAllowed());
+		//从ThreadLocal中获取连接对象
 		ConnectionHolder conHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(obtainDataSource());
 		txObject.setConnectionHolder(conHolder, false);
 		return txObject;
@@ -263,7 +264,8 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 		try {
 			if (!txObject.hasConnectionHolder() || txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
-				//从dataSource中获取一个Connection(动态数据源就是在这里实现的)
+				// 从dataSource中获取一个Connection
+				// 动态数据源就是在这里实现的:此时数据源对象是AbstractRoutingDataSource
 				Connection newCon = obtainDataSource().getConnection();
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
@@ -272,7 +274,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
 			}
 
-			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
+			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);//设置有事务标识
 			con = txObject.getConnectionHolder().getConnection();
 
 			//设置隔离级别以及readOnly属性，主要是对底层数据库连接的设置
@@ -288,7 +290,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				}
 				con.setAutoCommit(false);
 			}
-
+			//执行只读事务命令(如果事务注解中设置了readOnly为true,则内部执行“SET TRANSACTION READ ONLY”)
 			prepareTransactionalConnection(con, definition);
 			//这里设置transactionActive为true,transactionActive是判断当前线程是否存在事务的依据
 			txObject.getConnectionHolder().setTransactionActive(true);
@@ -299,7 +301,8 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				txObject.getConnectionHolder().setTimeoutInSeconds(timeout);
 			}
 
-			//这里将当前的connection放入TransactionSynchronizationManager中持有，如果下次调用可以判断为已有的事务
+			//如果是一个新事务,将当前的connection放入TransactionSynchronizationManager中持有，如果下次调用可以判断为已有的事务
+			//建立数据源对象和连接对象的绑定关系，且把该绑定关系的map设置到ThreadLocal中
 			if (txObject.isNewConnectionHolder()) {
 				TransactionSynchronizationManager.bindResource(obtainDataSource(), txObject.getConnectionHolder());
 			}

@@ -7,7 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * 自定义切面，源码中在AnnotationAwareAspectJAutoProxyCreator#findCandidateAdvisors方法中加载
+ * 自定义切面，源码中在AnnotationAwareAspectJAutoProxyCreator#findCandidateAdvisors#super.findCandidateAdvisors()方法中加载
  */
 @Component
 @Order(1)

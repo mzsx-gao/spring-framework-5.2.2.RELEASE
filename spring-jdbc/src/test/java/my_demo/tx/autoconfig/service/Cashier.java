@@ -1,4 +1,4 @@
-package my_demo.tx.annotation.service;
+package my_demo.tx.autoconfig.service;
 
 import java.util.List;
 

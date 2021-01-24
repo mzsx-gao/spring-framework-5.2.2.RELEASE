@@ -52,7 +52,7 @@ public abstract class JdbcTransactionObjectSupport implements SavepointManager, 
 
 
 	@Nullable
-	private ConnectionHolder connectionHolder;
+	private ConnectionHolder connectionHolder;//数据库连接对象的包装类
 
 	@Nullable
 	private Integer previousIsolationLevel;

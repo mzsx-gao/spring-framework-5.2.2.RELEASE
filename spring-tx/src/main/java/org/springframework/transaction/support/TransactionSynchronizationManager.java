@@ -128,7 +128,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Retrieve a resource for the given key that is bound to the current thread.
+	 * 检索绑定到当前线程的给定key的资源
 	 * @param key the key to check (usually the resource factory)
 	 * @return a value bound to the current thread (usually the active
 	 * resource object), or {@code null} if none
@@ -146,7 +146,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Actually check the value of the resource that is bound for the given key.
+	 * 获取绑定到当前线程的资源
 	 */
 	@Nullable
 	private static Object doGetResource(Object actualKey) {
@@ -168,11 +168,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Bind the given resource for the given key to the current thread.
-	 * @param key the key to bind the value to (usually the resource factory)
-	 * @param value the value to bind (usually the active resource object)
-	 * @throws IllegalStateException if there is already a value bound to the thread
-	 * @see ResourceTransactionManager#getResourceFactory()
+	 * 绑定给定资源到当前线程
 	 */
 	public static void bindResource(Object key, Object value) throws IllegalStateException {
 		Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);
@@ -212,9 +208,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Unbind a resource for the given key from the current thread.
-	 * @param key the key to unbind (usually the resource factory)
-	 * @return the previously bound value, or {@code null} if none bound
+	 * 解绑当前线程绑定的资源
 	 */
 	@Nullable
 	public static Object unbindResourceIfPossible(Object key) {
@@ -275,14 +269,7 @@ public abstract class TransactionSynchronizationManager {
 	}
 
 	/**
-	 * Register a new transaction synchronization for the current thread.
-	 * Typically called by resource management code.
-	 * <p>Note that synchronizations can implement the
-	 * {@link org.springframework.core.Ordered} interface.
-	 * They will be executed in an order according to their order value (if any).
-	 * @param synchronization the synchronization object to register
-	 * @throws IllegalStateException if transaction synchronization is not active
-	 * @see org.springframework.core.Ordered
+	 * 给当前线程注册事务同步回调接口
 	 */
 	public static void registerSynchronization(TransactionSynchronization synchronization)
 			throws IllegalStateException {

@@ -342,13 +342,12 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 		// Use defaults if no transaction definition given.
 		TransactionDefinition def = (definition != null ? definition : TransactionDefinition.withDefaults());
-		//获取事务
+		//获取事务(DataSourceTransactionObject)
 		Object transaction = doGetTransaction();
 		boolean debugEnabled = logger.isDebugEnabled();
 
 		//如果当前线程中存在事务，则进行嵌套事务的处理
 		if (isExistingTransaction(transaction)) {
-			// Existing transaction found -> check propagation behavior to find out how to behave.
 			return handleExistingTransaction(def, transaction, debugEnabled);
 		}
 
@@ -381,7 +380,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 						def, transaction, true, newSynchronization, debugEnabled, suspendedResources);
 				//构造transaction,包括设置connectionHolder、隔离级别、timeout；如果是新连接，绑定到当前线程
 				doBegin(transaction, def);
-				//新同步事务的设置，针对于当前线程的设置，将事务信息记录在当前事务中
+				// 新同步事务的设置，针对于当前线程的设置，将事务信息记录在当前事务中，
+				// 其实是给外围业务代码使用，外围业务代码可以通过TransactionSynchronizationManager的get操作获取这些属性从而做其它处理
 				prepareSynchronization(status, def);
 				return status;
 			}
@@ -514,6 +514,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			}
 		}
 		boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
+		//如果第二次进来，传播行为是PROPAGATION_REQUIRED就会走到这里，此时newTransaction为false;在提交代码那里会判断这个属性，只有
+		//true才会提交，否则不提交(源码位置:this.processCommit# if(status.isNewTransaction() )
 		return prepareTransactionStatus(definition, transaction, false, newSynchronization, debugEnabled, null);
 	}
 
@@ -540,8 +542,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			TransactionDefinition definition, @Nullable Object transaction, boolean newTransaction,
 			boolean newSynchronization, boolean debug, @Nullable Object suspendedResources) {
 
-		boolean actualNewSynchronization = newSynchronization &&
-				!TransactionSynchronizationManager.isSynchronizationActive();
+		boolean actualNewSynchronization = newSynchronization && !TransactionSynchronizationManager.isSynchronizationActive();
 		return new DefaultTransactionStatus(
 				transaction, newTransaction, actualNewSynchronization,
 				definition.isReadOnly(), debug, suspendedResources);
@@ -771,7 +772,6 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				else if (isFailEarlyOnGlobalRollbackOnly()) {
 					unexpectedRollback = status.isGlobalRollbackOnly();
 				}
-
 				// Throw UnexpectedRollbackException if we have a global rollback-only
 				// marker but still didn't get a corresponding exception from commit.
 				if (unexpectedRollback) {
@@ -803,7 +803,6 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				doRollbackOnCommitException(status, ex);
 				throw ex;
 			}
-
 			try {
 				//添加的TransactionSynchronization中的"afterCommit"方法回调
 				triggerAfterCommit(status);
@@ -812,9 +811,9 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				//添加的TransactionSynchronization中的"afterCompletion"方法回调
 				triggerAfterCompletion(status, TransactionSynchronization.STATUS_COMMITTED);
 			}
-
 		}
 		finally {
+			//清空记录的资源，并将挂起的资源恢复
 			cleanupAfterCompletion(status);
 		}
 	}

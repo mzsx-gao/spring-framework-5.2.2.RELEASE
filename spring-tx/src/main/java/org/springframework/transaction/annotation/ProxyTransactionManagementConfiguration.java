@@ -31,36 +31,43 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 @Configuration(proxyBeanMethods = false)
 public class ProxyTransactionManagementConfiguration extends AbstractTransactionManagementConfiguration {
 
+	//创建事务切面org.springframework.transaction.config.internalTransactionAdvisor
 	@Bean(name = TransactionManagementConfigUtils.TRANSACTION_ADVISOR_BEAN_NAME)
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public BeanFactoryTransactionAttributeSourceAdvisor transactionAdvisor(
 			TransactionAttributeSource transactionAttributeSource,
 			TransactionInterceptor transactionInterceptor) {
 		BeanFactoryTransactionAttributeSourceAdvisor advisor = new BeanFactoryTransactionAttributeSourceAdvisor();
+		//切面里面设置处理事务属性对象
 		advisor.setTransactionAttributeSource(transactionAttributeSource);
+		//设置切面的advice
 		advisor.setAdvice(transactionInterceptor);
+		//设置切面排序
 		if (this.enableTx != null) {
 			advisor.setOrder(this.enableTx.<Integer>getNumber("order"));
 		}
 		return advisor;
 	}
 
+	//创建事务属性处理器
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public TransactionAttributeSource transactionAttributeSource() {
-		return new AnnotationTransactionAttributeSource();
+		return new AnnotationTransactionAttributeSource();//事务注解解析类
 	}
 
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public TransactionInterceptor transactionInterceptor(
 			TransactionAttributeSource transactionAttributeSource) {
+		//创建事务拦截器
 		TransactionInterceptor interceptor = new TransactionInterceptor();
+		//事务属性处理器设置到advice中
 		interceptor.setTransactionAttributeSource(transactionAttributeSource);
+		//把事务管理器设置到advice中
 		if (this.txManager != null) {
 			interceptor.setTransactionManager(this.txManager);
 		}
 		return interceptor;
 	}
-
 }

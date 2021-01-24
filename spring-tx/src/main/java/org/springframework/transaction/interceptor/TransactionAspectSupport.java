@@ -316,14 +316,8 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 
 	/**
-	 * General delegate for around-advice-based subclasses, delegating to several other template
-	 * methods on this class. Able to handle {@link CallbackPreferringPlatformTransactionManager}
-	 * as well as regular {@link PlatformTransactionManager} implementations.
-	 * @param method the Method being invoked
-	 * @param targetClass the target class that we're invoking the method on
-	 * @param invocation the callback to use for proceeding with the target invocation
-	 * @return the return value of the method, if any
-	 * @throws Throwable propagated from the target invocation
+	 * 对事务功能用基于环绕通知思想的实现，内部会委托给该类上的其他几个模板方法来实现
+	 * 能够处理{@link CallbackPreferringPlatformTransactionManager}以及常规的{@link PlatformTransactionManager}实现
 	 */
 	@Nullable
 	protected Object invokeWithinTransaction(Method method, @Nullable Class<?> targetClass,
@@ -358,12 +352,10 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 		// 声明式事务处理
 		if (txAttr == null || !(ptm instanceof CallbackPreferringPlatformTransactionManager)) {
-
 			/**
 			 * 下面这段代码就是spring标准的事务处理代码结构(调用getTransaction and commit/rollback方法）
 			 */
 			TransactionInfo txInfo = createTransactionIfNecessary(ptm, txAttr, joinpointIdentification);
-
 			Object retVal;
 			try {
 				//执行目标方法

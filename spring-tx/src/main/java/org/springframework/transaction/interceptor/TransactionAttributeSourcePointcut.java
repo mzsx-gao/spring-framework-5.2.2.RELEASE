@@ -36,11 +36,13 @@ import org.springframework.util.ObjectUtils;
 @SuppressWarnings("serial")
 abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPointcut implements Serializable {
 
+	//设置classFilter
 	protected TransactionAttributeSourcePointcut() {
 		setClassFilter(new TransactionAttributeSourceClassFilter());
 	}
 
 
+	//只要方法上面能拿到事务属性就返回true，就生成代理
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		TransactionAttributeSource tas = getTransactionAttributeSource();
@@ -84,6 +86,7 @@ abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPoi
 	 */
 	private class TransactionAttributeSourceClassFilter implements ClassFilter {
 
+		//没什么卵用
 		@Override
 		public boolean matches(Class<?> clazz) {
 			if (TransactionalProxy.class.isAssignableFrom(clazz) ||
