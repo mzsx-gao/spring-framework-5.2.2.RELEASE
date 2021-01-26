@@ -36,12 +36,12 @@ public class BookShopServiceImpl implements BookShopService {
             isolation= Isolation.READ_COMMITTED,
             readOnly=false,
             timeout=3)*/
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
-//    @Transactional(propagation= Propagation.REQUIRED)
+//    @Transactional(propagation= Propagation.REQUIRES_NEW)
+    @Transactional(propagation= Propagation.REQUIRED)
     @Override
     public void purchase(String username, String isbn) {
         ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
-        System.out.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
+        System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
         //1. 获取书的单价
         int price = bookShopDao.findBookPriceByIsbn(isbn);
         //2. 更新书的库存
@@ -50,7 +50,7 @@ public class BookShopServiceImpl implements BookShopService {
         bookShopDao.updateUserAccount(username, price);
 
         //添加事务同步回调接口，这样在事务执行的各个阶段，spring会控制回调对应的方法
-        TransactionSynchronizationManager.registerSynchronization(
+        /*TransactionSynchronizationManager.registerSynchronization(
                 new TransactionSynchronizationAdapter() {
                     @Override
                     public void beforeCompletion() {
@@ -69,7 +69,7 @@ public class BookShopServiceImpl implements BookShopService {
                         System.out.println("afterCommit========");
                     }
                 }
-        );
+        );*/
     }
 
     @Override

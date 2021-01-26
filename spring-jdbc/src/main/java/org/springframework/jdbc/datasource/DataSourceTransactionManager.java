@@ -236,7 +236,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	/**
 	 * 这段代码中主要是根据this.dataSource来获取ConnectionHolder，
 	 * 这个ConnectionHolder是放在TransactionSynchronizationManager的ThreadLocal中持有的，其实意思就是将connectionHolder跟当前线程绑定
-	 * 如果是第一次来获取，肯定得到是null，第二次就不为空，因为第一次获取后会绑定到ThreadLoal中，这是在下面的doBegin方法最后面处理的
+	 * 如果是第一次来获取，肯定得到是null，第二次就不为空，因为第一次获取后会绑定到ThreadLocal中，这是在下面的doBegin方法最后面处理的
 	 */
 	@Override
 	protected Object doGetTransaction() {
@@ -270,7 +270,9 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
 				}
-				//为当前Transaction设置ConnectionHolder，并且设置newConnectionHolder为true
+				//为当前Transaction设置ConnectionHolder，并且设置newConnectionHolder为true，下面会根据这个newConnectionHolder
+				//属性来判断是否需要绑定资源:
+				// if (txObject.isNewConnectionHolder()) {TransactionSynchronizationManager.bindResource(...)}
 				txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
 			}
 

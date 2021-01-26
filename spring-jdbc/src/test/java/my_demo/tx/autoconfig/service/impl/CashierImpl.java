@@ -23,7 +23,7 @@ public class CashierImpl implements Cashier {
 	@Override
 	public void checkout(String username, List<String> isbns) {
 		ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
-		System.out.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
+		System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
 		for(String isbn: isbns){
 			bookShopService.purchase(username, isbn);
 		}
