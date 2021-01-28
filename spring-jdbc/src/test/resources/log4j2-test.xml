@@ -9,11 +9,11 @@
 		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.springframework.jdbc" level="warn" />
+		<Logger name="org.springframework.jdbc" level="debug" />
 		<Logger name="org.springframework.jdbc.datasource.embedded" level="warn" />
 		<Root level="debug">
 			<AppenderRef ref="Console" />
-			<AppenderRef ref="File" />
+			<!--<AppenderRef ref="File" />-->
 		</Root>
 	</Loggers>
 </Configuration>

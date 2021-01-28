@@ -417,7 +417,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 			if (logger.isDebugEnabled()) {
 				logger.debug("Releasing JDBC Connection [" + con + "] after transaction");
 			}
-			//释放数据库连接
+			//释放数据库连接,如果是数据库连接池，则是把连接归还给连接池
 			DataSourceUtils.releaseConnection(con, this.dataSource);
 		}
 

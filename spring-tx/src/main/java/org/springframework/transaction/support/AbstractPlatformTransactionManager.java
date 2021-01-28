@@ -431,8 +431,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		}
 
 		/**
-		 * PROPAGATION_REQUIRES_NEW
-		 * 新建事务，如果当前存在事务，把当前事务挂起
+		 * PROPAGATION_REQUIRES_NEW,新建事务，如果当前存在事务，把当前事务挂起
+		 * 挂起事务其实就是把事务对象中的连接对象设置为 null，并且解除 ThreadLocal 的绑定关系
 		 */
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW) {
 			if (debugEnabled) {
@@ -442,6 +442,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			SuspendedResourcesHolder suspendedResources = suspend(transaction);
 			try {
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
+				//这里挂起后，会把挂起的资源放到DefaultTransactionStatus的suspendedResources属性中，等待事务提交后恢复挂起的资源，
+				//AbstractPlatformTransactionManager#commit#processCommit#cleanupAfterCompletion
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
 				doBegin(transaction, definition);
@@ -724,7 +726,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			processRollback(defStatus, false);
 			return;
 		}
-
+		//defStatus.isGlobalRollbackOnly()会判断内层事务有没有异常被打上回滚标记
 		if (!shouldCommitOnGlobalRollbackOnly() && defStatus.isGlobalRollbackOnly()) {
 			if (defStatus.isDebug()) {
 				logger.debug("Global transaction is marked as rollback-only but transactional code requested commit");
@@ -1034,7 +1036,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				logger.debug("Resuming suspended transaction after completion of inner transaction");
 			}
 			Object transaction = (status.hasTransaction() ? status.getTransaction() : null);
-			//恢复之前挂起的事务
+			//恢复之前挂起的事务,其实就是恢复数据源对象与数据库连接的绑定关系
 			resume(transaction, (SuspendedResourcesHolder) status.getSuspendedResources());
 		}
 	}
