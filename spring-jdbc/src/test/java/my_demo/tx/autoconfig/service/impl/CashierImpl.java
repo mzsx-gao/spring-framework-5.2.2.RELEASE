@@ -32,4 +32,14 @@ public class CashierImpl {
             e.printStackTrace();
         }
     }
+
+    @Transactional
+    public void checkout3(String username, String isbn) {
+        try{
+            bookShopService.updateBookStock3(isbn);//更新库存
+            bookShopService.updateUserAccount3(username, isbn);//更新账户余额
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

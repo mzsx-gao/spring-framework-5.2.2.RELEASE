@@ -31,12 +31,20 @@ public class ClientTest {
         ca.checkout("AA", "1001");
     }
 
-    //嵌套事务,try-catch包装外层事务
+    //嵌套事务,try-catch包装外层事务，内层事务是REQUIRED
     @Test
     public void test3(){
         ApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
         CashierImpl ca = aa.getBean(CashierImpl.class);
         ca.checkout2("AA", "1001");
+    }
+
+    //嵌套事务,try-catch包装外层事务，内层事务是NESTED
+    @Test
+    public void test4(){
+        ApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
+        CashierImpl ca = aa.getBean(CashierImpl.class);
+        ca.checkout3("AA", "1001");
     }
 
 }

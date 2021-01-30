@@ -475,7 +475,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				// Usually uses JDBC 3.0 savepoints. Never activates Spring synchronization.
 				DefaultTransactionStatus status =
 						prepareTransactionStatus(definition, transaction, false, false, debugEnabled, null);
-				//创建事务保存点
+				//创建事务保存点,底层调用原生的jdbc Api =》 Connection.savePoint("SAVEPOINT_1")
 				status.createAndHoldSavepoint();
 				return status;
 			}
@@ -761,6 +761,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 						logger.debug("Releasing transaction savepoint");
 					}
 					unexpectedRollback = status.isGlobalRollbackOnly();
+					//擦掉会滚点
 					status.releaseHeldSavepoint();
 				}
 				//如果是独立的事务则直接提交
@@ -849,7 +850,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					if (status.isDebug()) {
 						logger.debug("Rolling back transaction to savepoint");
 					}
-					//如果有保存点，则退回到保存点(嵌套事务会走到这里)
+					//如果有保存点，则退回到保存点(嵌套事务会走到这里)，并设置ConnectionHolder对象的属性 this.rollbackOnly = false
 					status.rollbackToHeldSavepoint();
 				}
 				else if (status.isNewTransaction()) {

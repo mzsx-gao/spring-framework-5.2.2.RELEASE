@@ -45,18 +45,39 @@ public class BookShopServiceImpl {
     }
 
     //测试嵌套事务
-//    @Transactional(propagation= Propagation.REQUIRED)
-    @Transactional(propagation= Propagation.REQUIRES_NEW)
+    @Transactional(propagation= Propagation.REQUIRED)
+//    @Transactional(propagation= Propagation.REQUIRES_NEW)
 //    @Transactional(propagation= Propagation.NESTED)
     public void updateBookStock2(String isbn) {
         ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
         System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
         //更新书的库存
         bookShopDao.updateBookStock(isbn);
+        //添加事务同步回调接口，这样在事务执行的各个阶段，spring会控制回调对应的方法
+        TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronizationAdapter() {
+                    @Override
+                    public void beforeCompletion() {
+                        System.out.println("beforeCompletion========");
+                    }
+                    @Override
+                    public void afterCompletion(int status) {
+                        System.out.println("afterCompletion========");
+                    }
+                    @Override
+                    public void beforeCommit(boolean readOnly) {
+                        System.out.println("beforeCommit========");
+                    }
+                    @Override
+                    public void afterCommit() {
+                        System.out.println("afterCommit========");
+                    }
+                }
+        );
     }
 
     /**
-     * 测试外层事务try-catch问题
+     * 测试外层事务try-catch问题,内层事务是REQUIRED
      */
     @Transactional(propagation= Propagation.REQUIRED)
     public void updateBookStock(String isbn) {
@@ -68,6 +89,30 @@ public class BookShopServiceImpl {
     //更新用户余额
     @Transactional(propagation= Propagation.REQUIRED)
     public void updateUserAccount(String username, String isbn) {
+        ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
+        System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
+        //获取书的单价
+        int price = bookShopDao.findBookPriceByIsbn(isbn);
+        //更新用户余额
+        bookShopDao.updateUserAccount(username, price);
+        if(true){
+            throw new RuntimeException("模拟异常");
+        }
+    }
+
+    /**
+     * 测试外层事务try-catch问题,内层事务是NESTED
+     */
+    @Transactional(propagation= Propagation.NESTED)
+    public void updateBookStock3(String isbn) {
+        ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
+        System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
+        //更新书的库存
+        bookShopDao.updateBookStock(isbn);
+    }
+    //更新用户余额
+    @Transactional(propagation= Propagation.NESTED)
+    public void updateUserAccount3(String username, String isbn) {
         ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
         System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());
         //获取书的单价
