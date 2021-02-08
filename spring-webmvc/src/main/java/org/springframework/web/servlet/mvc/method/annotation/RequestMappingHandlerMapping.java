@@ -55,14 +55,10 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
 /**
- * Creates {@link RequestMappingInfo} instances from type and method-level
- * {@link RequestMapping @RequestMapping} annotations in
- * {@link Controller @Controller} classes.
- *
- * @author Arjen Poutsma
- * @author Rossen Stoyanchev
- * @author Sam Brannen
- * @since 3.1
+ * 该类就是把类级别和方法级别的@RequestMapping注解的value拼装起来(即请求路径)和方法建立映射关系
+ * 1.该类初始化时把映射关系维护在内部类MappingRegistry中(在其父类AbstractHandlerMethodMapping中)；
+ * 	 其中的urlLookup存储路径字符串和RequestMappingInfo的映射，mappingLookup存储RequestMappingInfo到HandlerMethod的映射
+ * 2.在客户端请求时，DispatcherServlet#doDispatch#getHandler方法内部会去MappingRegistry中找到对应的HandlerMethod
  */
 public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMapping
 		implements MatchableHandlerMapping, EmbeddedValueResolverAware {

@@ -135,7 +135,8 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			//自定义beanFactory，设置是否允许覆盖、是否循环引用标识
 			customizeBeanFactory(beanFactory);
-			//根据XML文件的配置，将配置转换成beanDefinition,并且注册到beanFactory中
+			//根据XML文件的配置，将配置转换成beanDefinition,并且注册到beanFactory中-子类实现在XmlWebApplicationContext
+			//如果是纯注解方式(springmvc纯注解开发-模块my-springmvc-anno)，则子类实现在AnnotationConfigWebApplicationContext
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;

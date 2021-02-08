@@ -493,6 +493,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 	/**
 	 * This implementation calls {@link #initStrategies}.
+	 * 初始化DispatcherServlet,由父类FrameworkServlet的ContextRefreshListener#onApplicationEvent调过来
 	 */
 	@Override
 	protected void onRefresh(ApplicationContext context) {
@@ -595,7 +596,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	private void initHandlerMappings(ApplicationContext context) {
 		this.handlerMappings = null;
 
-		// 1.如果希望获取所有的HandlerMapping，包括父容器
+		// 1.如果希望获取所有的HandlerMapping，包括父容器,springboot2.0时代都会走这里
 		if (this.detectAllHandlerMappings) {
 			// 找到spring容器中所有的HandlerMappings，可以查到以下四种:
 			// RequestMappingHandlerMapping, BeanNameUrlHandlerMapping, RouterFunctionMapping, SimpleUrlHandlerMapping

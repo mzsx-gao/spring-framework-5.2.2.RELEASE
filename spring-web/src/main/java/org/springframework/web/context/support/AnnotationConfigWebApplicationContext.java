@@ -212,6 +212,13 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 			scanner.setScopeMetadataResolver(scopeMetadataResolver);
 		}
 
+		/**
+		 * 在springmvc纯注解项目开发中，会走到这里，this.componentClasses设置位置在下面:
+		 * 在tomcat启动时调用链条:
+		 * AbstractDispatcherServletInitializer#onStartup
+		 * AbstractAnnotationConfigDispatcherServletInitializer#createRootApplicationContext#
+		 * context.register(configClasses);
+ 		 */
 		if (!this.componentClasses.isEmpty()) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Registering component classes: [" +

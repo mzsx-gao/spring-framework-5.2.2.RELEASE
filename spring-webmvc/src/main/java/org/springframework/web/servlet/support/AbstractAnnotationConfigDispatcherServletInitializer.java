@@ -56,6 +56,7 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 		//获取根容器的配置类(Spring的配置文件）--父容器
 		Class<?>[] configClasses = getRootConfigClasses();
 		if (!ObjectUtils.isEmpty(configClasses)) {
+			//这个context会在ContextLoaderListener的contextInitialized中调用refresh方法
 			AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 			context.register(configClasses);
 			return context;
@@ -72,7 +73,9 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 	 */
 	@Override
 	protected WebApplicationContext createServletApplicationContext() {
+		//这个context会在DispatcherServlet的init方法中调用refresh方法
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+		//获取子容器的配置类(spring mvc配置文件)
 		Class<?>[] configClasses = getServletConfigClasses();
 		if (!ObjectUtils.isEmpty(configClasses)) {
 			context.register(configClasses);

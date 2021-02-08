@@ -295,6 +295,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 				if (checkCandidate(beanName, candidate)) {
 					BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(candidate, beanName);
 					//如果bean上加了@Scope注解并且配置了scopedProxyMode为"TARGET_CLASS",则生成类的代理
+					//代码示例见:spring-context模块下,my_demo.aop.autoconfig.scopedProxy包下
 					definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 					beanDefinitions.add(definitionHolder);
 					//注册bean信息到工厂中

@@ -101,8 +101,8 @@ import org.springframework.web.util.WebUtils;
  * 名称: RequestMappingHandlerAdapter.java
  * 描述: 这个类堪称是整个spring mvc体系中最他妈复杂，最难搞懂的类，也是区分高水平开发与普通开发的重要指标，扯远了，哈哈哈
  * 该类主要作用:
- * 1.备好处理器所需要的参数（这个最难，参数的不确定性）
- * 2.使用处理器处理请求 （这个比较简单，直接用反射调用handleMethod处理就可以了
+ * 1.准备好处理器所需要的参数（这个最难，参数的不确定性）
+ * 2.使用处理器处理请求 （这个比较简单，直接用反射调用handlerMethod处理就可以了
  * 3.处理返回值，也就是将不同类型的返回值统一处理成ModelAndView类
  */
 public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter

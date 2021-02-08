@@ -60,22 +60,14 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		//实例化listener(类似于在 web.xml 配置了 ContextLoaderListener)
+		//实例化ContextLoaderListener(类似于在 web.xml 配置了 ContextLoaderListener)
 		super.onStartup(servletContext);
 		//注册DispatcherServlet
 		registerDispatcherServlet(servletContext);
 	}
 
 	/**
-	 * Register a {@link DispatcherServlet} against the given servlet context.
-	 * <p>This method will create a {@code DispatcherServlet} with the name returned by
-	 * {@link #getServletName()}, initializing it with the application context returned
-	 * from {@link #createServletApplicationContext()}, and mapping it to the patterns
-	 * returned from {@link #getServletMappings()}.
-	 * <p>Further customization can be achieved by overriding {@link
-	 * #customizeRegistration(ServletRegistration.Dynamic)} or
-	 * {@link #createDispatcherServlet(WebApplicationContext)}.
-	 * @param servletContext the context to register the servlet against
+	 * 注册DispatcherServlet
 	 */
 	protected void registerDispatcherServlet(ServletContext servletContext) {
 		String servletName = getServletName();

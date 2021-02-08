@@ -263,8 +263,6 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * 寻找handler类中的handler方法，做类型和路径映射转换
-	 * @param handler the bean name of a handler or a handler instance
-	 *
 	 * 此处getMappingForMethod 是扩展点，可以继承RequestMappingHandlerMapping重写getMappingForMethod实现自己的映射规则。
 	 *
 	 * public class CustomerRequestMappingHandlerMapping extends RequestMappingHandlerMapping {
@@ -338,11 +336,6 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * 注册handler方法和它的RequestMappingInfo,即方法的映射关系，这里方法的映射关系管理都在MappingRegistry类中
-	 * @param handler the bean name of the handler or the handler instance
-	 * @param method the method to register
-	 * @param mapping the mapping conditions associated with the handler method
-	 * @throws IllegalStateException if another method was already registered
-	 * under the same mapping
 	 */
 	protected void registerHandlerMethod(Object handler, Method method, T mapping) {
 		this.mappingRegistry.register(mapping, handler, method);
@@ -640,6 +633,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 				List<String> directUrls = getDirectUrls(mapping);
 				for (String url : directUrls) {
+					//这里存储的是直接路径，即路径中没有变量或者通配符
 					this.urlLookup.add(url, mapping);
 				}
 
