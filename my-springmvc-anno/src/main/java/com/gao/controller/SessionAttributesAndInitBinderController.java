@@ -4,10 +4,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -42,12 +39,10 @@ public class SessionAttributesAndInitBinderController {
         binder.registerCustomEditor(Date.class,dateEditor);
     }
 
-    @RequestMapping(value="/testInitBinderparam",method= RequestMethod.GET)
-    public String getFormatData(Date date, ModelMap map) throws ParseException{
+    @GetMapping(value="/testInitBinderparam")
+    public String getFormatData(Date date, ModelMap map){
         map.put("user", "gaosd");
         map.put("date",date);
         return "success";
     }
-
-
 }

@@ -599,7 +599,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// 1.如果希望获取所有的HandlerMapping，包括父容器,springboot2.0时代都会走这里
 		if (this.detectAllHandlerMappings) {
 			// 找到spring容器中所有的HandlerMappings，可以查到以下四种:
-			// RequestMappingHandlerMapping, BeanNameUrlHandlerMapping, RouterFunctionMapping, SimpleUrlHandlerMapping
+			// RequestMappingHandlerMapping, BeanNameUrlHandlerMapping, SimpleUrlHandlerMapping, RouterFunctionMapping
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {

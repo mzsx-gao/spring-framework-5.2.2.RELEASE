@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 @Controller
@@ -15,7 +16,7 @@ public class DemoController {
 
 	@ResponseBody
 	@RequestMapping("/requestParam")
-	public String requestParam(@RequestParam String orderId){
+	public String requestParam(@RequestParam String orderId, HttpServletRequest request){
 		return "orderId===="+orderId;
 	}
 

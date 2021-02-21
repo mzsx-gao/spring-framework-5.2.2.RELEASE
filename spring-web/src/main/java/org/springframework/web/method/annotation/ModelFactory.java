@@ -97,6 +97,7 @@ public final class ModelFactory {
 	 * @param container a container with the model to be initialized
 	 * @param handlerMethod the method for which the model is initialized
 	 * @throws Exception may arise from {@code @ModelAttribute} methods
+	 * 执行@ModelAttribute注解的方法，通常该方法会往model中塞一些值然后放到mavContainer的model中
 	 */
 	public void initModel(NativeWebRequest request, ModelAndViewContainer container, HandlerMethod handlerMethod)
 			throws Exception {
