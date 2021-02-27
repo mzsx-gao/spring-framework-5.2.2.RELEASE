@@ -613,6 +613,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 
 		RequestMappingHandlerAdapter adapter = createRequestMappingHandlerAdapter();
 		adapter.setContentNegotiationManager(contentNegotiationManager);
+		//设置adapter的消息转换器
 		adapter.setMessageConverters(getMessageConverters());
 		adapter.setWebBindingInitializer(getConfigurableWebBindingInitializer(conversionService, validator));
 		adapter.setCustomArgumentResolvers(getArgumentResolvers());
@@ -811,6 +812,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 			if (this.messageConverters.isEmpty()) {
 				addDefaultHttpMessageConverters(this.messageConverters);
 			}
+			//扩展点，MyAppConfig类重写extendMessageConverters方法做定制化处理
 			extendMessageConverters(this.messageConverters);
 		}
 		return this.messageConverters;
@@ -839,6 +841,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	}
 
 	/**
+	 * 添加默认的http消息转换器
 	 * Adds a set of default HttpMessageConverter instances to the given list.
 	 * Subclasses can call this method from {@link #configureMessageConverters}.
 	 * @param messageConverters the list to add the default message converters to
@@ -871,7 +874,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 		else if (jaxb2Present) {
 			messageConverters.add(new Jaxb2RootElementHttpMessageConverter());
 		}
-
+		//添加json转换器jackson2Present在该类的静态代码块中设置（只要将jackson jar包添加到项目中即可）
 		if (jackson2Present) {
 			Jackson2ObjectMapperBuilder builder = Jackson2ObjectMapperBuilder.json();
 			if (this.applicationContext != null) {

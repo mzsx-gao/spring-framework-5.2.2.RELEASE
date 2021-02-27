@@ -150,16 +150,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	}
 
 	/**
-	 * Create the method argument value of the expected parameter type by reading
-	 * from the given HttpInputMessage.
-	 * @param <T> the expected type of the argument value to be created
-	 * @param inputMessage the HTTP input message representing the current request
-	 * @param parameter the method parameter descriptor
-	 * @param targetType the target type, not necessarily the same as the method
-	 * parameter type, e.g. for {@code HttpEntity<String>}.
-	 * @return the created method argument value
-	 * @throws IOException if the reading from the request fails
-	 * @throws HttpMediaTypeNotSupportedException if no suitable message converter is found
+	 * 从http请求中读取请求参数，json字符串转化为对象
 	 */
 	@SuppressWarnings("unchecked")
 	@Nullable
@@ -169,6 +160,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 		MediaType contentType;
 		boolean noContentType = false;
 		try {
+			//读取请求头中的“Content-Type”
 			contentType = inputMessage.getHeaders().getContentType();
 		}
 		catch (InvalidMediaTypeException ex) {
@@ -197,11 +189,13 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 				Class<HttpMessageConverter<?>> converterType = (Class<HttpMessageConverter<?>>) converter.getClass();
 				GenericHttpMessageConverter<?> genericConverter =
 						(converter instanceof GenericHttpMessageConverter ? (GenericHttpMessageConverter<?>) converter : null);
+				//这里的genericConverter通常是MappingJackson2HttpMessageConverter，这里会调用其canRead()方法判断是否可以解析
 				if (genericConverter != null ? genericConverter.canRead(targetType, contextClass, contentType) :
 						(targetClass != null && converter.canRead(targetClass, contentType))) {
 					if (message.hasBody()) {
 						HttpInputMessage msgToUse =
 								getAdvice().beforeBodyRead(message, parameter, targetType, converterType);
+						//内部调用this.objectMapper.readValue方法读取，请json字符串转换为对象
 						body = (genericConverter != null ? genericConverter.read(targetType, contextClass, msgToUse) :
 								((HttpMessageConverter<T>) converter).read(targetClass, msgToUse));
 						body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);

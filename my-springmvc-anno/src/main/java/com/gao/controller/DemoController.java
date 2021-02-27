@@ -22,8 +22,8 @@ public class DemoController {
 
 	@ResponseBody
 	@RequestMapping("/requestBody")
-	public String requestBody(@RequestBody RequestEntity requestEntity){
-		return requestEntity.toString();
+	public RequestEntity requestBody(@RequestBody RequestEntity requestEntity){
+		return requestEntity;
 	}
 	
 	//相当于会找 /WEB-INF/pages/ok.jsp

@@ -60,12 +60,6 @@ public abstract class AbstractDetectingUrlHandlerMapping extends AbstractUrlHand
 	}
 
 	/**
-	 * Register all handlers found in the current ApplicationContext.
-	 * <p>The actual URL determination for a handler is up to the concrete
-	 * {@link #determineUrlsForHandler(String)} implementation. A bean for
-	 * which no such URLs could be determined is simply not considered a handler.
-	 * @throws org.springframework.beans.BeansException if the handler couldn't be registered
-	 * @see #determineUrlsForHandler(String)
 	 * 检测出所有beanName是一个路径的Controller,例如:com.gao.controller.beanName.BeanNameController,
 	 * 维护一个url->Controller实例的映射关系到this.handlerMap中
 	 */
