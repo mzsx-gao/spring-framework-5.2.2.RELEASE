@@ -218,14 +218,22 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport
 	}
 
 
+	/**
+	 * ContentNegotiatingViewResolver 右手拿着 request 想要的格式，左手握着可能的 View 对象，交叉比对，若有符合就回传;
+	 * 举例来说，request 想要 PDF，就去 View 里找有没有提供 PDF 格式的 View 对象，若有则回传，若没有呢？
+	 * 再看 request 里有没有第二志愿、第三志愿，如果都没有，那就爆了
+	 */
 	@Override
 	@Nullable
 	public View resolveViewName(String viewName, Locale locale) throws Exception {
 		RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
 		Assert.state(attrs instanceof ServletRequestAttributes, "No current ServletRequestAttributes");
+		//浏览器可接收的类型(MediaType)
 		List<MediaType> requestedMediaTypes = getMediaTypes(((ServletRequestAttributes) attrs).getRequest());
 		if (requestedMediaTypes != null) {
+			//获取候选的view
 			List<View> candidateViews = getCandidateViews(viewName, locale, requestedMediaTypes);
+			//获取最合适的view
 			View bestView = getBestView(candidateViews, requestedMediaTypes, attrs);
 			if (bestView != null) {
 				return bestView;
@@ -257,6 +265,7 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport
 		Assert.state(this.contentNegotiationManager != null, "No ContentNegotiationManager set");
 		try {
 			ServletWebRequest webRequest = new ServletWebRequest(request);
+			//浏览器可接收的格式
 			List<MediaType> acceptableMediaTypes = this.contentNegotiationManager.resolveMediaTypes(webRequest);
 			List<MediaType> producibleMediaTypes = getProducibleMediaTypes(request);
 			Set<MediaType> compatibleMediaTypes = new LinkedHashSet<>();
@@ -281,8 +290,7 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport
 
 	@SuppressWarnings("unchecked")
 	private List<MediaType> getProducibleMediaTypes(HttpServletRequest request) {
-		Set<MediaType> mediaTypes = (Set<MediaType>)
-				request.getAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
+		Set<MediaType> mediaTypes = (Set<MediaType>) request.getAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
 		if (!CollectionUtils.isEmpty(mediaTypes)) {
 			return new ArrayList<>(mediaTypes);
 		}
@@ -343,6 +351,7 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport
 			for (View candidateView : candidateViews) {
 				if (StringUtils.hasText(candidateView.getContentType())) {
 					MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
+					//mediaType是否兼容candidateContentType
 					if (mediaType.isCompatibleWith(candidateContentType)) {
 						if (logger.isDebugEnabled()) {
 							logger.debug("Selected '" + mediaType + "' given " + requestedMediaTypes);

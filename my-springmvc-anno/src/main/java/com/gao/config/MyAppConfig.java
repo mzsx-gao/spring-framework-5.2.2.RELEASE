@@ -11,6 +11,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class MyAppConfig implements WebMvcConfigurer {
 	//定制视图解析器
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
+		registry.enableContentNegotiation(new MappingJackson2JsonView());
 		//比如我们想用JSP解析器,默认所有的页面都从/WEB-INF/AAA.jsp
 		registry.jsp("/WEB-INF/pages/",".jsp");
 	}

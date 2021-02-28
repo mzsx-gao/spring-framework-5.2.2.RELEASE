@@ -1028,22 +1028,14 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	}
 
 	/**
-	 * Register a {@link ViewResolverComposite} that contains a chain of view resolvers
-	 * to use for view resolution.
-	 * By default this resolver is ordered at 0 unless content negotiation view
-	 * resolution is used in which case the order is raised to
-	 * {@link org.springframework.core.Ordered#HIGHEST_PRECEDENCE
-	 * Ordered.HIGHEST_PRECEDENCE}.
-	 * <p>If no other resolvers are configured,
-	 * {@link ViewResolverComposite#resolveViewName(String, Locale)} returns null in order
-	 * to allow other potential {@link ViewResolver} beans to resolve views.
-	 * @since 4.1
+	 * 视图解析器
 	 */
 	@Bean
 	public ViewResolver mvcViewResolver(
 			@Qualifier("mvcContentNegotiationManager") ContentNegotiationManager contentNegotiationManager) {
 		ViewResolverRegistry registry =
 				new ViewResolverRegistry(contentNegotiationManager, this.applicationContext);
+		//钩子方法
 		configureViewResolvers(registry);
 
 		if (registry.getViewResolvers().isEmpty() && this.applicationContext != null) {

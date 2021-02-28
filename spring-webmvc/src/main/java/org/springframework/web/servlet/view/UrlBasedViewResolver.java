@@ -75,7 +75,6 @@ import org.springframework.web.servlet.View;
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Sam Brannen
- * @since 13.12.2003
  * @see #setViewClass
  * @see #setPrefix
  * @see #setSuffix
@@ -84,6 +83,7 @@ import org.springframework.web.servlet.View;
  * @see AbstractUrlBasedView
  * @see InternalResourceView
  * @see org.springframework.web.servlet.view.freemarker.FreeMarkerView
+ * @since 13.12.2003
  */
 public class UrlBasedViewResolver extends AbstractCachingViewResolver implements Ordered {
 
@@ -124,7 +124,9 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	@Nullable
 	private String requestContextAttribute;
 
-	/** Map of static attributes, keyed by attribute name (String). */
+	/**
+	 * Map of static attributes, keyed by attribute name (String).
+	 */
 	private final Map<String, Object> staticAttributes = new HashMap<>();
 
 	@Nullable
@@ -144,8 +146,9 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 
 	/**
 	 * Set the view class that should be used to create views.
+	 *
 	 * @param viewClass class that is assignable to the required view class
-	 * (by default, AbstractUrlBasedView)
+	 *                  (by default, AbstractUrlBasedView)
 	 * @see AbstractUrlBasedView
 	 */
 	public void setViewClass(@Nullable Class<?> viewClass) {
@@ -167,6 +170,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	/**
 	 * Return the required type of view for this resolver.
 	 * This implementation returns AbstractUrlBasedView.
+	 *
 	 * @see AbstractUrlBasedView
 	 */
 	protected Class<?> requiredViewClass() {
@@ -227,6 +231,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * path will be prepended to the URL.
 	 * <p><b>Redirect URLs can be specified via the "redirect:" prefix.</b>
 	 * E.g.: "redirect:myAction"
+	 *
 	 * @see RedirectView#setContextRelative
 	 * @see #REDIRECT_URL_PREFIX
 	 */
@@ -254,6 +259,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * after a POST request; turn this flag off in such a scenario.
 	 * <p><b>Redirect URLs can be specified via the "redirect:" prefix.</b>
 	 * E.g.: "redirect:myAction"
+	 *
 	 * @see RedirectView#setHttp10Compatible
 	 * @see #REDIRECT_URL_PREFIX
 	 */
@@ -275,6 +281,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * via {@link HttpServletResponse#encodeRedirectURL} for URLs that have a
 	 * host and that host is not listed as a known host.
 	 * <p>If not set (the default) all URLs are encoded through the response.
+	 *
 	 * @param redirectHosts one or more application hosts
 	 * @since 4.3
 	 */
@@ -284,6 +291,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 
 	/**
 	 * Return the configured application hosts for redirect purposes.
+	 *
 	 * @since 4.3
 	 */
 	@Nullable
@@ -293,6 +301,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 
 	/**
 	 * Set the name of the RequestContext attribute for all views.
+	 *
 	 * @param requestContextAttribute name of the RequestContext attribute
 	 * @see AbstractView#setRequestContextAttribute
 	 */
@@ -316,6 +325,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * with the same name is included in the model.
 	 * <p>Can be populated with a String "value" (parsed via PropertiesEditor)
 	 * or a "props" element in XML bean definitions.
+	 *
 	 * @see org.springframework.beans.propertyeditors.PropertiesEditor
 	 * @see AbstractView#setAttributes
 	 */
@@ -327,6 +337,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * Set static attributes from a Map, for all views returned by this resolver.
 	 * This allows to set any kind of attribute values, for example bean references.
 	 * <p>Can be populated with a "map" or "props" element in XML bean definitions.
+	 *
 	 * @param attributes a Map with name Strings as keys and attribute objects as values
 	 * @see AbstractView#setAttributesMap
 	 */
@@ -351,12 +362,13 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * Specify whether views resolved by this resolver should add path variables to the model or not.
 	 * <p>>The default setting is to let each View decide (see {@link AbstractView#setExposePathVariables}.
 	 * However, you can use this property to override that.
-	 * @param exposePathVariables
-	 * <ul>
-	 * <li>{@code true} - all Views resolved by this resolver will expose path variables
-	 * <li>{@code false} - no Views resolved by this resolver will expose path variables
-	 * <li>{@code null} - individual Views can decide for themselves (this is used by the default)
-	 * </ul>
+	 *
+	 * @param exposePathVariables <ul>
+	 *                            <li>{@code true} - all Views resolved by this resolver will expose path variables
+	 *                            <li>{@code false} - no Views resolved by this resolver will expose path variables
+	 *                            <li>{@code null} - individual Views can decide for themselves (this is used by the
+	 *                            default)
+	 *                            </ul>
 	 * @see AbstractView#setExposePathVariables
 	 */
 	public void setExposePathVariables(@Nullable Boolean exposePathVariables) {
@@ -378,6 +390,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * expressions in a JSP 2.0 page, as well as in JSTL's {@code c:out}
 	 * value expressions.
 	 * <p>Default is "false".
+	 *
 	 * @see AbstractView#setExposeContextBeansAsAttributes
 	 */
 	public void setExposeContextBeansAsAttributes(boolean exposeContextBeansAsAttributes) {
@@ -393,6 +406,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * Specify the names of beans in the context which are supposed to be exposed.
 	 * If this is non-null, only the specified beans are eligible for exposure as
 	 * attributes.
+	 *
 	 * @see AbstractView#setExposedContextBeanNames
 	 */
 	public void setExposedContextBeanNames(@Nullable String... exposedContextBeanNames) {
@@ -409,6 +423,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 * {@link org.springframework.web.servlet.ViewResolver}. View names can contain
 	 * simple wildcards such that 'my*', '*Report' and '*Repo*' will all match the
 	 * view name 'myReport'.
+	 *
 	 * @see #canHandle
 	 */
 	public void setViewNames(@Nullable String... viewNames) {
@@ -427,6 +442,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	/**
 	 * Specify the order value for this ViewResolver bean.
 	 * <p>The default value is {@code Ordered.LOWEST_PRECEDENCE}, meaning non-ordered.
+	 *
 	 * @see org.springframework.core.Ordered#getOrder()
 	 */
 	public void setOrder(int order) {
@@ -461,8 +477,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	 */
 	@Override
 	protected View createView(String viewName, Locale locale) throws Exception {
-		// If this resolver is not supposed to handle the given view,
-		// return null to pass on to the next resolver in the chain.
+		//如果此解析器不应该处理给定的视图，则返回null以传递到链中的下一个解析器。
 		if (!canHandle(viewName, locale)) {
 			return null;
 		}
@@ -486,19 +501,12 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 			return applyLifecycleMethods(FORWARD_URL_PREFIX, view);
 		}
 
-		// Else fall back to superclass implementation: calling loadView.
+		// 没有前缀的情况，最终调到loadView方法
 		return super.createView(viewName, locale);
 	}
 
 	/**
-	 * Indicates whether or not this {@link org.springframework.web.servlet.ViewResolver} can
-	 * handle the supplied view name. If not, {@link #createView(String, java.util.Locale)} will
-	 * return {@code null}. The default implementation checks against the configured
-	 * {@link #setViewNames view names}.
-	 * @param viewName the name of the view to retrieve
-	 * @param locale the Locale to retrieve the view for
-	 * @return whether this resolver applies to the specified view
-	 * @see org.springframework.util.PatternMatchUtils#simpleMatch(String, String)
+	 * 判断此解析器是否可以处理该视图
 	 */
 	protected boolean canHandle(String viewName, Locale locale) {
 		String[] viewNames = getViewNames();
@@ -506,16 +514,8 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	}
 
 	/**
-	 * Delegates to {@code buildView} for creating a new instance of the
-	 * specified view class. Applies the following Spring lifecycle methods
-	 * (as supported by the generic Spring bean factory):
-	 * <ul>
-	 * <li>ApplicationContextAware's {@code setApplicationContext}
-	 * <li>InitializingBean's {@code afterPropertiesSet}
-	 * </ul>
-	 * @param viewName the name of the view to retrieve
-	 * @return the View instance
-	 * @throws Exception if the view couldn't be resolved
+	 * 创建视图
+	 *
 	 * @see #buildView(String)
 	 * @see org.springframework.context.ApplicationContextAware#setApplicationContext
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
@@ -528,18 +528,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	}
 
 	/**
-	 * Creates a new View instance of the specified view class and configures it.
-	 * Does <i>not</i> perform any lookup for pre-defined View instances.
-	 * <p>Spring lifecycle methods as defined by the bean container do not have to
-	 * be called here; those will be applied by the {@code loadView} method
-	 * after this method returns.
-	 * <p>Subclasses will typically call {@code super.buildView(viewName)}
-	 * first, before setting further properties themselves. {@code loadView}
-	 * will then apply Spring lifecycle methods at the end of this process.
-	 * @param viewName the name of the view to build
-	 * @return the View instance
-	 * @throws Exception if the view couldn't be resolved
-	 * @see #loadView(String, java.util.Locale)
+	 * 构建视图对象，根据前后缀组装视图url路径
 	 */
 	protected AbstractUrlBasedView buildView(String viewName) throws Exception {
 		Class<?> viewClass = getViewClass();
@@ -578,15 +567,16 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	/**
 	 * Apply the containing {@link ApplicationContext}'s lifecycle methods
 	 * to the given {@link View} instance, if such a context is available.
+	 *
 	 * @param viewName the name of the view
-	 * @param view the freshly created View instance, pre-configured with
-	 * {@link AbstractUrlBasedView}'s properties
+	 * @param view     the freshly created View instance, pre-configured with
+	 *                 {@link AbstractUrlBasedView}'s properties
 	 * @return the {@link View} instance to use (either the original one
 	 * or a decorated variant)
-	 * @since 5.0
 	 * @see #getApplicationContext()
 	 * @see ApplicationContext#getAutowireCapableBeanFactory()
 	 * @see org.springframework.beans.factory.config.AutowireCapableBeanFactory#initializeBean
+	 * @since 5.0
 	 */
 	protected View applyLifecycleMethods(String viewName, AbstractUrlBasedView view) {
 		ApplicationContext context = getApplicationContext();
