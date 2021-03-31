@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @SessionAttributes(value={"user"}, types={String.class})
 @Controller
-public class SessionAttributesAndInitBinderController {
+public class SessionAttributesController {
 
     /**
      * 测试@SessionAttributes的用法
