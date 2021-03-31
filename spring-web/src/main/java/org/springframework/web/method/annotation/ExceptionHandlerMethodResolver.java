@@ -49,15 +49,14 @@ public class ExceptionHandlerMethodResolver {
 	public static final MethodFilter EXCEPTION_HANDLER_METHODS = method ->
 			AnnotatedElementUtils.hasAnnotation(method, ExceptionHandler.class);
 
-
+	//异常类和处理该异常类的方法的映射关系
 	private final Map<Class<? extends Throwable>, Method> mappedMethods = new HashMap<>(16);
 
 	private final Map<Class<? extends Throwable>, Method> exceptionLookupCache = new ConcurrentReferenceHashMap<>(16);
 
 
 	/**
-	 * A constructor that finds {@link ExceptionHandler} methods in the given type.
-	 * @param handlerType the type to introspect
+	 * 该构造方法会找出给定handlerType中带@ExceptionHandler注解的方法
 	 */
 	public ExceptionHandlerMethodResolver(Class<?> handlerType) {
 		for (Method method : MethodIntrospector.selectMethods(handlerType, EXCEPTION_HANDLER_METHODS)) {

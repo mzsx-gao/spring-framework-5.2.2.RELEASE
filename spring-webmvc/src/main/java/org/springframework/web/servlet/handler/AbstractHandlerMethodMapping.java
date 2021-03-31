@@ -486,6 +486,12 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		return null;
 	}
 
+    /**
+     * 判断是否有跨域配置，
+     * 1.如果Controller中的方法上加了@CrossOrigin注解则this.mappingRegistry.getCorsConfiguration((HandlerMethod) handler)不为空
+     *   因为启动时MappingRegistry#register会注册跨域配置的映射关系
+	 * 2.如果是AppConfig类中重写了addCorsMappings方法这种方式，则这里的super.hasCorsConfigurationSource(handler)返回true
+     */
 	@Override
 	protected boolean hasCorsConfigurationSource(Object handler) {
 		return super.hasCorsConfigurationSource(handler) ||
@@ -643,8 +649,10 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 					addMappingName(name, handlerMethod);
 				}
 
+				//判断类上或者方法上是否有@CrossOrigin注解，把注解里面的属性封装成CorsConfiguration，这个是做跨域访问控制的
 				CorsConfiguration corsConfig = initCorsConfiguration(handler, method, mapping);
 				if (corsConfig != null) {
+					//建立handlerMethod与corsConfig的映射关系
 					this.corsLookup.put(handlerMethod, corsConfig);
 				}
 
