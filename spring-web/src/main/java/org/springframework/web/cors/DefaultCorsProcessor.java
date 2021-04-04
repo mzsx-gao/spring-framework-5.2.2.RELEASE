@@ -55,6 +55,7 @@ public class DefaultCorsProcessor implements CorsProcessor {
 	private static final Log logger = LogFactory.getLog(DefaultCorsProcessor.class);
 
 
+	//处理跨域请求
 	@Override
 	@SuppressWarnings("resource")
 	public boolean processRequest(@Nullable CorsConfiguration config, HttpServletRequest request,

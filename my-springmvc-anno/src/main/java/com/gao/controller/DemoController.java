@@ -3,13 +3,13 @@ package com.gao.controller;
 import com.gao.entity.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class DemoController {
@@ -30,6 +30,23 @@ public class DemoController {
 	@RequestMapping("/ok")
 	public String ok(){
 		return "ok";
+	}
+
+	@RequestMapping("/exception")
+	public String exception() throws Exception{
+		if(1==1){
+			throw new Exception("测试异常");
+		}
+		return "ok";
+	}
+
+	@ExceptionHandler(Exception.class)
+	@ResponseBody
+	public Map<String, Object> error(Exception e, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("error", e.getMessage());
+		map.put("result", "error");
+		return map;
 	}
 
 	//重定向测试

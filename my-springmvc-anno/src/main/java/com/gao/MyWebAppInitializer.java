@@ -2,7 +2,11 @@ package com.gao;
 
 import com.gao.config.MyAppConfig;
 import com.gao.config.MyRootConfig;
+import com.gao.filter.CorsFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 
 //web容器启动的时候创建对象；调用方法来初始化容器以及前端控制器
@@ -34,5 +38,14 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+
+//    @Override
+//    protected Filter[] getServletFilters() {
+//        CorsFilter corsFilter = new CorsFilter();
+//        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+//        characterEncodingFilter.setEncoding("UTF-8");
+//        characterEncodingFilter.setForceEncoding(true);
+//        return new Filter[]{corsFilter, characterEncodingFilter};
+//    }
 
 }

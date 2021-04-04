@@ -285,6 +285,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 		//设置拦截器
 		mapping.setInterceptors(getInterceptors(conversionService, resourceUrlProvider));
 		mapping.setContentNegotiationManager(contentNegotiationManager);
+		//跨域配置
 		mapping.setCorsConfigurations(getCorsConfigurations());
 
 		PathMatchConfigurer configurer = getPathMatchConfigurer();

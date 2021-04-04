@@ -65,4 +65,14 @@ public class MyAppConfig implements WebMvcConfigurer {
 			}
 		}
 	}
+
+	//跨域配置
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/crossOrigin/**")
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                .maxAge(3600);
+    }
 }

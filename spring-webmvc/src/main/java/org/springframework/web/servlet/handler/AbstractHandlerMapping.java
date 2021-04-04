@@ -410,11 +410,14 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 		else if (logger.isDebugEnabled() && !request.getDispatcherType().equals(DispatcherType.ASYNC)) {
 			logger.debug("Mapped to " + executionChain.getHandler());
 		}
-		//处理跨域请求，（跨域请求时request会带上"Origin"头）
+		//处理跨域请求,(跨域请求时request会带上"Origin"头）
 		if (hasCorsConfigurationSource(handler)) {
-			CorsConfiguration config = (this.corsConfigurationSource != null ? this.corsConfigurationSource.getCorsConfiguration(request) : null);
+			CorsConfiguration config = (this.corsConfigurationSource != null ?
+					this.corsConfigurationSource.getCorsConfiguration(request) : null);
+			//获取跨域配置
 			CorsConfiguration handlerConfig = getCorsConfiguration(handler, request);
 			config = (config != null ? config.combine(handlerConfig) : handlerConfig);
+			//这里设置了跨域的拦截器CorsInterceptor
 			executionChain = getCorsHandlerExecutionChain(request, executionChain, config);
 		}
 
@@ -556,6 +559,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	}
 
 
+	//跨域问题处理拦截器
 	private class CorsInterceptor extends HandlerInterceptorAdapter implements CorsConfigurationSource {
 
 		@Nullable
@@ -568,7 +572,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 		@Override
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 				throws Exception {
-
+			//解决跨域问题本质上就是在response的headers里设置几个响应头而已
 			return corsProcessor.processRequest(this.config, request, response);
 		}
 
