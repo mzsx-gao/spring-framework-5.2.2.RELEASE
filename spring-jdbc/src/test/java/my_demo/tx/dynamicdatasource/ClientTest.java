@@ -1,10 +1,10 @@
-package my_demo.tx.annotation.dynamicdatasource;
+package my_demo.tx.dynamicdatasource;
 
 
-import my_demo.tx.annotation.dynamicdatasource.config.MyRootConfig;
+import my_demo.tx.dynamicdatasource.config.MyRootConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class DynamicDataSourceTest {
+public class ClientTest {
 
 	public static void main(String[] args) {
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(MyRootConfig.class);

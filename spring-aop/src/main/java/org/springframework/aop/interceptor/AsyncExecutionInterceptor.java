@@ -96,6 +96,7 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 	 * @param invocation the method to intercept and make asynchronous
 	 * @return {@link Future} if the original method returns {@code Future}; {@code null}
 	 * otherwise.
+	 * 异步注解@Async功能实现
 	 */
 	@Override
 	@Nullable
@@ -112,6 +113,7 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 
 		Callable<Object> task = () -> {
 			try {
+				//调用被代理方法
 				Object result = invocation.proceed();
 				if (result instanceof Future) {
 					return ((Future<?>) result).get();

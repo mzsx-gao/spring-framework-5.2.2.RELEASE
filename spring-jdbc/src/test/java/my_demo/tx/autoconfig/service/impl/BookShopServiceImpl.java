@@ -11,13 +11,17 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import javax.sql.DataSource;
 
-@Service("bookShopService")
+@Service("bookShopServiceImpl")
 public class BookShopServiceImpl {
 
     @Autowired
     private BookShopDao bookShopDao;
     @Autowired
     private DataSource dataSource;
+
+    //循环依赖
+    @Autowired
+    private BookShopServiceImpl bookShopService;
 
     /**
         添加事务注解

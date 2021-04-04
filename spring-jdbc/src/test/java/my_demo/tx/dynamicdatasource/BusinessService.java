@@ -1,6 +1,6 @@
-package my_demo.tx.annotation.dynamicdatasource;
+package my_demo.tx.dynamicdatasource;
 
-import my_demo.tx.annotation.dynamicdatasource.config.TargetDataSource;
+import my_demo.tx.dynamicdatasource.config.TargetDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

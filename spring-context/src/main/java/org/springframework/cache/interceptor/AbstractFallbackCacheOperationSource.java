@@ -81,6 +81,7 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
 	 * @param targetClass the target class for this invocation (may be {@code null})
 	 * @return {@link CacheOperation} for this method, or {@code null} if the method
 	 * is not cacheable
+	 * 拿到方法上的缓存注解（Cacheable，CacheEvict，CachePut，Caching），封装成CacheOperation对象
 	 */
 	@Override
 	@Nullable
