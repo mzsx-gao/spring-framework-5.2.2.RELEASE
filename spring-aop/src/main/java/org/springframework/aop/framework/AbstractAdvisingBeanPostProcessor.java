@@ -61,6 +61,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 		return bean;
 	}
 
+	//异步切面功能实现
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) {
 		if (this.advisor == null || bean instanceof AopInfrastructureBean) {
@@ -87,6 +88,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 			if (!proxyFactory.isProxyTargetClass()) {
 				evaluateProxyInterfaces(bean.getClass(), proxyFactory);
 			}
+			//添加异步功能切面
 			proxyFactory.addAdvisor(this.advisor);
 			customizeProxyFactory(proxyFactory);
 			return proxyFactory.getProxy(getProxyClassLoader());

@@ -134,6 +134,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 	@Override
 	@Nullable
 	protected Object lookup(Object key) {
+		System.out.println("调用ConcurrentMapCache#get方法,key:"+key);
 		return this.store.get(key);
 	}
 
@@ -153,6 +154,7 @@ public class ConcurrentMapCache extends AbstractValueAdaptingCache {
 
 	@Override
 	public void put(Object key, @Nullable Object value) {
+		System.out.println("调用ConcurrentMapCache#put方法,key:"+key+",value:"+value);
 		this.store.put(key, toStoreValue(value));
 	}
 

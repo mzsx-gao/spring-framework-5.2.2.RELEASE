@@ -34,6 +34,7 @@ public class BeanFactoryCacheOperationSourceAdvisor extends AbstractBeanFactoryP
 	@Nullable
 	private CacheOperationSource cacheOperationSource;
 
+	//切点
 	private final CacheOperationSourcePointcut pointcut = new CacheOperationSourcePointcut() {
 		@Override
 		@Nullable

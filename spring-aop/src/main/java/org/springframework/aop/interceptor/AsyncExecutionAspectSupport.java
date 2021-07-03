@@ -74,6 +74,7 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 
 	private final Map<Method, AsyncTaskExecutor> executors = new ConcurrentHashMap<>(16);
 
+	//默认线程池
 	private SingletonSupplier<Executor> defaultExecutor;
 
 	private SingletonSupplier<AsyncUncaughtExceptionHandler> exceptionHandler;
@@ -287,6 +288,7 @@ public abstract class AsyncExecutionAspectSupport implements BeanFactoryAware {
 			return executor.submit(task);
 		}
 		else {
+			//执行线程任务
 			executor.submit(task);
 			return null;
 		}

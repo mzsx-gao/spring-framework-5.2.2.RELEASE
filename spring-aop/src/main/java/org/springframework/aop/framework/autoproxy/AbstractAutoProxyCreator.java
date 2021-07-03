@@ -236,6 +236,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	@Override
 	public Object getEarlyBeanReference(Object bean, String beanName) {
 		Object cacheKey = getCacheKey(bean.getClass(), beanName);
+		//缓存原始对象
 		this.earlyProxyReferences.put(cacheKey, bean);
 		return wrapIfNecessary(bean, beanName, cacheKey);
 	}
@@ -297,6 +298,16 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	public Object postProcessAfterInitialization(@Nullable Object bean, String beanName) {
 		if (bean != null) {
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
+			/**
+			 * 注意这个判断非常重要，这个是处理循环依赖的
+			 * 比如，A依赖B，B依赖A,但是A上面加有@Transactional注解
+			 * A实例化时会调用addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+			 * 当A实例化过程执行populateBean时回去getBean(B),而B实例化时发现依赖A,而由于A已经放到三级缓存中了，所以B会去三级缓存中拿A，
+			 * 这样就会调用getEarlyBeanReference(beanName, mbd, bean)方法，该方法里会将原始对象放到this.earlyProxyReferences中
+			 * 并且生成A的代理；
+			 * 然后A最终调用initializeBean方法时会调到这里，这里发现earlyProxyReferences中已经有值了，并且和bean相等，则不会再生成代理
+			 * 直接返回bean
+			 */
 			if (this.earlyProxyReferences.remove(cacheKey) != bean) {
 				//如果它适合被代理，则需要封装指定bean
 				return wrapIfNecessary(bean, beanName, cacheKey);

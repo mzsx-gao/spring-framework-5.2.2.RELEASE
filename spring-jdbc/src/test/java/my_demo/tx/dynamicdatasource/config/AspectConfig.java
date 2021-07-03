@@ -1,4 +1,4 @@
-package my_demo.tx.annotation.dynamicdatasource.config;
+package my_demo.tx.dynamicdatasource.config;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

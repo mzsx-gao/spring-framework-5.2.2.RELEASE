@@ -1,4 +1,4 @@
-package my_demo.tx.annotation.dynamicdatasource.config;
+package my_demo.tx.dynamicdatasource.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

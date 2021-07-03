@@ -333,6 +333,7 @@ public class ScheduledAnnotationBeanPostProcessor
 		return bean;
 	}
 
+	//定时器功能
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) {
 		if (bean instanceof AopInfrastructureBean || bean instanceof TaskScheduler ||

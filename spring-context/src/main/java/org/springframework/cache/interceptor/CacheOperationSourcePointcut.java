@@ -42,6 +42,7 @@ abstract class CacheOperationSourcePointcut extends StaticMethodMatcherPointcut 
 	}
 
 
+	//判断方法上是否有缓存注解（Cacheable，CacheEvict，CachePut，Caching），封装成CacheOperation对象
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		CacheOperationSource cas = getCacheOperationSource();
