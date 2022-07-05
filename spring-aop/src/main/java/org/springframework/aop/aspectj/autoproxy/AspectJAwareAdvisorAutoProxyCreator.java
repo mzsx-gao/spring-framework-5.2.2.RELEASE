@@ -61,8 +61,8 @@ public class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProx
 	 * </ul>
 	 * <p><b>Important:</b> Advisors are sorted in precedence order, from highest
 	 * precedence to lowest. "On the way in" to a join point, the highest precedence
-	 * advisor should run first. "On the way out" of a join point, the highest precedence
-	 * advisor should run last.
+	 * customAdvisor should run first. "On the way out" of a join point, the highest precedence
+	 * customAdvisor should run last.
 	 */
 	@Override
 	@SuppressWarnings("unchecked")

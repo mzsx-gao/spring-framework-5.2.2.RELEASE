@@ -188,7 +188,7 @@ public class AspectJAutoProxyCreatorTests {
 		bd.getPropertyValues().addPropertyValue(new PropertyValue("name", "Adrian"))
 				.addPropertyValue(new PropertyValue("age", 34));
 		childAc.registerBeanDefinition("adrian2", bd);
-		// Register the advisor auto proxy creator with subclass
+		// Register the customAdvisor auto proxy creator with subclass
 		childAc.registerBeanDefinition(AnnotationAwareAspectJAutoProxyCreator.class.getName(), new RootBeanDefinition(
 				AnnotationAwareAspectJAutoProxyCreator.class));
 		childAc.refresh();
@@ -199,7 +199,7 @@ public class AspectJAutoProxyCreatorTests {
 	}
 
 	protected void doTestAspectsAndAdvisorAreApplied(ApplicationContext ac, ITestBean shouldBeWeaved) {
-		TestBeanAdvisor tba = (TestBeanAdvisor) ac.getBean("advisor");
+		TestBeanAdvisor tba = (TestBeanAdvisor) ac.getBean("customAdvisor");
 
 		MultiplyReturnValue mrv = (MultiplyReturnValue) ac.getBean("aspect");
 		assertThat(mrv.getMultiple()).isEqualTo(3);
@@ -211,7 +211,7 @@ public class AspectJAutoProxyCreatorTests {
 		assertThat(shouldBeWeaved.getName()).isEqualTo("Adrian");
 		assertThat(mrv.invocations).isEqualTo(0);
 		assertThat(shouldBeWeaved.getAge()).isEqualTo((34 * mrv.getMultiple()));
-		assertThat(tba.count).as("Spring advisor must be invoked").isEqualTo(2);
+		assertThat(tba.count).as("Spring customAdvisor must be invoked").isEqualTo(2);
 		assertThat(mrv.invocations).as("Must be able to hold state in aspect").isEqualTo(1);
 	}
 

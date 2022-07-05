@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig;
+package my_demo.aop.autoconfig.service2;
 
 public interface ICalculatorService {
 

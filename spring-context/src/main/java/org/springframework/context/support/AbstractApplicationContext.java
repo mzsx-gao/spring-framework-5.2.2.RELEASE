@@ -555,7 +555,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				//初始化所有的非延迟加载的单例bean
 				finishBeanFactoryInitialization(beanFactory);
 
-				// Last step: publish corresponding event.
+				//刷新上下文最后一步，发布ContextRefreshedEvent事件，调用LifecycleProcessor的onRefresh（）方法
 				finishRefresh();
 			}
 

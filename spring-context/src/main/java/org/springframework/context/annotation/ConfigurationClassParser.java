@@ -167,8 +167,8 @@ class ConfigurationClassParser {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
-				//配置类一般都会走这里
 				if (bd instanceof AnnotatedBeanDefinition) {
+                    //配置类一般都会走这里
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
@@ -312,11 +312,12 @@ class ConfigurationClassParser {
 		/**
 		 * 处理所有的 @Import注解,最终将要导入的类存在this.configurationClasses中
 		 *  Import的作用:
-		 *     1.用来导入@Configuration注解的配置类
-		 *     2.导入ImportSelector的实现类
-		 *     3.导入ImportBeanDefinitionRegistrar的实现类
-		 *     4.声明一个bean(即普通的JAVA类)
-		 * 执行完该方法后，会将1，2，4直接放入this.configurationClasses中，将3放入ConfigurationClass的importBeanDefinitionRegistrars属性中
+         *     1.声明一个bean(即普通的JAVA类)
+		 *     2.用来导入@Configuration注解的配置类
+		 *     3.导入ImportSelector的实现类
+		 *     4.导入ImportBeanDefinitionRegistrar的实现类
+		 * 执行完该方法后，会将1，2，3直接放入this.configurationClasses中，将4放入配置类（ConfigurationClass）的
+         * importBeanDefinitionRegistrars属性中
 		 */
 		processImports(configClass, sourceClass, getImports(sourceClass), true);
 
@@ -331,7 +332,7 @@ class ConfigurationClassParser {
 			}
 		}
 
-		// 检测出所有的@Bean方法，将声明@Bean注解的bean方法存入ConfigurationClass的beanMethods属性中
+		// 检测出所有的@Bean方法，将声明@Bean注解的bean方法存入配置类（ConfigurationClass）的beanMethods属性中
 		Set<MethodMetadata> beanMethods = retrieveBeanMethodMetadata(sourceClass);
 		for (MethodMetadata methodMetadata : beanMethods) {
 			configClass.addBeanMethod(new BeanMethod(methodMetadata, configClass));
@@ -571,7 +572,7 @@ class ConfigurationClassParser {
 								this.environment, this.resourceLoader, this.registry);
 
 						if (selector instanceof DeferredImportSelector) {
-							//spring 5.0开始这里有变动,springboot会使用到
+							//spring 5.0开始这里有变动,springboot会使用到(springboot自动装配AutoConfigurationImportSelector)
 							this.deferredImportSelectorHandler.handle(configClass, (DeferredImportSelector) selector);
 						}
 						else {
@@ -754,6 +755,8 @@ class ConfigurationClassParser {
 
 		/**
 		 * 将{@link DeferredImportSelector}封装为DeferredImportSelectorHolder对象加入到this.deferredImportSelectors中
+         * 调用地方:
+         * {@link ConfigurationClassParser#processImports(ConfigurationClass, SourceClass, Collection, boolean)}
 		 */
 		public void handle(ConfigurationClass configClass, DeferredImportSelector importSelector) {
 			DeferredImportSelectorHolder holder = new DeferredImportSelectorHolder(configClass, importSelector);
@@ -776,8 +779,11 @@ class ConfigurationClassParser {
 			try {
 				if (deferredImports != null) {
 					DeferredImportSelectorGroupingHandler handler = new DeferredImportSelectorGroupingHandler();
+					//对分组进行排序，是为了实现按分组的顺序加载bean
 					deferredImports.sort(DEFERRED_IMPORT_COMPARATOR);
+					//先注册
 					deferredImports.forEach(handler::register);
+					//后处理
 					handler.processGroupImports();
 				}
 			}
@@ -787,7 +793,6 @@ class ConfigurationClassParser {
 		}
 
 	}
-
 
 	/**
 	 * 延时导入分组处理类：
@@ -804,7 +809,7 @@ class ConfigurationClassParser {
 		public void register(DeferredImportSelectorHolder deferredImport) {
 		    //返回实现了Group接口的实现类,可以自定义，也可以不定义，此时在createGroup方法内部默认使用DefaultDeferredImportSelectorGroup
 			Class<? extends Group> group = deferredImport.getImportSelector().getImportGroup();
-            // DeferredImportSelectorGrouping对象封装了group和deferredImport；
+            // DeferredImportSelectorGrouping对象封装了group和deferredImports
             // 该对象的getImports方法会调用group对象的process()方法和selectImports()方法
 			DeferredImportSelectorGrouping grouping = this.groupings.computeIfAbsent(
 					(group != null ? group : deferredImport),
@@ -849,27 +854,6 @@ class ConfigurationClassParser {
 			return group;
 		}
 
-	}
-
-	//该对象持有 ConfigurationClass 和 DeferredImportSelector
-	private static class DeferredImportSelectorHolder {
-
-		private final ConfigurationClass configurationClass;
-
-		private final DeferredImportSelector importSelector;
-
-		public DeferredImportSelectorHolder(ConfigurationClass configClass, DeferredImportSelector selector) {
-			this.configurationClass = configClass;
-			this.importSelector = selector;
-		}
-
-		public ConfigurationClass getConfigurationClass() {
-			return this.configurationClass;
-		}
-
-		public DeferredImportSelector getImportSelector() {
-			return this.importSelector;
-		}
 	}
 
 	//该对象持有group和deferredImports参数
@@ -921,6 +905,26 @@ class ConfigurationClassParser {
 		}
 	}
 
+    //该对象持有 ConfigurationClass 和 DeferredImportSelector
+    private static class DeferredImportSelectorHolder {
+
+        private final ConfigurationClass configurationClass;
+
+        private final DeferredImportSelector importSelector;
+
+        public DeferredImportSelectorHolder(ConfigurationClass configClass, DeferredImportSelector selector) {
+            this.configurationClass = configClass;
+            this.importSelector = selector;
+        }
+
+        public ConfigurationClass getConfigurationClass() {
+            return this.configurationClass;
+        }
+
+        public DeferredImportSelector getImportSelector() {
+            return this.importSelector;
+        }
+    }
 
 	/**
 	 * 简单的包装器，可以用统一的方法处理带注解的类

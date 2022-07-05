@@ -66,7 +66,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	private static final String ID = "id";
 	private static final String POINTCUT = "pointcut";
 	private static final String ADVICE_BEAN_NAME = "adviceBeanName";
-	private static final String ADVISOR = "advisor";
+	private static final String ADVISOR = "customAdvisor";
 	private static final String ADVICE_REF = "advice-ref";
 	private static final String POINTCUT_REF = "pointcut-ref";
 	private static final String REF = "ref";
@@ -134,7 +134,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	/**
-	 * Parses the supplied {@code <advisor>} element and registers the resulting
+	 * Parses the supplied {@code <customAdvisor>} element and registers the resulting
 	 * {@link org.springframework.aop.Advisor} and any resulting {@link org.springframework.aop.Pointcut}
 	 * with the supplied {@link BeanDefinitionRegistry}.
 	 */
@@ -170,7 +170,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	/**
-	 * Create a {@link RootBeanDefinition} for the advisor described in the supplied. Does <strong>not</strong>
+	 * Create a {@link RootBeanDefinition} for the customAdvisor described in the supplied. Does <strong>not</strong>
 	 * parse any associated '{@code pointcut}' or '{@code pointcut-ref}' attributes.
 	 */
 	private AbstractBeanDefinition createAdvisorBeanDefinition(Element advisorElement, ParserContext parserContext) {
@@ -336,7 +336,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 					adviceElement, parserContext, aspectName, order, methodDefinition, aspectFactoryDef,
 					beanDefinitions, beanReferences);
 
-			// configure the advisor
+			// configure the customAdvisor
 			RootBeanDefinition advisorDefinition = new RootBeanDefinition(AspectJPointcutAdvisor.class);
 			advisorDefinition.setSource(parserContext.extractSource(adviceElement));
 			advisorDefinition.getConstructorArgumentValues().addGenericArgumentValue(adviceDef);
@@ -345,7 +345,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 						ORDER_PROPERTY, aspectElement.getAttribute(ORDER_PROPERTY));
 			}
 
-			// register the final advisor
+			// register the final customAdvisor
 			parserContext.getReaderContext().registerWithGeneratedName(advisorDefinition);
 
 			return advisorDefinition;
@@ -472,7 +472,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	private Object parsePointcutProperty(Element element, ParserContext parserContext) {
 		if (element.hasAttribute(POINTCUT) && element.hasAttribute(POINTCUT_REF)) {
 			parserContext.getReaderContext().error(
-					"Cannot define both 'pointcut' and 'pointcut-ref' on <advisor> tag.",
+					"Cannot define both 'pointcut' and 'pointcut-ref' on <customAdvisor> tag.",
 					element, this.parseState.snapshot());
 			return null;
 		}
@@ -494,7 +494,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 		}
 		else {
 			parserContext.getReaderContext().error(
-					"Must define one of 'pointcut' or 'pointcut-ref' on <advisor> tag.",
+					"Must define one of 'pointcut' or 'pointcut-ref' on <customAdvisor> tag.",
 					element, this.parseState.snapshot());
 			return null;
 		}

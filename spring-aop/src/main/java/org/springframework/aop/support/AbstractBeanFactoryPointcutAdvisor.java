@@ -56,11 +56,11 @@ public abstract class AbstractBeanFactoryPointcutAdvisor extends AbstractPointcu
 
 
 	/**
-	 * Specify the name of the advice bean that this advisor should refer to.
+	 * Specify the name of the advice bean that this customAdvisor should refer to.
 	 * <p>An instance of the specified bean will be obtained on first access
-	 * of this advisor's advice. This advisor will only ever obtain at most one
+	 * of this customAdvisor's advice. This customAdvisor will only ever obtain at most one
 	 * single instance of the advice bean, caching the instance for the lifetime
-	 * of the advisor.
+	 * of the customAdvisor.
 	 * @see #getAdvice()
 	 */
 	public void setAdviceBeanName(@Nullable String adviceBeanName) {
@@ -68,7 +68,7 @@ public abstract class AbstractBeanFactoryPointcutAdvisor extends AbstractPointcu
 	}
 
 	/**
-	 * Return the name of the advice bean that this advisor refers to, if any.
+	 * Return the name of the advice bean that this customAdvisor refers to, if any.
 	 */
 	@Nullable
 	public String getAdviceBeanName() {

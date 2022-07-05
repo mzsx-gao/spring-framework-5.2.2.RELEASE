@@ -26,7 +26,7 @@ import org.springframework.aop.support.DelegatePerTargetObjectIntroductionInterc
 import org.springframework.aop.support.DelegatingIntroductionInterceptor;
 
 /**
- * Introduction advisor delegating to the given object.
+ * Introduction customAdvisor delegating to the given object.
  * Implements AspectJ annotation-style behavior for the DeclareParents annotation.
  *
  * @author Rod Johnson
@@ -43,7 +43,7 @@ public class DeclareParentsAdvisor implements IntroductionAdvisor {
 
 
 	/**
-	 * Create a new advisor for this DeclareParents field.
+	 * Create a new customAdvisor for this DeclareParents field.
 	 * @param interfaceType static field defining the introduction
 	 * @param typePattern type pattern the introduction is restricted to
 	 * @param defaultImpl the default implementation class
@@ -54,7 +54,7 @@ public class DeclareParentsAdvisor implements IntroductionAdvisor {
 	}
 
 	/**
-	 * Create a new advisor for this DeclareParents field.
+	 * Create a new customAdvisor for this DeclareParents field.
 	 * @param interfaceType static field defining the introduction
 	 * @param typePattern type pattern the introduction is restricted to
 	 * @param delegateRef the delegate implementation object

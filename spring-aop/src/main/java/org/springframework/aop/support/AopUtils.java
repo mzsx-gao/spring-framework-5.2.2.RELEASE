@@ -227,7 +227,6 @@ public abstract class AopUtils {
 			return true;
 		}
 
-		//TODO 这里为何要将MethodMatcher强转为IntroductionAwareMethodMatcher类型？
 		IntroductionAwareMethodMatcher introductionAwareMethodMatcher = null;
 		if (methodMatcher instanceof IntroductionAwareMethodMatcher) {
 			introductionAwareMethodMatcher = (IntroductionAwareMethodMatcher) methodMatcher;
@@ -243,8 +242,8 @@ public abstract class AopUtils {
 			for (Method method : methods) {
 				// 如果当前MethodMatcher也是IntroductionAwareMethodMatcher类型，则使用该类型的方法进行匹配，从而达到提升效率的目的；
 				// 否则使用MethodMatcher.matches()方法进行匹配
-				if ((introductionAwareMethodMatcher != null && introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions)) ||
-						methodMatcher.matches(method, targetClass)) {
+				if ((introductionAwareMethodMatcher != null && introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions))
+                    || methodMatcher.matches(method, targetClass)) {
 					return true;
 				}
 			}
@@ -254,10 +253,10 @@ public abstract class AopUtils {
 	}
 
 	/**
-	 * Can the given advisor apply at all on the given class?
+	 * Can the given customAdvisor apply at all on the given class?
 	 * This is an important test as it can be used to optimize
-	 * out a advisor for a class.
-	 * @param advisor the advisor to check
+	 * out a customAdvisor for a class.
+	 * @param advisor the customAdvisor to check
 	 * @param targetClass class we're testing
 	 * @return whether the pointcut can apply on any method
 	 */

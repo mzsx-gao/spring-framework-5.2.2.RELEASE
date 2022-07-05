@@ -18,8 +18,8 @@ public class CrossOriginController {
 //    @CrossOrigin(origins = "*",allowedHeaders = "x-requested-with",allowCredentials = "true",maxAge = 3600,
 //            methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.OPTIONS,RequestMethod.DELETE})
     @RequestMapping("/test")
-    public Map queryArea(@RequestParam String name) {
-        Map map = new HashMap<>();
+    public Map<String,Object> queryArea(@RequestParam String name) {
+        Map<String,Object> map = new HashMap<>();
         map.put("name",name);
         return map;
     }

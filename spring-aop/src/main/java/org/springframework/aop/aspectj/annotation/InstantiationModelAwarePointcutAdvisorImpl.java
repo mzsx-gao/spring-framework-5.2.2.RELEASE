@@ -35,7 +35,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * Internal implementation of AspectJPointcutAdvisor.
- * Note that there will be one instance of this advisor for each target method.
+ * Note that there will be one instance of this customAdvisor for each target method.
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -163,7 +163,7 @@ final class InstantiationModelAwarePointcutAdvisorImpl
 	}
 
 	/**
-	 * Return the AspectJ AspectMetadata for this advisor.
+	 * Return the AspectJ AspectMetadata for this customAdvisor.
 	 */
 	public AspectMetadata getAspectMetadata() {
 		return this.aspectInstanceFactory.getAspectMetadata();

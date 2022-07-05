@@ -25,7 +25,7 @@ package org.springframework.cache.config;
 public abstract class CacheManagementConfigUtils {
 
 	/**
-	 * The name of the cache advisor bean.
+	 * The name of the cache customAdvisor bean.
 	 */
 	public static final String CACHE_ADVISOR_BEAN_NAME =
 			"org.springframework.cache.config.internalCacheAdvisor";
@@ -37,13 +37,13 @@ public abstract class CacheManagementConfigUtils {
 			"org.springframework.cache.config.internalCacheAspect";
 
 	/**
-	 * The name of the JCache advisor bean.
+	 * The name of the JCache customAdvisor bean.
 	 */
 	public static final String JCACHE_ADVISOR_BEAN_NAME =
 			"org.springframework.cache.config.internalJCacheAdvisor";
 
 	/**
-	 * The name of the JCache advisor bean.
+	 * The name of the JCache customAdvisor bean.
 	 */
 	public static final String JCACHE_ASPECT_BEAN_NAME =
 			"org.springframework.cache.config.internalJCacheAspect";

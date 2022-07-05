@@ -203,7 +203,7 @@ public @interface EnableAsync {
 	 * Indicate the order in which the {@link AsyncAnnotationBeanPostProcessor}
 	 * should be applied.
 	 * <p>The default is {@link Ordered#LOWEST_PRECEDENCE} in order to run
-	 * after all other post-processors, so that it can add an advisor to
+	 * after all other post-processors, so that it can add an customAdvisor to
 	 * existing proxies rather than double-proxy.
 	 */
 	int order() default Ordered.LOWEST_PRECEDENCE;

@@ -47,7 +47,7 @@ public class RegexpMethodPointcutAdvisorIntegrationTests {
 		DefaultListableBeanFactory bf = new DefaultListableBeanFactory();
 		new XmlBeanDefinitionReader(bf).loadBeanDefinitions(CONTEXT);
 		ITestBean advised = (ITestBean) bf.getBean("settersAdvised");
-		// Interceptor behind regexp advisor
+		// Interceptor behind regexp customAdvisor
 		NopInterceptor nop = (NopInterceptor) bf.getBean("nopInterceptor");
 		assertThat(nop.getCount()).isEqualTo(0);
 
@@ -67,7 +67,7 @@ public class RegexpMethodPointcutAdvisorIntegrationTests {
 		new XmlBeanDefinitionReader(bf).loadBeanDefinitions(CONTEXT);
 		// This is a CGLIB proxy, so we can proxy it to the target class
 		TestBean advised = (TestBean) bf.getBean("settersAndAbsquatulateAdvised");
-		// Interceptor behind regexp advisor
+		// Interceptor behind regexp customAdvisor
 		NopInterceptor nop = (NopInterceptor) bf.getBean("nopInterceptor");
 		assertThat(nop.getCount()).isEqualTo(0);
 
@@ -91,7 +91,7 @@ public class RegexpMethodPointcutAdvisorIntegrationTests {
 		new XmlBeanDefinitionReader(bf).loadBeanDefinitions(CONTEXT);
 		// This is a CGLIB proxy, so we can proxy it to the target class
 		Person p = (Person) bf.getBean("serializableSettersAdvised");
-		// Interceptor behind regexp advisor
+		// Interceptor behind regexp customAdvisor
 		NopInterceptor nop = (NopInterceptor) bf.getBean("nopInterceptor");
 		assertThat(nop.getCount()).isEqualTo(0);
 

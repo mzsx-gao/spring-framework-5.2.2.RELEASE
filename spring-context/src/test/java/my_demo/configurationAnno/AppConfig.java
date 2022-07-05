@@ -15,22 +15,22 @@ public class AppConfig {
     /**
      * 场景一
      */
-//    @Bean
-//    public Lison lison() {
-//        return new Lison();
-//    }
+    @Bean
+    public Lison lison() {
+        return new Lison();
+    }
     /**
      * BeanDefinition对象
      * factoryBeanName = AppConfig
      * factoryMethodName = lisonFactory
      */
-//    @Bean
-//    public LisonFactory lisonFactory() {
-//        LisonFactory lisonFactory = new LisonFactory();
-//        //lison() beanFactory.getBean(id)  缓存里面
-//        lisonFactory.setLison(this.lison());
-//        return lisonFactory;
-//    }
+    @Bean
+    public LisonFactory lisonFactory() {
+        LisonFactory lisonFactory = new LisonFactory();
+        //lison() beanFactory.getBean(id)  缓存里面
+        lisonFactory.setLison(this.lison());
+        return lisonFactory;
+    }
 
 
     /**

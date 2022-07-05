@@ -56,11 +56,10 @@ public class ProxyTransactionManagementConfiguration extends AbstractTransaction
 		return new AnnotationTransactionAttributeSource();//事务注解解析类
 	}
 
+    //创建事务拦截器
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-	public TransactionInterceptor transactionInterceptor(
-			TransactionAttributeSource transactionAttributeSource) {
-		//创建事务拦截器
+	public TransactionInterceptor transactionInterceptor(TransactionAttributeSource transactionAttributeSource) {
 		TransactionInterceptor interceptor = new TransactionInterceptor();
 		//事务属性处理器设置到advice中
 		interceptor.setTransactionAttributeSource(transactionAttributeSource);

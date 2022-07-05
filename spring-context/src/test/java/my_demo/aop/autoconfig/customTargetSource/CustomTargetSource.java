@@ -10,8 +10,9 @@ import org.springframework.aop.target.AbstractBeanFactoryBasedTargetSource;
  * @date 2021/1/17 21:27
  */
 public class CustomTargetSource extends AbstractBeanFactoryBasedTargetSource {
+
     @Override
-    public Object getTarget(){
+    public Object getTarget() {
         /**
          * 这里触发beanFactory.getBean()正常情况应该返回CalculatorServiceImpl的代理，因为CalculatorServiceImpl注册到beanFacory中
          * 的就是其代理类，但是这里确没有返回代理类，这是为什么？

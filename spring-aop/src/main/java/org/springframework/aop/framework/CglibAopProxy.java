@@ -670,6 +670,8 @@ class CglibAopProxy implements AopProxy, Serializable {
 					setProxyContext = true;
 				}
 				// Get as late as possible to minimize the time we "own" the target, in case it comes from a pool...
+                // 某个bean如果加上@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)原理，则这时候的targetSource是
+                // SimpleBeanTargetSource,其getTarget每次都会从beanFactory中重新获取bean
 				target = targetSource.getTarget();
 				Class<?> targetClass = (target != null ? target.getClass() : null);
 				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
@@ -686,7 +688,8 @@ class CglibAopProxy implements AopProxy, Serializable {
 				}
 				else {
 					// We need to create a method invocation...
-					retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
+                    ReflectiveMethodInvocation rm = new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy);
+					retVal = rm.proceed();
 				}
 				retVal = processReturnType(proxy, target, method, retVal);
 				return retVal;
@@ -964,7 +967,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 		}
 
 		private boolean equalsPointcuts(Advisor a, Advisor b) {
-			// If only one of the advisor (but not both) is PointcutAdvisor, then it is a mismatch.
+			// If only one of the customAdvisor (but not both) is PointcutAdvisor, then it is a mismatch.
 			// Takes care of the situations where an IntroductionAdvisor is used (see SPR-3959).
 			return (!(a instanceof PointcutAdvisor) ||
 					(b instanceof PointcutAdvisor &&

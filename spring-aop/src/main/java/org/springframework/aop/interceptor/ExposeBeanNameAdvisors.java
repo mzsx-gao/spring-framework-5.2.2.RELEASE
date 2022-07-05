@@ -79,7 +79,7 @@ public abstract class ExposeBeanNameAdvisors {
 	}
 
 	/**
-	 * Create a new advisor that will expose the given bean name,
+	 * Create a new customAdvisor that will expose the given bean name,
 	 * with no introduction.
 	 * @param beanName bean name to expose
 	 */
@@ -88,7 +88,7 @@ public abstract class ExposeBeanNameAdvisors {
 	}
 
 	/**
-	 * Create a new advisor that will expose the given bean name, introducing
+	 * Create a new customAdvisor that will expose the given bean name, introducing
 	 * the NamedBean interface to make the bean name accessible without forcing
 	 * the target object to be aware of this Spring IoC concept.
 	 * @param beanName the bean name to expose

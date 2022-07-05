@@ -19,6 +19,6 @@ import org.springframework.stereotype.Component;
 public class ScopedProxyBean {
 
     public void code() {
-        System.out.println(this.hashCode());
+        System.out.println("hashCode:"+this.hashCode());
     }
 }

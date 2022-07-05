@@ -46,5 +46,4 @@ public class ClientTest {
         CashierImpl ca = aa.getBean(CashierImpl.class);
         ca.checkout3("AA", "1001");
     }
-
 }

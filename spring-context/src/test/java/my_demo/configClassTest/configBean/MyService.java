@@ -1,4 +1,4 @@
-package my_demo.configClassTest;
+package my_demo.configClassTest.configBean;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

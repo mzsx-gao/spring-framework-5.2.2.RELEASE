@@ -40,7 +40,7 @@ import org.springframework.tests.sample.beans.ITestBean;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for auto proxy creation by advisor recognition.
+ * Tests for auto proxy creation by customAdvisor recognition.
  *
  * @see org.springframework.aop.framework.autoproxy.AdvisorAutoProxyCreatorIntegrationTests
  *
@@ -91,7 +91,7 @@ public class AdvisorAutoProxyCreatorTests {
 		assertThat(lockable1.locked()).isFalse();
 		assertThat(lockable2.locked()).isFalse();
 		// equals 2 calls on shared nop, because it's first and sees calls
-		// against the Lockable interface introduced by the specific advisor
+		// against the Lockable interface introduced by the specific customAdvisor
 		assertThat(nop1.getCount()).isEqualTo(2);
 		assertThat(nop2.getCount()).isEqualTo(0);
 		lockable1.lock();

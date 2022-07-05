@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 
-public class User implements Serializer {
+public class User implements Serializer<Object> {
 
     private String name;
     private String age;

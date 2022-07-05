@@ -65,7 +65,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 	 * @see #isEligibleBean
 	 */
 	public List<Advisor> findAdvisorBeans() {
-		// Determine list of advisor bean names, if not cached already.
+		// Determine list of customAdvisor bean names, if not cached already.
 		String[] advisorNames = this.cachedAdvisorBeanNames;
 		if (advisorNames == null) {
 			// Do not initialize FactoryBeans here: We need to leave all regular beans
@@ -83,7 +83,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 			if (isEligibleBean(name)) {
 				if (this.beanFactory.isCurrentlyInCreation(name)) {
 					if (logger.isTraceEnabled()) {
-						logger.trace("Skipping currently created advisor '" + name + "'");
+						logger.trace("Skipping currently created customAdvisor '" + name + "'");
 					}
 				}
 				else {
@@ -98,7 +98,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 							String bceBeanName = bce.getBeanName();
 							if (bceBeanName != null && this.beanFactory.isCurrentlyInCreation(bceBeanName)) {
 								if (logger.isTraceEnabled()) {
-									logger.trace("Skipping advisor '" + name +
+									logger.trace("Skipping customAdvisor '" + name +
 											"' with dependency on currently created bean: " + ex.getMessage());
 								}
 								// Ignore: indicates a reference back to the bean we're trying to advise.

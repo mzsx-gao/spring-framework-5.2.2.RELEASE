@@ -99,8 +99,7 @@ import org.springframework.web.util.WebUtils;
 
 /**
  * 名称: RequestMappingHandlerAdapter.java
- * 描述: 这个类堪称是整个spring mvc体系中最他妈复杂，最难搞懂的类，也是区分高水平开发与普通开发的重要指标，扯远了，哈哈哈
- * 该类主要作用:
+ * 描述:
  * 1.准备好处理器所需要的参数（这个最难，参数的不确定性）
  * 2.使用处理器处理请求 （这个比较简单，直接用反射调用handlerMethod处理就可以了
  * 3.处理返回值，也就是将不同类型的返回值统一处理成ModelAndView类
@@ -959,7 +958,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		/**
 		 * 获取SessionAttributesHandler，该类中有两个属性attributeNames和attributeTypes属性，这两个属性值从
 		 * Controller(handlerMethod中的beanType)上@SessionAttributes注解的value和types属性提取
-		 * 后面在处理完请求的后置处理中，会用来将将model中相应的属性存储到session中
+		 * 后面在处理完请求的后置处理中，会用来将model中相应的属性存储到session中
 		 * this.getModelAndView
 		 * 		modelFactory.updateModel(webRequest, mavContainer)
 		 * 			this.sessionAttributesHandler.storeAttributes(request, defaultModel)
@@ -1060,7 +1059,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	 * 处理完请求的后置处理，这个方法一共做了三件事:
 	 * 1.调用model的updateModel方法更新model,内部包括
 	 *  a.如果需要（根据SessionAttributesHandler的两个属性attributeNames和attributeTypes属性来判断),将model中的值存储到session中
-	 *	b.给model设置BindingResult，就是循环manContainer的defaultModel的所有key，根据每一个key在model中新加一个key，
+	 *	b.给model设置BindingResult，就是循环mvnContainer的defaultModel的所有key，根据每一个key在model中新加一个key，
 	 *	  key是org.springframework.validation.BindingResult.*，value是BeanPropertyBindingResult对象
 	 * 2.根据mavContainer创建ModelAndView
 	 * 3.如果mavContainer里的model是RedirectAttributes类型，则将其值设置到FlashMap

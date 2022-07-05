@@ -25,7 +25,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  *
  * <p>Provides a {@link org.springframework.beans.factory.xml.BeanDefinitionParser} for the
  * {@code <aop:config>} tag. A {@code config} tag can include nested
- * {@code pointcut}, {@code advisor} and {@code aspect} tags.
+ * {@code pointcut}, {@code customAdvisor} and {@code aspect} tags.
  *
  * <p>The {@code pointcut} tag allows for creation of named
  * {@link AspectJExpressionPointcut} beans using a simple syntax:
@@ -33,17 +33,17 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * &lt;aop:pointcut id=&quot;getNameCalls&quot; expression=&quot;execution(* *..ITestBean.getName(..))&quot;/&gt;
  * </pre>
  *
- * <p>Using the {@code advisor} tag you can configure an {@link org.springframework.aop.Advisor}
+ * <p>Using the {@code customAdvisor} tag you can configure an {@link org.springframework.aop.Advisor}
  * and have it applied to all relevant beans in you {@link org.springframework.beans.factory.BeanFactory}
- * automatically. The {@code advisor} tag supports both in-line and referenced
+ * automatically. The {@code customAdvisor} tag supports both in-line and referenced
  * {@link org.springframework.aop.Pointcut Pointcuts}:
  *
  * <pre class="code">
- * &lt;aop:advisor id=&quot;getAgeAdvisor&quot;
+ * &lt;aop:customAdvisor id=&quot;getAgeAdvisor&quot;
  *     pointcut=&quot;execution(* *..ITestBean.getAge(..))&quot;
  *     advice-ref=&quot;getAgeCounter&quot;/&gt;
  *
- * &lt;aop:advisor id=&quot;getNameAdvisor&quot;
+ * &lt;aop:customAdvisor id=&quot;getNameAdvisor&quot;
  *     pointcut-ref=&quot;getNameCalls&quot;
  *     advice-ref=&quot;getNameCounter&quot;/&gt;</pre>
  *

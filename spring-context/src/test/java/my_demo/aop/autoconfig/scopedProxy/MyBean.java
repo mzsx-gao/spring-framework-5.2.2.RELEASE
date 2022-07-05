@@ -6,7 +6,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyBean {
 
-    //这里注入的是scopedProxyBean的代理类，代理类的beanClass是ScopedProxyFactoryBean
+    /**
+     * 这里注入的是scopedProxyBean的代理类，代理类的beanClass是ScopedProxyFactoryBean,
+     * ScopedProxyFactoryBean是一个FactoryBean,实例化ScopedProxyFactoryBean时会调用getObject()方法
+     * ScopedProxyFactoryBean的setBeanFactory（）方法内部会生成一个代理，这个代理就是getObject()方法返回的一个代理对象
+     */
     @Autowired
     private ScopedProxyBean scopedProxyBean;
 

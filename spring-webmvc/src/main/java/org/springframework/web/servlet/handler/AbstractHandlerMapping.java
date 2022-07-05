@@ -414,10 +414,15 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 		if (hasCorsConfigurationSource(handler)) {
 			CorsConfiguration config = (this.corsConfigurationSource != null ?
 					this.corsConfigurationSource.getCorsConfiguration(request) : null);
-			//获取跨域配置
+            /**
+             *  获取跨域配置
+             *  配置设置地方:
+             *  RequestMappingHandlerMapping初始化过程中:
+             *  registerHandlerMethod->this.mappingRegistry.register(mapping, handler, method);
+             */
 			CorsConfiguration handlerConfig = getCorsConfiguration(handler, request);
 			config = (config != null ? config.combine(handlerConfig) : handlerConfig);
-			//这里设置了跨域的拦截器CorsInterceptor
+			//这里设置了跨域的拦截器CorsInterceptor,其实就是拿到@CrossOrigin注解中的几个配置设置到response的响应头中
 			executionChain = getCorsHandlerExecutionChain(request, executionChain, config);
 		}
 

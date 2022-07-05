@@ -49,7 +49,7 @@ import org.springframework.util.function.SingletonSupplier;
  * caller. An {@link AsyncUncaughtExceptionHandler} can be specified to handle
  * these cases.
  *
- * <p>Note: The underlying async advisor applies before existing advisors by default,
+ * <p>Note: The underlying async customAdvisor applies before existing advisors by default,
  * in order to switch to async execution as early as possible in the invocation chain.
  *
  * @author Mark Fisher

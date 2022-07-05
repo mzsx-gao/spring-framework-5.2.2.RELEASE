@@ -182,7 +182,7 @@ public @interface EnableTransactionManagement {
 	AdviceMode mode() default AdviceMode.PROXY;
 
 	/**
-	 * Indicate the ordering of the execution of the transaction advisor
+	 * Indicate the ordering of the execution of the transaction customAdvisor
 	 * when multiple advices are applied at a specific joinpoint.
 	 * <p>The default is {@link Ordered#LOWEST_PRECEDENCE}.
 	 */

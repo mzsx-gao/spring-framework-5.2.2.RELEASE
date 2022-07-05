@@ -146,7 +146,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	//---------------------------------------------------------------------
 
 	/**
-	 * 注册配置类的spring容器中
+	 * 注册配置类到spring容器中
 	 */
 	@Override
 	public void register(Class<?>... componentClasses) {

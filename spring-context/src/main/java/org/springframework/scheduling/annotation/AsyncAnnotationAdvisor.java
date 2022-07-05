@@ -42,7 +42,7 @@ import org.springframework.util.function.SingletonSupplier;
  * annotation. This annotation can be used at the method and type level in
  * implementation classes as well as in service interfaces.
  *
- * <p>This advisor detects the EJB 3.1 {@code javax.ejb.Asynchronous}
+ * <p>This customAdvisor detects the EJB 3.1 {@code javax.ejb.Asynchronous}
  * annotation as well, treating it exactly like Spring's own {@code Async}.
  * Furthermore, a custom async annotation type may get specified through the
  * {@link #setAsyncAnnotationType "asyncAnnotationType"} property.

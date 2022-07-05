@@ -215,7 +215,7 @@ public class ProxyFactoryBeanTests {
 		NopInterceptor di = new NopInterceptor();
 		pc1.addAdvice(1, di);
 		assertThat(pc2.getAdvisors()).isEqualTo(pc1.getAdvisors());
-		assertThat(pc2.getAdvisors().length).as("Now have one more advisor").isEqualTo((oldLength + 1));
+		assertThat(pc2.getAdvisors().length).as("Now have one more customAdvisor").isEqualTo((oldLength + 1));
 		assertThat(0).isEqualTo(di.getCount());
 		test1.setAge(5);
 		assertThat(test1.getAge()).isEqualTo(test1_1.getAge());
@@ -308,7 +308,7 @@ public class ProxyFactoryBeanTests {
 				throw ex;
 			}
 		});
-		assertThat(config.getAdvisors().length).as("Have correct advisor count").isEqualTo(2);
+		assertThat(config.getAdvisors().length).as("Have correct customAdvisor count").isEqualTo(2);
 
 		ITestBean tb1 = (ITestBean) factory.getBean("test1");
 		assertThatExceptionOfType(Exception.class).isThrownBy(

@@ -40,7 +40,7 @@ import org.springframework.util.Assert;
  * {@link org.springframework.core.Ordered} interface. This class sorts
  * Advisors by Ordered order value. Advisors that don't implement the
  * Ordered interface will be considered as unordered; they will appear
- * at the end of the advisor chain in undefined order.
+ * at the end of the customAdvisor chain in undefined order.
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

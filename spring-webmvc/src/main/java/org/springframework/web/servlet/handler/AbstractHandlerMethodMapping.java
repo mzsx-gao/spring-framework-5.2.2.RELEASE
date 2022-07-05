@@ -295,8 +295,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		if (handlerType != null) {
 			Class<?> userType = ClassUtils.getUserClass(handlerType);
 			/**
-			 * 循环类中的所有方法，找出方法上面有@RequestMapping注解的方法，然后根据类上面的@RequestMapping注解的值和方法上@RequestMapping注解的值
-			 * 组合起来构建为RequestMappingInfo对象，最后存放到map中；
+			 * 循环类中的所有方法，找出方法上面有@RequestMapping注解的方法，然后根据类上面的@RequestMapping注解的值和
+             * 方法上@RequestMapping注解的值组合起来构建为RequestMappingInfo对象，最后存放到map中；
 			 */
 			Map<Method, T> methods = MethodIntrospector.selectMethods(userType,
 					(MethodIntrospector.MetadataLookup<T>) method -> {
@@ -650,6 +650,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				}
 
 				//判断类上或者方法上是否有@CrossOrigin注解，把注解里面的属性封装成CorsConfiguration，这个是做跨域访问控制的
+                //调用地方:Dispatcher#doDispatcher#getHandler=RequestMappingHandlerMapping父类AbstractHandlerMapping#getHandler
 				CorsConfiguration corsConfig = initCorsConfiguration(handler, method, mapping);
 				if (corsConfig != null) {
 					//建立handlerMethod与corsConfig的映射关系

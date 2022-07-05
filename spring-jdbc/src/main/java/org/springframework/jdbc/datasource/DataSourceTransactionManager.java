@@ -248,6 +248,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 		return txObject;
 	}
 
+    // 检查给定的事务对象中是否已经存在事务
 	@Override
 	protected boolean isExistingTransaction(Object transaction) {
 		DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;
@@ -265,7 +266,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 		try {
 			if (!txObject.hasConnectionHolder() || txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
 				// 从dataSource中获取一个Connection
-				// 动态数据源就是在这里实现的:此时数据源对象是AbstractRoutingDataSource
+				// 动态数据源就是在这里实现的:在使用动态数据源时数据源对象是AbstractRoutingDataSource
 				Connection newCon = obtainDataSource().getConnection();
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
@@ -288,7 +289,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 			if (con.getAutoCommit()) {
 				txObject.setMustRestoreAutoCommit(true);
 				if (logger.isDebugEnabled()) {
-					logger.debug("Switching JDBC Connection [" + con + "] to manual commit");
+					logger.debug("更改jdbc连接 [" + con + "] 为手动提交");
 				}
 				con.setAutoCommit(false);
 			}
@@ -320,7 +321,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	}
 
 	/**
-	 * 挂起事务
+	 * 挂起事务,把事务对象中的连接对象设置为 null，并且解除 ThreadLocal 的绑定关系
 	 */
 	@Override
 	protected Object doSuspend(Object transaction) {

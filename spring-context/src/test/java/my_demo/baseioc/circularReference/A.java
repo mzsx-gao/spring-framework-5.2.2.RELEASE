@@ -25,7 +25,7 @@ public class A implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("======afterPropertiesSet");
+//        System.out.println("======afterPropertiesSet");
     }
 
     public void initMethod() {

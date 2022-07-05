@@ -261,7 +261,7 @@ public abstract class AbstractAopProxyTests {
 		assertThat(p2).as("Proxies should be equal, even after one was serialized").isEqualTo(p);
 		assertThat(p).as("Proxies should be equal, even after one was serialized").isEqualTo(p2);
 
-		// Check we can add a new advisor to the target
+		// Check we can add a new customAdvisor to the target
 		NopInterceptor ni = new NopInterceptor();
 		p2.getAge();
 		assertThat(ni.getCount()).isEqualTo(0);
@@ -662,7 +662,7 @@ public abstract class AbstractAopProxyTests {
 		assertThat(di.getCount()).isEqualTo(2);
 
 		Advised advised = (Advised) t;
-		assertThat(advised.getAdvisors().length).as("Have 1 advisor").isEqualTo(1);
+		assertThat(advised.getAdvisors().length).as("Have 1 customAdvisor").isEqualTo(1);
 		assertThat(advised.getAdvisors()[0].getAdvice()).isEqualTo(di);
 		NopInterceptor di2 = new NopInterceptor();
 		advised.addAdvice(1, di2);

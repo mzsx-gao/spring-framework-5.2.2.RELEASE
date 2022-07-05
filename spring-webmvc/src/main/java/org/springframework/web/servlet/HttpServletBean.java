@@ -160,7 +160,7 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 		 *      </init-param>
 		 *      <load-on-startup>1</load-on-startup>
 		 *  </servlet>
-		 *  这里会解析init-param列表。
+		 *  这里会解析init-param列表
 		 */
 		PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
 		if (!pvs.isEmpty()) {

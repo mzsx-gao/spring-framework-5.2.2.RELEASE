@@ -175,6 +175,7 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource imple
 		return determineTargetDataSource().getConnection(username, password);
 	}
 
+    @SuppressWarnings("unchecked")
 	@Override
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		if (iface.isInstance(this)) {

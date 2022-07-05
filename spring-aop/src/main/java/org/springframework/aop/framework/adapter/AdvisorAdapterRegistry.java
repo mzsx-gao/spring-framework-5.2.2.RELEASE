@@ -40,7 +40,7 @@ public interface AdvisorAdapterRegistry {
 	 * @param advice an object that should be an advice
 	 * @return an Advisor wrapping the given advice (never {@code null};
 	 * if the advice parameter is an Advisor, it is to be returned as-is)
-	 * @throws UnknownAdviceTypeException if no registered advisor adapter
+	 * @throws UnknownAdviceTypeException if no registered customAdvisor adapter
 	 * can wrap the supposed advice
 	 */
 	Advisor wrap(Object advice) throws UnknownAdviceTypeException;

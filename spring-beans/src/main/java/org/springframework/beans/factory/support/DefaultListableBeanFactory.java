@@ -857,7 +857,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		for (String beanName : beanNames) {
 			//把父beanDefinition里面的属性拿到子beanDefinition中
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
-			//如果不是抽象的、单例的、非懒加载的就实例化
+			//如果非抽象的、单例的、非懒加载的就实例化
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				//如果是factoryBean,则默认只实例化factoryBean对应的类本身，不调用getObject()方法
 				//处理在AbstractBeanFactory#getObjectForBeanInstance方法中
@@ -887,7 +887,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 		}
 
-		// Trigger post-initialization callback for all applicable beans...
+        /**
+         * 对实现SmartInitializingSingleton接口的bean，调用其afterSingletonsInstantiated方法
+         * springcloud-alibaba环境下sentinel集成nacos数据源时，SentinelDataSourceHandler就是继承SmartInitializingSingleton接
+         * 口，然后在SmartInitializingSingleton方法中初始化NacosDataSource
+         */
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
 			if (singletonInstance instanceof SmartInitializingSingleton) {

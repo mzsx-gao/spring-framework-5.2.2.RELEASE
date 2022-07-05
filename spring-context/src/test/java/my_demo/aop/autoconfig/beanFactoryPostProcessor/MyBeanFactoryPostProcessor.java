@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig;
+package my_demo.aop.autoconfig.beanFactoryPostProcessor;
 
 import my_demo.aop.autoconfig.customTargetSource.CustomTargetSourceCreator;
 import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @Override

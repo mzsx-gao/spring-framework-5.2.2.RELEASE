@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig;
+package my_demo.aop.autoconfig.service2;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +21,7 @@ public class LoggingAspect {
 	 * 使用 @Pointcut 来声明切入点表达式.
 	 * 后面的其他通知直接使用方法名来引用当前的切入点表达式.
 	 */
-	@Pointcut("execution(public int my_demo.aop.autoconfig.ICalculatorService.*(..))")
+	@Pointcut("execution(public int my_demo.aop.autoconfig.service2.ICalculatorService.*(..))")
 	public void declareJointPointExpression(){}
 
 	//在 com.atguigu.spring.aop.ICalculatorService 接口的每一个实现类的每一个方法开始之前执行一段代码

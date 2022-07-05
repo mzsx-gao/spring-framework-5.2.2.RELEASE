@@ -41,7 +41,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for auto proxy creation by advisor recognition working in
+ * Integration tests for auto proxy creation by customAdvisor recognition working in
  * conjunction with transaction management resources.
  *
  * @see org.springframework.aop.framework.autoproxy.AdvisorAutoProxyCreatorTests

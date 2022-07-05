@@ -57,7 +57,7 @@ public class DeclareParentsTests {
 
 	// TODO if you change type pattern from org.springframework.beans..*
 	// to org.springframework..* it also matches introduction.
-	// Perhaps generated advisor bean definition could be made to depend
+	// Perhaps generated customAdvisor bean definition could be made to depend
 	// on the introduction, in which case this would not be a problem.
 	@Test
 	public void testLockingWorks() {

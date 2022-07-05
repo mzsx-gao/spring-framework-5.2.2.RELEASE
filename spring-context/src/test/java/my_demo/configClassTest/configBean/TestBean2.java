@@ -1,4 +1,4 @@
-package my_demo.configClassTest;
+package my_demo.configClassTest.configBean;
 
 /**
  * 名称: TestBean2.java

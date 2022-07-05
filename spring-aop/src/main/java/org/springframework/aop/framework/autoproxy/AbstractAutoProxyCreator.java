@@ -185,7 +185,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 	/**
 	 * Set the common interceptors. These must be bean names in the current factory.
-	 * They can be of any advice or advisor type Spring supports.
+	 * They can be of any advice or customAdvisor type Spring supports.
 	 * <p>If this property isn't set, there will be zero common interceptors.
 	 * This is perfectly valid, if "specific" interceptors such as matching
 	 * Advisors are all we want.
@@ -243,9 +243,9 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 	/**
 	 * bean实例化之前执行这个方法；
-	 * 其主要目的在于如果用户使用了自定义的TargetSource对象，则直接使用该对象生成目标对象，而不会使用Spring的默认逻辑生成目标对象，
+	 * 其主要目的在于如果用户使用了自定义的TargetSource对象，则直接使用该对象生成目标对象，而不会使用spring的默认逻辑生成目标对象，
 	 * 并且这里会判断各个切面逻辑是否可以应用到当前bean上，如果可以，则直接应用;
-	 * 也就是说TargetSource为使用者在Aop中提供了一个自定义生成目标bean逻辑的方式，并且会应用相应的切面逻辑
+	 * 也就是说TargetSource为使用者在aop中提供了一个自定义生成目标bean逻辑的方式，并且会应用相应的切面逻辑
 	 */
 	@Override
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) {
@@ -300,12 +300,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
 			/**
 			 * 注意这个判断非常重要，这个是处理循环依赖的
-			 * 比如，A依赖B，B依赖A,但是A上面加有@Transactional注解
+			 * 比如，A依赖B，B依赖A,但是A上面加有@Transactional注解:
+             *
 			 * A实例化时会调用addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
 			 * 当A实例化过程执行populateBean时回去getBean(B),而B实例化时发现依赖A,而由于A已经放到三级缓存中了，所以B会去三级缓存中拿A，
 			 * 这样就会调用getEarlyBeanReference(beanName, mbd, bean)方法，该方法里会将原始对象放到this.earlyProxyReferences中
-			 * 并且生成A的代理；
-			 * 然后A最终调用initializeBean方法时会调到这里，这里发现earlyProxyReferences中已经有值了，并且和bean相等，则不会再生成代理
+			 * 并且生成A的代理；然后A最终调用initializeBean方法时会调到这里，这里发现earlyProxyReferences中已经有值了，并且和bean相等，则不会再生成代理
 			 * 直接返回bean
 			 */
 			if (this.earlyProxyReferences.remove(cacheKey) != bean) {

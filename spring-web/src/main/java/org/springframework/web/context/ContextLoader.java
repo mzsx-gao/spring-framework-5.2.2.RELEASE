@@ -282,12 +282,15 @@ public class ContextLoader {
 						ApplicationContext parent = loadParentContext(servletContext);
 						cwac.setParent(parent);
 					}
-					//配置并刷新XmlWebApplicationContext
+					//配置并刷新WebApplicationContext
 					configureAndRefreshWebApplicationContext(cwac, servletContext);
 				}
 			}
-			// 将根WebApplicationContext作为ServletContext的属性保存起来，
-			// 属性名为"org.springframework.web.context.WebApplicationContext.ROOT"
+            /**
+             * 将根WebApplicationContext作为ServletContext的属性保存起来，后面在spring web 上下文对象实例化过程中
+             * 会从ServletContext取这个值
+             * 属性名为"org.springframework.web.context.WebApplicationContext.ROOT"
+             */
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -407,13 +410,13 @@ public class ContextLoader {
 		ConfigurableEnvironment env = wac.getEnvironment();
 		if (env instanceof ConfigurableWebEnvironment) {
 			/**
-			 * 用提供的servletContext和servletConfig对象替换标准servlet环境propertySources 中的key为"servletContextInitParams"
-			 * 和"servletConfigInitParams"的属性源
+			 * 用提供的servletContext和servletConfig对象替换标准servlet环境propertySources 中的
+             * key为"servletContextInitParams"和"servletConfigInitParams"的属性源
 			 */
 			((ConfigurableWebEnvironment) env).initPropertySources(sc, null);
 		}
-		//在config locations已经设置进spring上下文之后，在spring上下文刷新以前，对spring上下文做一些定制化处理，主要是
-		//调用servletContext配置的ApplicationContextInitializer的initialize方法
+		// 在config locations已经设置进spring上下文之后，在spring上下文刷新以前，对spring上下文做一些定制化处理，主要是
+		// 调用servletContext配置的ApplicationContextInitializer的initialize方法
 		customizeContext(sc, wac);
 		wac.refresh();
 	}

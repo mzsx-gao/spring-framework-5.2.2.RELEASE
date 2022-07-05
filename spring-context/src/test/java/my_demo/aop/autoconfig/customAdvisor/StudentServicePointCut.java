@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig.advisor;
+package my_demo.aop.autoconfig.customAdvisor;
 
 import my_demo.aop.autoconfig.service.EasyCache;
 import org.springframework.aop.ClassFilter;
@@ -33,9 +33,9 @@ public class StudentServicePointCut implements Pointcut, MethodMatcher {
         //拿原始方法对象，这个方法上才有注解
         Method specificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
         if(AnnotatedElementUtils.hasAnnotation(specificMethod, EasyCache.class)) {
-            System.out.println("========接口方法拿注解=======" + method.isAnnotationPresent(EasyCache.class));
-            System.out.println("========实现类方法拿注解=======" + specificMethod.isAnnotationPresent(EasyCache.class));
-            System.out.println("matches method hashcode-->" + method.hashCode());
+//            System.out.println("========接口方法拿注解=======" + method.isAnnotationPresent(EasyCache.class));
+//            System.out.println("========实现类方法拿注解=======" + specificMethod.isAnnotationPresent(EasyCache.class));
+//            System.out.println("matches method hashcode-->" + method.hashCode());
             return true;
         }
         return false;
@@ -46,6 +46,10 @@ public class StudentServicePointCut implements Pointcut, MethodMatcher {
         return true;
     }
 
+    /**
+     * 动态匹配:
+     * ReflectiveMethodInvocation#proceed()会调过来
+     */
     @Override
     public boolean matches(Method method, Class<?> targetClass, Object... args) {
         if(method.getName().equalsIgnoreCase("eat")) {

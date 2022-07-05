@@ -33,7 +33,7 @@ import org.springframework.lang.Nullable;
 public abstract class AspectJAopUtils {
 
 	/**
-	 * Return {@code true} if the advisor is a form of before advice.
+	 * Return {@code true} if the customAdvisor is a form of before advice.
 	 */
 	public static boolean isBeforeAdvice(Advisor anAdvisor) {
 		AspectJPrecedenceInformation precedenceInfo = getAspectJPrecedenceInformationFor(anAdvisor);
@@ -44,7 +44,7 @@ public abstract class AspectJAopUtils {
 	}
 
 	/**
-	 * Return {@code true} if the advisor is a form of after advice.
+	 * Return {@code true} if the customAdvisor is a form of after advice.
 	 */
 	public static boolean isAfterAdvice(Advisor anAdvisor) {
 		AspectJPrecedenceInformation precedenceInfo = getAspectJPrecedenceInformationFor(anAdvisor);
@@ -55,8 +55,8 @@ public abstract class AspectJAopUtils {
 	}
 
 	/**
-	 * Return the AspectJPrecedenceInformation provided by this advisor or its advice.
-	 * If neither the advisor nor the advice have precedence information, this method
+	 * Return the AspectJPrecedenceInformation provided by this customAdvisor or its advice.
+	 * If neither the customAdvisor nor the advice have precedence information, this method
 	 * will return {@code null}.
 	 */
 	@Nullable

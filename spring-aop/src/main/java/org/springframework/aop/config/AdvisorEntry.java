@@ -19,7 +19,7 @@ package org.springframework.aop.config;
 import org.springframework.beans.factory.parsing.ParseState;
 
 /**
- * {@link ParseState} entry representing an advisor.
+ * {@link ParseState} entry representing an customAdvisor.
  *
  * @author Mark Fisher
  * @since 2.0
@@ -31,7 +31,7 @@ public class AdvisorEntry implements ParseState.Entry {
 
 	/**
 	 * Creates a new instance of the {@link AdvisorEntry} class.
-	 * @param name the bean name of the advisor
+	 * @param name the bean name of the customAdvisor
 	 */
 	public AdvisorEntry(String name) {
 		this.name = name;

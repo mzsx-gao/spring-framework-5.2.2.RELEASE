@@ -9,7 +9,9 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 
-//web容器启动的时候创建对象；调用方法来初始化容器以及前端控制器
+/**
+ * web容器启动的时候创建对象；调用方法来初始化容器以及前端控制器
+ */
 public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     /**
@@ -22,7 +24,7 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     }
 
     /**
-     * 获取web容器的配置类(pringMVC配置文件) --子容器
+     * 获取web容器的配置类(spring-mvc 配置文件) --子容器
      */
     @Override
     protected Class<?>[] getServletConfigClasses() {

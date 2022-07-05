@@ -282,10 +282,10 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 
 		RequestMappingHandlerMapping mapping = createRequestMappingHandlerMapping();
 		mapping.setOrder(0);
-		//设置拦截器
+		//设置拦截器,内部getInterceptors#addInterceptors是扩展点，可以调到MyAppConfig#addInterceptors
 		mapping.setInterceptors(getInterceptors(conversionService, resourceUrlProvider));
 		mapping.setContentNegotiationManager(contentNegotiationManager);
-		//跨域配置
+		//跨域配置,内部getCorsConfigurations#addCorsMappings是扩展点，调到MyAppConfig#addCorsMappings
 		mapping.setCorsConfigurations(getCorsConfigurations());
 
 		PathMatchConfigurer configurer = getPathMatchConfigurer();
@@ -338,7 +338,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 			ResourceUrlProvider mvcResourceUrlProvider) {
 		if (this.interceptors == null) {
 			InterceptorRegistry registry = new InterceptorRegistry();
-
+            //扩展点，可以调到MyAppConfig#addInterceptors
 			addInterceptors(registry);
 			registry.addInterceptor(new ConversionServiceExposingInterceptor(mvcConversionService));
 			registry.addInterceptor(new ResourceUrlProviderExposingInterceptor(mvcResourceUrlProvider));
@@ -1074,6 +1074,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	protected final Map<String, CorsConfiguration> getCorsConfigurations() {
 		if (this.corsConfigurations == null) {
 			CorsRegistry registry = new CorsRegistry();
+            //扩展点，调到MyAppConfig#addCorsMappings
 			addCorsMappings(registry);
 			this.corsConfigurations = registry.getCorsConfigurations();
 		}

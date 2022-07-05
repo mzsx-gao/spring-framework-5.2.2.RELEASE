@@ -38,7 +38,7 @@ class AspectJAutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 	 * of the @{@link EnableAspectJAutoProxy#proxyTargetClass()} attribute on the importing
 	 * {@code @Configuration} class.
 	 *
-	 * 这种方式同xml文件配置方式本质上是一样的，xml配置方式是通过
+	 * 这种方式同xml文件配置方式本质上是一样的
 	 */
 	@Override
 	public void registerBeanDefinitions(

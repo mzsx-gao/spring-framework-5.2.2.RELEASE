@@ -89,7 +89,7 @@ public class JdkProxyControllerTests {
 				DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
 				autoProxyCreator.setBeanFactory(wac.getBeanFactory());
 				wac.getBeanFactory().addBeanPostProcessor(autoProxyCreator);
-				wac.getBeanFactory().registerSingleton("advisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor(true)));
+				wac.getBeanFactory().registerSingleton("customAdvisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor(true)));
 				wac.refresh();
 				return wac;
 			}

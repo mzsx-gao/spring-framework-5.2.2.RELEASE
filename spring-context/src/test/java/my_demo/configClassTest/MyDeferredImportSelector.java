@@ -2,12 +2,15 @@ package my_demo.configClassTest;
 
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDeferredImportSelector implements DeferredImportSelector {
+@Order(1000)
+public class MyDeferredImportSelector implements DeferredImportSelector {
+
     @Override
     public Class<? extends Group> getImportGroup() {
         return MyDeferredImportSelectorGroup.class;
@@ -16,7 +19,7 @@ public class TestDeferredImportSelector implements DeferredImportSelector {
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 
-        return new String[]{"my_demo.configClassTest.TestBean5"};
+        return new String[]{"my_demo.configClassTest.configBean.TestBean5"};
     }
 
     private static class MyDeferredImportSelectorGroup implements Group {

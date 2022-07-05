@@ -127,7 +127,4 @@ public class BookShopServiceImpl {
             throw new RuntimeException("模拟异常");
         }
     }
-
-
-
 }

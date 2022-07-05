@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig;
+package my_demo.aop.autoconfig.service2;
 
 import org.springframework.stereotype.Service;
 

@@ -134,7 +134,7 @@ public class ThreadLocalTargetSource extends AbstractPrototypeBasedTargetSource
 
 
 	/**
-	 * Return an introduction advisor mixin that allows the AOP proxy to be
+	 * Return an introduction customAdvisor mixin that allows the AOP proxy to be
 	 * cast to ThreadLocalInvokerStats.
 	 */
 	public IntroductionAdvisor getStatsMixin() {

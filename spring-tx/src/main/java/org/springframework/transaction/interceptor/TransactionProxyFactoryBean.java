@@ -187,7 +187,7 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 
 
 	/**
-	 * Creates an advisor for this FactoryBean's TransactionInterceptor.
+	 * Creates an customAdvisor for this FactoryBean's TransactionInterceptor.
 	 */
 	@Override
 	protected Object createMainInterceptor() {

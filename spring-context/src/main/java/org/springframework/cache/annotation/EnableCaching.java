@@ -198,7 +198,7 @@ public @interface EnableCaching {
 	AdviceMode mode() default AdviceMode.PROXY;
 
 	/**
-	 * Indicate the ordering of the execution of the caching advisor
+	 * Indicate the ordering of the execution of the caching customAdvisor
 	 * when multiple advices are applied at a specific joinpoint.
 	 * <p>The default is {@link Ordered#LOWEST_PRECEDENCE}.
 	 */

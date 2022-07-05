@@ -25,8 +25,8 @@ import org.springframework.util.Assert;
 
 /**
  * {@link org.springframework.beans.factory.parsing.ComponentDefinition}
- * that bridges the gap between the advisor bean definition configured
- * by the {@code <aop:advisor>} tag and the component definition
+ * that bridges the gap between the customAdvisor bean definition configured
+ * by the {@code <aop:customAdvisor>} tag and the component definition
  * infrastructure.
  *
  * @author Rob Harrop

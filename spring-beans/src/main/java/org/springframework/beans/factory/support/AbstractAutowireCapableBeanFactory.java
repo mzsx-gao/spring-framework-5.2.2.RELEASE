@@ -517,8 +517,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		try {
-			//给BeanPostProcessors一个机会返回代理来替代真正的实例
-			//如果存在自定义的targetSource，则直接创建bean的代理返回
+			//给BeanPostProcessors一个机会返回代理来替代真正的实例 -- 如果存在自定义的targetSource，则直接创建bean的代理返回
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -590,6 +589,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		 *
 		 * AutowiredAnnotationBeanPostProcessor支持了@Autowired和@Value注解
 		 * 		将@Autowired或者@Value注解修饰的字段或者方法设置到beanDefinition的 “externallyManagedConfigMembers” 属性中
+         *
+         * 以上收集的信息后面会在populateBean（）方法中进行处理
 		 */
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
@@ -1434,7 +1435,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// 在设置属性之前给 InstantiationAwareBeanPostProcessors 最后一次改变 bean 的机会
-		// This can be used, for example,to support styles of field injection.
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
@@ -1449,7 +1449,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// 将 PropertyValues 封装成 MutablePropertyValues 对象
-		// MutablePropertyValues 允许对属性进行简单的操作，并提供构造函数以支持Map的深度复制和构造。
+		// MutablePropertyValues 允许对属性进行简单的操作，并提供构造函数以支持Map的深度复制和构造
 		PropertyValues pvs = (mbd.hasPropertyValues() ? mbd.getPropertyValues() : null);
 
 		/*
@@ -1486,11 +1486,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
-					//1.这里会触发AutowiredAnnotationBeanPostProcessor和CommonAnnotationBeanPostProcessor对@Value,@Autowired,@Resource的处理
-					//2.对于被@Configuration注解修饰的类，这里会调到InstantiationAwareBeanPostProcessorAdapter#postProcessProperties方法对配置类
-					//的cglib代理类设置beanFactory属性
+					/**
+					 * 1.这里会触发AutowiredAnnotationBeanPostProcessor和CommonAnnotationBeanPostProcessor
+					 * 	 对@Value,@Autowired,@Resource的处理,直接将依赖的对象设置到属性上了
+					 * 2.对于被@Configuration注解修饰的类，这里会调到InstantiationAwareBeanPostProcessorAdapter#postProcessProperties
+					 * 方法对配置类的cglib代理类设置beanFactory属性
+					 */
 					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);
-					if (pvsToUse == null) {
+					if (pvsToUse == null) {//postProcessPropertyValues方法已经废弃，一般不会走到这里面了
 						if (filteredPds == null) {
 							//从 bw 对象中提取 PropertyDescriptor 结果集
 							//PropertyDescriptor：可以通过一对存取方法提取一个属性

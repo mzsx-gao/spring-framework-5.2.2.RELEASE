@@ -94,7 +94,7 @@ public class CglibProxyControllerTests {
 				wac.getBeanFactory().addBeanPostProcessor(autoProxyCreator);
 				Pointcut pointcut = new AnnotationMatchingPointcut(Controller.class);
 				DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new SimpleTraceInterceptor(true));
-				wac.getBeanFactory().registerSingleton("advisor", advisor);
+				wac.getBeanFactory().registerSingleton("customAdvisor", advisor);
 				wac.refresh();
 				return wac;
 			}

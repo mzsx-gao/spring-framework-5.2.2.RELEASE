@@ -26,12 +26,20 @@ public class DemoController {
 		return requestEntity;
 	}
 	
-	//相当于会找 /WEB-INF/pages/ok.jsp
+	//转发，相当于会找 /WEB-INF/pages/ok.jsp
 	@RequestMapping("/ok")
 	public String ok(){
 		return "ok";
 	}
 
+    //重定向
+    @RequestMapping("/redirect")
+    public String redirect(){
+        System.out.println("重定向测试");
+        return "redirect:/ok";
+    }
+
+    //异常
 	@RequestMapping("/exception")
 	public String exception() throws Exception{
 		if(1==1){
@@ -49,12 +57,7 @@ public class DemoController {
 		return map;
 	}
 
-	//重定向测试
-	@RequestMapping("/redirect")
-	public String redirect(){
-		System.out.println("重定向测试");
-		return "redirect:/ok";
-	}
+
 	/**
 	 * 目标方法可以添加 ModelMap 类型,这里的modelMap里保存值后其它地方可以在request作用域拿到，原理如下:
 	 *

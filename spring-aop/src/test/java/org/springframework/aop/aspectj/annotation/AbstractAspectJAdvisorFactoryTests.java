@@ -192,7 +192,7 @@ public abstract class AbstractAspectJAdvisorFactoryTests {
 		assertThat(itb.getAge()).as("Around advice must NOT apply").isEqualTo(realAge);
 
 		Advised advised = (Advised) itb;
-		// Will be ExposeInvocationInterceptor, synthetic instantiation advisor, 2 method advisors
+		// Will be ExposeInvocationInterceptor, synthetic instantiation customAdvisor, 2 method advisors
 		assertThat(advised.getAdvisors().length).isEqualTo(4);
 		ReflectiveAspectJAdvisorFactory.SyntheticInstantiationAdvisor sia =
 				(ReflectiveAspectJAdvisorFactory.SyntheticInstantiationAdvisor) advised.getAdvisors()[1];
@@ -228,7 +228,7 @@ public abstract class AbstractAspectJAdvisorFactoryTests {
 		assertThat(itb.getAge()).as("Around advice must now apply").isEqualTo(0);
 
 		Advised advised = (Advised) itb;
-		// Will be ExposeInvocationInterceptor, synthetic instantiation advisor, 2 method advisors
+		// Will be ExposeInvocationInterceptor, synthetic instantiation customAdvisor, 2 method advisors
 		assertThat(advised.getAdvisors().length).isEqualTo(4);
 		ReflectiveAspectJAdvisorFactory.SyntheticInstantiationAdvisor sia =
 				(ReflectiveAspectJAdvisorFactory.SyntheticInstantiationAdvisor) advised.getAdvisors()[1];

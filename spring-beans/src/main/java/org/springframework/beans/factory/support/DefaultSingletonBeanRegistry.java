@@ -172,8 +172,8 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 	/**
 	 * 从缓存中获取单例bean
-	 *  singletonObjects ：存放的是单例 bean，对应关系为 bean name --> bean instance
-	 *  earlySingletonObjects：存放的是早期的 bean，对应关系也是 bean name --> bean instance。它与 singletonObjects 区别
+	 *  singletonObjects ：存放的是单例 bean，对应关系为 {bean name --> bean instance}
+	 *  earlySingletonObjects：存放的是早期的 bean，对应关系也是 {bean name --> bean instance}，它与 singletonObjects 区别
 	 *  	在于 earlySingletonObjects 中存放的 bean 不一定是完整的，bean 在创建过程中就已经加入到earlySingletonObjects 中了，
 	 *  	所以当在 bean 的创建过程中就可以通过 getBean() 方法获取。这个 Map 也是解决循环依赖的关键所在
 	 *  singletonFactories：存放的是 ObjectFactory，可以理解为创建单例 bean 的 factory，对应关系是 bean name --> ObjectFactory
@@ -350,13 +350,13 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	}
 
 	/**
+     * 把beanName添加到singletonsCurrentlyInCreation中，在这个集合里的bean都是正在实例化的
 	 * Callback before singleton creation.
 	 * <p>The default implementation register the singleton as currently in creation.
 	 * @param beanName the name of the singleton about to be created
 	 * @see #isSingletonCurrentlyInCreation
 	 */
 	protected void beforeSingletonCreation(String beanName) {
-		//把beanName添加到singletonsCurrentlyInCreation中，在这个集合里的bean都是正在实例化的
 		if (!this.inCreationCheckExclusions.contains(beanName) && !this.singletonsCurrentlyInCreation.add(beanName)) {
 			throw new BeanCurrentlyInCreationException(beanName);
 		}

@@ -26,7 +26,7 @@ package org.springframework.transaction.config;
 public abstract class TransactionManagementConfigUtils {
 
 	/**
-	 * The bean name of the internally managed transaction advisor (used when mode == PROXY).
+	 * The bean name of the internally managed transaction customAdvisor (used when mode == PROXY).
 	 */
 	public static final String TRANSACTION_ADVISOR_BEAN_NAME =
 			"org.springframework.transaction.config.internalTransactionAdvisor";

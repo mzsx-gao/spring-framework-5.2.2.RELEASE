@@ -108,7 +108,7 @@ public class ProxyFactoryTests {
 		assertThat(cba.getCalls()).isEqualTo(1);
 		assertThat(nop.getCount()).isEqualTo(1);
 		assertThat(nop2.getCount()).isEqualTo(1);
-		// Removes counting before advisor
+		// Removes counting before customAdvisor
 		pf.removeAdvisor(1);
 		assertThat(proxied.getAge()).isEqualTo(5);
 		assertThat(cba.getCalls()).isEqualTo(1);

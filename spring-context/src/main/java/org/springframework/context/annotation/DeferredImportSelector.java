@@ -20,8 +20,13 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.lang.Nullable;
 
 /**
- * 该类是{@link ImportSelector}的一个变种，它在所有的@Configuration处理完后再导入bean;
- * 当@import导入的配置类是{@code @Conditional}时特别有用，说白了它跟ImportSelector的区别就是导入bean的时机不一样
+ * 该类是{@link ImportSelector}的一个变种，实现两个功能:
+ *   1.延时加载bean,它在所有的@Configuration处理完后再导入bean
+ *     当@import导入的配置类是{@code @Conditional}时特别有用，说白了它跟ImportSelector的区别就是导入bean的时机不一样
+ *   2.分组
+ *     延伸，比如:两个分组，group1内部导入 bean1,bean2;group2内部导入bean3,bean4
+ *     1.此时可以在两个自定义的DeferredImportSelector上加@Order注解来实现先加载group1还是group2内部的bean
+ *     2.可以对每个group内部的bean进行排序
  */
 public interface DeferredImportSelector extends ImportSelector {
 

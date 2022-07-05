@@ -43,13 +43,13 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 
 
 	/**
-	 * Set whether this post-processor's advisor is supposed to apply before
+	 * Set whether this post-processor's customAdvisor is supposed to apply before
 	 * existing advisors when encountering a pre-advised object.
-	 * <p>Default is "false", applying the advisor after existing advisors, i.e.
+	 * <p>Default is "false", applying the customAdvisor after existing advisors, i.e.
 	 * as close as possible to the target method. Switch this to "true" in order
-	 * for this post-processor's advisor to wrap existing advisors as well.
+	 * for this post-processor's customAdvisor to wrap existing advisors as well.
 	 * <p>Note: Check the concrete post-processor's javadoc whether it possibly
-	 * changes this flag by default, depending on the nature of its advisor.
+	 * changes this flag by default, depending on the nature of its customAdvisor.
 	 */
 	public void setBeforeExistingAdvisors(boolean beforeExistingAdvisors) {
 		this.beforeExistingAdvisors = beforeExistingAdvisors;
@@ -141,7 +141,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 	 * Prepare a {@link ProxyFactory} for the given bean.
 	 * <p>Subclasses may customize the handling of the target instance and in
 	 * particular the exposure of the target class. The default introspection
-	 * of interfaces for non-target-class proxies and the configured advisor
+	 * of interfaces for non-target-class proxies and the configured customAdvisor
 	 * will be applied afterwards; {@link #customizeProxyFactory} allows for
 	 * late customizations of those parts right before proxy creation.
 	 * @param bean the bean instance to create a proxy for
@@ -163,7 +163,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 	 * to change the interfaces exposed.
 	 * <p>The default implementation is empty.
 	 * @param proxyFactory the ProxyFactory that is already configured with
-	 * target, advisor and interfaces and will be used to create the proxy
+	 * target, customAdvisor and interfaces and will be used to create the proxy
 	 * immediately after this method returns
 	 * @since 4.2.3
 	 * @see #prepareProxyFactory

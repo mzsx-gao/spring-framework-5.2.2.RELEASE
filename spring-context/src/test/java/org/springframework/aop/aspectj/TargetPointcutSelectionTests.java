@@ -66,7 +66,7 @@ public class TargetPointcutSelectionTests {
 		testImpl1.interfaceMethod();
 		assertThat(testAspectForTestImpl1.count).as("Should have been advised by POJO advice for impl").isEqualTo(1);
 		assertThat(testAspectForAbstractTestImpl.count).as("Should have been advised by POJO advice for base type").isEqualTo(1);
-		assertThat(testInterceptor.count).as("Should have been advised by advisor").isEqualTo(1);
+		assertThat(testInterceptor.count).as("Should have been advised by customAdvisor").isEqualTo(1);
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TargetPointcutSelectionTests {
 		testImpl2.interfaceMethod();
 		assertThat(testAspectForTestImpl1.count).as("Shouldn't have been advised by POJO advice for impl").isEqualTo(0);
 		assertThat(testAspectForAbstractTestImpl.count).as("Should have been advised by POJO advice for base type").isEqualTo(1);
-		assertThat(testInterceptor.count).as("Shouldn't have been advised by advisor").isEqualTo(0);
+		assertThat(testInterceptor.count).as("Shouldn't have been advised by customAdvisor").isEqualTo(0);
 	}
 
 

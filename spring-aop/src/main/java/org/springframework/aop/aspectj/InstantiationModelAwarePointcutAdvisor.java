@@ -30,12 +30,12 @@ import org.springframework.aop.PointcutAdvisor;
 public interface InstantiationModelAwarePointcutAdvisor extends PointcutAdvisor {
 
 	/**
-	 * Return whether this advisor is lazily initializing its underlying advice.
+	 * Return whether this customAdvisor is lazily initializing its underlying advice.
 	 */
 	boolean isLazy();
 
 	/**
-	 * Return whether this advisor has already instantiated its advice.
+	 * Return whether this customAdvisor has already instantiated its advice.
 	 */
 	boolean isAdviceInstantiated();
 

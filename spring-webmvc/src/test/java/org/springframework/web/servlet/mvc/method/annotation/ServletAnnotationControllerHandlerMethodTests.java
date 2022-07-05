@@ -383,7 +383,7 @@ public class ServletAnnotationControllerHandlerMethodTests extends AbstractServl
 			DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
 			autoProxyCreator.setBeanFactory(wac.getBeanFactory());
 			wac.getBeanFactory().addBeanPostProcessor(autoProxyCreator);
-			wac.getBeanFactory().registerSingleton("advisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
+			wac.getBeanFactory().registerSingleton("customAdvisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
 		}, MySessionAttributesControllerImpl.class);
 
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/myPage");
@@ -570,7 +570,7 @@ public class ServletAnnotationControllerHandlerMethodTests extends AbstractServl
 			autoProxyCreator.setBeanFactory(wac.getBeanFactory());
 			wac.getBeanFactory().addBeanPostProcessor(autoProxyCreator);
 			wac.getBeanFactory()
-					.registerSingleton("advisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
+					.registerSingleton("customAdvisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
 		}, MyFormController.class);
 
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/myPath.do");
@@ -1361,7 +1361,7 @@ public class ServletAnnotationControllerHandlerMethodTests extends AbstractServl
 			DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
 			autoProxyCreator.setBeanFactory(wac.getBeanFactory());
 			wac.getBeanFactory().addBeanPostProcessor(autoProxyCreator);
-			wac.getBeanFactory().registerSingleton("advisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
+			wac.getBeanFactory().registerSingleton("customAdvisor", new DefaultPointcutAdvisor(new SimpleTraceInterceptor()));
 		}, IMyControllerImpl.class);
 
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", "/handle");

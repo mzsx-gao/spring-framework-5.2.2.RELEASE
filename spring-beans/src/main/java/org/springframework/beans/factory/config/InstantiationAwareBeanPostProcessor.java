@@ -103,6 +103,7 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	/**
 	 * Post-process the given property values before the factory applies them
 	 * to the given bean, without any need for property descriptors.
+	 * 在beanDefinition中的属性PropertyValues被设置到bean之前 ，完成了对 @Autowired、@Inject、 @Value 注解的解析
 	 * <p>Implementations should return {@code null} (the default) if they provide a custom
 	 * {@link #postProcessPropertyValues} implementation, and {@code pvs} otherwise.
 	 * In a future version of this interface (with {@link #postProcessPropertyValues} removed),

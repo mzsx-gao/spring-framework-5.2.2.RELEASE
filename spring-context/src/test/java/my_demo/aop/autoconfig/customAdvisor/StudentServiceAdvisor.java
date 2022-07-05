@@ -1,4 +1,4 @@
-package my_demo.aop.autoconfig.advisor;
+package my_demo.aop.autoconfig.customAdvisor;
 
 import org.aopalliance.aop.Advice;
 import org.springframework.aop.Pointcut;

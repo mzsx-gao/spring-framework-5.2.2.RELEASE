@@ -22,7 +22,7 @@ import java.util.List;
 import org.springframework.lang.Nullable;
 
 /**
- * Factory interface for advisor chains.
+ * Factory interface for customAdvisor chains.
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -31,7 +31,7 @@ public interface AdvisorChainFactory {
 
 	/**
 	 * Determine a list of {@link org.aopalliance.intercept.MethodInterceptor} objects
-	 * for the given advisor chain configuration.
+	 * for the given customAdvisor chain configuration.
 	 * @param config the AOP configuration in the form of an Advised object
 	 * @param method the proxied method
 	 * @param targetClass the target class (may be {@code null} to indicate a proxy without

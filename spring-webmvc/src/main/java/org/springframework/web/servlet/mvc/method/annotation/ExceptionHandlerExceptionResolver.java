@@ -385,6 +385,11 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 	protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request,
 			HttpServletResponse response, @Nullable HandlerMethod handlerMethod, Exception exception) {
 
+        /**
+         * 为给定的exception找到一个{@code @ExceptionHandler}方法:
+         * 1.现在执行方法所在的controller中寻找{@code @ExceptionHandler}方法
+         * 2.如果1中找不到，则在@ControllerAdvice注解的类中寻找{@code @ExceptionHandler}方法
+         */
 		ServletInvocableHandlerMethod exceptionHandlerMethod = getExceptionHandlerMethod(handlerMethod, exception);
 		if (exceptionHandlerMethod == null) {
 			return null;
@@ -411,6 +416,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 			}
 			else {
 				// Otherwise, just the given exception as-is
+                // 调用方法并且通过配置的HandlerMethodReturnValueHandler处理返回值
 				exceptionHandlerMethod.invokeAndHandle(webRequest, mavContainer, exception, handlerMethod);
 			}
 		}
@@ -465,7 +471,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 				resolver = new ExceptionHandlerMethodResolver(handlerType);
 				this.exceptionHandlerCache.put(handlerType, resolver);
 			}
-			//先从controller中寻找处理异常的方法
+			//先从controller中寻找处理异常的方法-带@ExceptionHandler注解的方法
 			Method method = resolver.resolveMethod(exception);
 			if (method != null) {
 				return new ServletInvocableHandlerMethod(handlerMethod.getBean(), method);

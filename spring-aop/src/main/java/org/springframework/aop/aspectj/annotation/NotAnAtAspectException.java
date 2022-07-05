@@ -20,7 +20,7 @@ import org.springframework.aop.framework.AopConfigException;
 
 /**
  * Extension of AopConfigException thrown when trying to perform
- * an advisor generation operation on a class that is not an
+ * an customAdvisor generation operation on a class that is not an
  * AspectJ annotation-style aspect.
  *
  * @author Rod Johnson

@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * SpringMVC只扫描Controller；子容器
  * useDefaultFilters=false 禁用默认的过滤规则；
@@ -39,11 +38,15 @@ public class MyAppConfig implements WebMvcConfigurer {
 		registry.jsp("/WEB-INF/pages/",".jsp");
 	}
 
-	//静态资源访问,静态资源交给tomcat来处理
-	 @Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		 configurer.enable();
-	}
+    /**
+     * 静态资源访问,静态资源交给tomcat来处理
+     * 这个配置会把 "/**" url,注册到 SimpleUrlHandlerMapping 的 urlMap 中,把对静态资源的访问由 HandlerMapping 转到
+     * org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler 处理并返回
+     */
+//    @Override
+//	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//		 configurer.enable();
+//	}
 	
 	 //拦截器,源码内部WebMvcConfigurationSupport#getInterceptors会调过来
 	 @Override
@@ -56,9 +59,9 @@ public class MyAppConfig implements WebMvcConfigurer {
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		for(HttpMessageConverter msgConverter : converters){
 			if(msgConverter instanceof MappingJackson2HttpMessageConverter){
+                //设置日期格式
 				MappingJackson2HttpMessageConverter converter =  (MappingJackson2HttpMessageConverter)msgConverter;
 				ObjectMapper objectMapper = converter.getObjectMapper();
-				//设置日期格式
 				SimpleDateFormat smt = new SimpleDateFormat("yyyy-MM-dd");
 				objectMapper.setDateFormat(smt);
 				converter.setObjectMapper(objectMapper);

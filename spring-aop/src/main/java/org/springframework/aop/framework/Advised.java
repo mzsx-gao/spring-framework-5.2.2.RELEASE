@@ -97,7 +97,7 @@ public interface Advised extends TargetClassAware {
 	 * contains applicable advisors (matching this proxy's target class).
 	 * <p>Default is "false". Set this to "true" if the advisors have been
 	 * pre-filtered already, meaning that the ClassFilter check can be skipped
-	 * when building the actual advisor chain for proxy invocations.
+	 * when building the actual customAdvisor chain for proxy invocations.
 	 * @see org.springframework.aop.ClassFilter
 	 */
 	void setPreFiltered(boolean preFiltered);
@@ -115,56 +115,56 @@ public interface Advised extends TargetClassAware {
 	Advisor[] getAdvisors();
 
 	/**
-	 * Add an advisor at the end of the advisor chain.
+	 * Add an customAdvisor at the end of the customAdvisor chain.
 	 * <p>The Advisor may be an {@link org.springframework.aop.IntroductionAdvisor},
 	 * in which new interfaces will be available when a proxy is next obtained
 	 * from the relevant factory.
-	 * @param advisor the advisor to add to the end of the chain
+	 * @param advisor the customAdvisor to add to the end of the chain
 	 * @throws AopConfigException in case of invalid advice
 	 */
 	void addAdvisor(Advisor advisor) throws AopConfigException;
 
 	/**
 	 * Add an Advisor at the specified position in the chain.
-	 * @param advisor the advisor to add at the specified position in the chain
+	 * @param advisor the customAdvisor to add at the specified position in the chain
 	 * @param pos position in chain (0 is head). Must be valid.
 	 * @throws AopConfigException in case of invalid advice
 	 */
 	void addAdvisor(int pos, Advisor advisor) throws AopConfigException;
 
 	/**
-	 * Remove the given advisor.
-	 * @param advisor the advisor to remove
-	 * @return {@code true} if the advisor was removed; {@code false}
-	 * if the advisor was not found and hence could not be removed
+	 * Remove the given customAdvisor.
+	 * @param advisor the customAdvisor to remove
+	 * @return {@code true} if the customAdvisor was removed; {@code false}
+	 * if the customAdvisor was not found and hence could not be removed
 	 */
 	boolean removeAdvisor(Advisor advisor);
 
 	/**
-	 * Remove the advisor at the given index.
-	 * @param index index of advisor to remove
+	 * Remove the customAdvisor at the given index.
+	 * @param index index of customAdvisor to remove
 	 * @throws AopConfigException if the index is invalid
 	 */
 	void removeAdvisor(int index) throws AopConfigException;
 
 	/**
-	 * Return the index (from 0) of the given advisor,
-	 * or -1 if no such advisor applies to this proxy.
+	 * Return the index (from 0) of the given customAdvisor,
+	 * or -1 if no such customAdvisor applies to this proxy.
 	 * <p>The return value of this method can be used to index into the advisors array.
-	 * @param advisor the advisor to search for
-	 * @return index from 0 of this advisor, or -1 if there's no such advisor
+	 * @param advisor the customAdvisor to search for
+	 * @return index from 0 of this customAdvisor, or -1 if there's no such customAdvisor
 	 */
 	int indexOf(Advisor advisor);
 
 	/**
-	 * Replace the given advisor.
-	 * <p><b>Note:</b> If the advisor is an {@link org.springframework.aop.IntroductionAdvisor}
+	 * Replace the given customAdvisor.
+	 * <p><b>Note:</b> If the customAdvisor is an {@link org.springframework.aop.IntroductionAdvisor}
 	 * and the replacement is not or implements different interfaces, the proxy will need
 	 * to be re-obtained or the old interfaces won't be supported and the new interface
 	 * won't be implemented.
-	 * @param a the advisor to replace
-	 * @param b the advisor to replace it with
-	 * @return whether it was replaced. If the advisor wasn't found in the
+	 * @param a the customAdvisor to replace
+	 * @param b the customAdvisor to replace it with
+	 * @return whether it was replaced. If the customAdvisor wasn't found in the
 	 * list of advisors, this method returns {@code false} and does nothing.
 	 * @throws AopConfigException in case of invalid advice
 	 */

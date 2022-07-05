@@ -19,7 +19,7 @@ public class AppConfig {
 
     @Value("${url}")
     private String url;
-    @Value("${user}")
+    @Value("${username}")
     private String user;
     @Value("${password}")
     private String password;

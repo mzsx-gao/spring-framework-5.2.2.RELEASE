@@ -853,6 +853,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * 为给定的策略接口创建默认策略对象列表.默认实现定义在DispatcherServlet.properties文件中
 	 */
+    @SuppressWarnings("unchecked")
 	protected <T> List<T> getDefaultStrategies(ApplicationContext context, Class<T> strategyInterface) {
 		String key = strategyInterface.getName();
 		String value = defaultStrategies.getProperty(key);
@@ -1000,7 +1001,10 @@ public class DispatcherServlet extends FrameworkServlet {
 				processedRequest = checkMultipart(request);
 				multipartRequestParsed = (processedRequest != request);
 
-				//根据request信息寻找对应的handle
+				/**
+                 * 根据request信息寻找对应的handler,这里返回的handler是HandlerExecutionChain，内部持有处理请求的HandlerMethod(
+                 * 其实就是Controller)和拦截器
+                 */
 				mappedHandler = getHandler(processedRequest);
 				if (mappedHandler == null) {
 					//如果没有对应的handler则通过response反馈错误信息

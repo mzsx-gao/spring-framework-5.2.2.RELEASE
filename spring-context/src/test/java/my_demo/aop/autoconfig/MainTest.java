@@ -3,6 +3,7 @@ package my_demo.aop.autoconfig;
 import my_demo.aop.autoconfig.bean.SubClass;
 import my_demo.aop.autoconfig.scopedProxy.MyBean;
 import my_demo.aop.autoconfig.service.StudentService;
+import my_demo.aop.autoconfig.service2.ICalculatorService;
 import org.junit.Test;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.context.ApplicationContext;
@@ -10,10 +11,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.core.BridgeMethodResolver;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
-
 import java.lang.reflect.Method;
 
-public class ClientTest {
+public class MainTest {
 
     /**
      * aop自动装配方式
@@ -24,7 +24,6 @@ public class ClientTest {
         ICalculatorService arithmeticCalculator = ctx.getBean(ICalculatorService.class);
         System.out.println("获取的bean是代理类..."+arithmeticCalculator.getClass().getName());
         arithmeticCalculator.add(11, 12);
-//        arithmeticCalculator.div(21, 0);
     }
 
     //测试scopeProxy
@@ -41,7 +40,7 @@ public class ClientTest {
     public void test3() {
         AnnotationConfigApplicationContext aa = new AnnotationConfigApplicationContext(AppConfig.class);
         StudentService bean = aa.getBean(StudentService.class);
-        System.out.println(bean);
+//        System.out.println(bean);
 //        bean.sleep(new ArrayList());
         bean.eat("Jack");
     }

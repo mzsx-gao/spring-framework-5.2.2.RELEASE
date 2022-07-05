@@ -75,6 +75,8 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 
 	/**
 	 * 获取bean factory 中所有的aspectJ注解增强
+     * 第一次调用地方：AbstractAutowireCapableBeanFactory#createBean#resolveBeforeInstantiation
+     * AbstractAutoProxyCreator#postProcessBeforeInstantiation#shouldSkip
 	 */
 	public List<Advisor> buildAspectJAdvisors() {
 		List<String> aspectNames = this.aspectBeanNames;
@@ -108,7 +110,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
-								//解析标记AspectJ注解中的增强方法
+								//解析标记AspectJ注解中的增强方法，最后封装为InstantiationModelAwarePointcutAdvisorImpl对象
 								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
 								//如果bean是单例，则缓存bean的增强器
 								if (this.beanFactory.isSingleton(beanName)) {

@@ -313,6 +313,8 @@ class ConfigurationClassEnhancer {
 		 * existence of this bean object.
 		 * @throws Throwable as a catch-all for any exception that may be thrown when invoking the
 		 * super implementation of the proxied method i.e., the actual {@code @Bean} method
+         * @Configuration与@Component注解的区别 关键就是这个方法
+         * @Configuration 注解的类中的@Bean方法被其它方法调用的时候会被切面拦截住，然后从beanFactory中取得bean而不是新创建一个实例
 		 */
 		@Override
 		@Nullable
@@ -359,8 +361,8 @@ class ConfigurationClassEnhancer {
 			 * 只有当@Bean的方法是被spring调到(即spring实例化bean)的时候，isCurrentlyInvokedFactoryMethod(beanMethod)才会返回true;
 			 * 在示例my_demo.configurationAnno中:
 			 * 1.当spring实例化bean lison时，该条件返回true;
-			 * 2.当spring实例化bean lisonFactory时，第一次是调用lisonFactory()方法，该条件返回true,第二次当lisonFactory()方法内部
-			 * 	 再次调用this.lison()方法时，该条件返回false
+			 * 2.当spring实例化bean lisonFactory时，第一次是调用lisonFactory()方法，该条件返回true,
+             *   第二次当lisonFactory()方法内部再次调用this.lison()方法时，该条件返回false
 			 */
 			if (isCurrentlyInvokedFactoryMethod(beanMethod)) {
 				// The factory is calling the bean method in order to instantiate and register the bean

@@ -34,7 +34,7 @@ public abstract class AbstractGenericPointcutAdvisor extends AbstractPointcutAdv
 
 
 	/**
-	 * Specify the advice that this advisor should apply.
+	 * Specify the advice that this customAdvisor should apply.
 	 */
 	public void setAdvice(Advice advice) {
 		this.advice = advice;

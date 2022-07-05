@@ -328,8 +328,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			 * 解析配置类,核心流程：
 			 * 1.@PropertySource注解，解析出来最终设置到当前environment的PropertySources属性中
 			 * 2.@ComponentScan注解，扫描相应路径下的带@Compenent注解的类，递归调用 this.parse 方法
-			 * 3.@Import注解，将要导入的类存在parser.configurationClasses属性中（导入ImportBeanDefinitionRegistrar时解析出来
-			 * 		放入ConfigurationClass的importBeanDefinitionRegistrars属性中）
+			 * 3.@Import注解，将要导入的类存在parser.configurationClasses属性中
+             *     注意：
+             *     1.导入ImportBeanDefinitionRegistrar时解析出来放入ConfigurationClass的importBeanDefinitionRegistrars属性中
 			 * 4.@ImportResource注解，最终加入到ConfigurationClass中的ImportedResource属性中
 			 * 5.检测出配置类所有的@Bean方法，将声明@Bean注解的bean方法存入ConfigurationClass的beanMethods属性中
 			 */
@@ -372,7 +373,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		while (!candidates.isEmpty());
 
 		// 如果SingletonBeanRegistry 不包含org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry
-		// 则注册一个,bean 为 ImportRegistry. 一般都会进行注册的
+		// 则注册一个bean 为 ImportRegistry. 一般都会进行注册的
 		if (sbr != null && !sbr.containsSingleton(IMPORT_REGISTRY_BEAN_NAME)) {
 			sbr.registerSingleton(IMPORT_REGISTRY_BEAN_NAME, parser.getImportRegistry());
 		}

@@ -80,7 +80,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	/** The AdvisorChainFactory to use. */
 	AdvisorChainFactory advisorChainFactory = new DefaultAdvisorChainFactory();
 
-	/** Cache with Method as key and advisor chain List as value. */
+	/** Cache with Method as key and customAdvisor chain List as value. */
 	private transient Map<MethodCacheKey, List<Object>> methodCache;
 
 	/**
@@ -173,7 +173,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	}
 
 	/**
-	 * Set the advisor chain factory to use.
+	 * Set the customAdvisor chain factory to use.
 	 * <p>Default is a {@link DefaultAdvisorChainFactory}.
 	 */
 	public void setAdvisorChainFactory(AdvisorChainFactory advisorChainFactory) {
@@ -182,7 +182,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	}
 
 	/**
-	 * Return the advisor chain factory to use (never {@code null}).
+	 * Return the customAdvisor chain factory to use (never {@code null}).
 	 */
 	public AdvisorChainFactory getAdvisorChainFactory() {
 		return this.advisorChainFactory;
@@ -330,7 +330,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 */
 	public void addAdvisors(Collection<Advisor> advisors) {
 		if (isFrozen()) {
-			throw new AopConfigException("Cannot add advisor: Configuration is frozen.");
+			throw new AopConfigException("Cannot add customAdvisor: Configuration is frozen.");
 		}
 		if (!CollectionUtils.isEmpty(advisors)) {
 			for (Advisor advisor : advisors) {
@@ -347,7 +347,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 
 	private void validateIntroductionAdvisor(IntroductionAdvisor advisor) {
 		advisor.validateInterfaces();
-		// If the advisor passed validation, we can make the change.
+		// If the customAdvisor passed validation, we can make the change.
 		Class<?>[] ifcs = advisor.getInterfaces();
 		for (Class<?> ifc : ifcs) {
 			addInterface(ifc);
@@ -357,11 +357,11 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	private void addAdvisorInternal(int pos, Advisor advisor) throws AopConfigException {
 		Assert.notNull(advisor, "Advisor must not be null");
 		if (isFrozen()) {
-			throw new AopConfigException("Cannot add advisor: Configuration is frozen.");
+			throw new AopConfigException("Cannot add customAdvisor: Configuration is frozen.");
 		}
 		if (pos > this.advisors.size()) {
 			throw new IllegalArgumentException(
-					"Illegal position " + pos + " in advisor list with size " + this.advisors.size());
+					"Illegal position " + pos + " in customAdvisor list with size " + this.advisors.size());
 		}
 		this.advisors.add(pos, advisor);
 		updateAdvisorArray();
@@ -377,7 +377,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 
 	/**
 	 * Allows uncontrolled access to the {@link List} of {@link Advisor Advisors}.
-	 * <p>Use with care, and remember to {@link #updateAdvisorArray() refresh the advisor array}
+	 * <p>Use with care, and remember to {@link #updateAdvisorArray() refresh the customAdvisor array}
 	 * and {@link #adviceChanged() fire advice changed events} when making any modifications.
 	 */
 	protected final List<Advisor> getAdvisorsInternal() {
@@ -436,7 +436,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	}
 
 	/**
-	 * Is the given advice included in any advisor within this proxy configuration?
+	 * Is the given advice included in any customAdvisor within this proxy configuration?
 	 * @param advice the advice to check inclusion of
 	 * @return whether this advice instance is included
 	 */
