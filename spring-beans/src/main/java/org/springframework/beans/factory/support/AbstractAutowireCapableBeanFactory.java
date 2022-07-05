@@ -1500,7 +1500,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 							filteredPds = filterPropertyDescriptorsForDependencyCheck(bw, mbd.allowCaching);
 						}
 						// 对所有需要依赖检查的属性进行后处理
-						// 例如:1.这里处理@Autowired的BeanPostProcessor是AutowiredAnnotationBeanPostProcessor
+						// 例如:
+						// 1.这里处理@Autowired的BeanPostProcessor是AutowiredAnnotationBeanPostProcessor(新版本该方法已废弃，
+						// 在上面的postProcessProperties方法中处理)
 						// 2.dubbo处理@Reference注解的字段是通过ReferenceAnnotationBeanPostProcessor来处理的
 						pvsToUse = ibp.postProcessPropertyValues(pvs, filteredPds, bw.getWrappedInstance(), beanName);
 						if (pvsToUse == null) {
