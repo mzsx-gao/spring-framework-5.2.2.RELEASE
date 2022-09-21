@@ -49,9 +49,9 @@ public class BookShopServiceImpl {
     }
 
     //测试嵌套事务
-    @Transactional(propagation= Propagation.REQUIRED)
+//    @Transactional(propagation= Propagation.REQUIRED)
 //    @Transactional(propagation= Propagation.REQUIRES_NEW)
-//    @Transactional(propagation= Propagation.NESTED)
+    @Transactional(propagation= Propagation.NESTED)
     public void updateBookStock2(String isbn) {
         ConnectionHolder connectionHolder = (ConnectionHolder) TransactionSynchronizationManager.getResource(dataSource);
         System.err.println("连接对象ConnectionHolder的hashCode:"+connectionHolder.hashCode());

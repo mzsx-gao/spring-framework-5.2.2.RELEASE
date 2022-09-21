@@ -112,6 +112,11 @@ public class RollbackRuleAttribute implements Serializable{
 
 
 	private int getDepth(Class<?> exceptionClass, int depth) {
+		/**
+		 * 注意这里有坑，比如说：
+		 * @Transactional(rollbackFor = "AgeException.class")
+		 * 代码内部抛出AgeException2异常，依然会回滚
+		 */
 		if (exceptionClass.getName().contains(this.exceptionName)) {
 			// Found it!
 			return depth;

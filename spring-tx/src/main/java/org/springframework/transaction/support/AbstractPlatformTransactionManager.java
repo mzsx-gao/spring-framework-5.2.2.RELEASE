@@ -366,7 +366,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
 			SuspendedResourcesHolder suspendedResources = suspend(null);//空挂起
 			if (debugEnabled) {
-				logger.debug("Creating new transaction with name [" + def.getName() + "]: " + def);
+				logger.debug("正在创建新事物 with name [" + def.getName() + "]: " + def);
 			}
 			try {
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
@@ -580,7 +580,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 
 	/**
-	 * 挂起事务,挂起事务其实就是把事务对象中的连接对象设置为 null，并且解除 ThreadLocal 的绑定关系
+	 * 挂起事务:其实就是把事务对象中的连接对象设置为 null，并且解除 ThreadLocal 的绑定关系
      * (把ThreadLocal中的数据库连接从ThreadLocal中移除)，并放入一个挂起资源对象中
 	 */
 	@Nullable
@@ -725,6 +725,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			return;
 		}
 		//defStatus.isGlobalRollbackOnly()会判断内层事务有没有异常被打上回滚标记
+        //嵌套事务，内层事务异常（内层传播行为是REQUIRED），外层用try-catch包起来时，外层依然会回滚，就是走的这个逻辑
 		if (!shouldCommitOnGlobalRollbackOnly() && defStatus.isGlobalRollbackOnly()) {
 			if (defStatus.isDebug()) {
 				logger.debug("Global transaction is marked as rollback-only but transactional code requested commit");
@@ -845,6 +846,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				triggerBeforeCompletion(status);
 
                 //如果有保存点，则退回到保存点(嵌套事务会走到这里)，并设置ConnectionHolder对象的属性 this.rollbackOnly = false
+                //此时外层事务如果用try-catch包装起来，则外层事务可以正常提交
 				if (status.hasSavepoint()) {
 					if (status.isDebug()) {
 						logger.debug("Rolling back transaction to savepoint");

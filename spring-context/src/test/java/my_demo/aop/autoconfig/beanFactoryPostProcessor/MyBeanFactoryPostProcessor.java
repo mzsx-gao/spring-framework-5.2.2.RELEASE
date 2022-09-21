@@ -8,7 +8,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
     @Override
@@ -20,8 +20,8 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
         bean.setInterceptorNames("girlAdvice");
 
         //自定义targetSource
-		CustomTargetSourceCreator customTargetSourceCreator = new CustomTargetSourceCreator();
-		customTargetSourceCreator.setBeanFactory(beanFactory);
-		bean.setCustomTargetSourceCreators(customTargetSourceCreator);
+//		CustomTargetSourceCreator customTargetSourceCreator = new CustomTargetSourceCreator();
+//		customTargetSourceCreator.setBeanFactory(beanFactory);
+//		bean.setCustomTargetSourceCreators(customTargetSourceCreator);
     }
 }

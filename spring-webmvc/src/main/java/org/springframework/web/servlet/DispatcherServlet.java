@@ -1002,8 +1002,8 @@ public class DispatcherServlet extends FrameworkServlet {
 				multipartRequestParsed = (processedRequest != request);
 
 				/**
-                 * 根据request信息寻找对应的handler,这里返回的handler是HandlerExecutionChain，内部持有处理请求的HandlerMethod(
-                 * 其实就是Controller)和拦截器
+                 * 根据request信息寻找对应的handler,这里返回的handler是HandlerExecutionChain，
+				 * 内部持有处理请求的HandlerMethod(其实就是Controller)和拦截器
                  */
 				mappedHandler = getHandler(processedRequest);
 				if (mappedHandler == null) {

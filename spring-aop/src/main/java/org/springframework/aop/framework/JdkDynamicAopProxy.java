@@ -165,7 +165,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 	 *
 	 * 2.根据是否配置了exposeProxy属性来决定是否要通过此属性暴露代理
 	 *
-	 * 3.得到该方法的拦截链，创建一个方法调用器，并将拦截器链传入其中， 执行拦截器链。
+	 * 3.得到该方法的拦截链，创建一个方法调用器，并将拦截器链传入其中， 执行拦截器链
 	 *
 	 * 4.返回方法执行结果
 	 */

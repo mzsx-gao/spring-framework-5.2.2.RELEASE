@@ -87,9 +87,11 @@ public abstract class ScopedProxyUtils {
 			proxyDefinition.copyQualifiersFrom((AbstractBeanDefinition) targetDefinition);
 		}
 
-		// 容器在查找自动装配对象时，将不考虑该bean，即它不会被考虑作为其它bean自动装配的候选者，但是该bean本身还是可以使用自动装配来注入
-		// 其它bean的;特别是对于scoped代理;
-		// 目的是让其它bean依赖注入这个bean时，不要注入目标bean->targetDefinition，而是注入代理bean->proxyDefinition
+		/**
+		 * 容器在查找自动装配对象时，将不考虑该bean，即它不会被考虑作为其它bean自动装配的候选者，但是该bean本身还是可以使用自动装配来注入
+		 * 其它bean的;特别是对于scoped代理;
+		 * 目的是让其它bean依赖注入这个bean时，不要注入目标bean->targetDefinition，而是注入代理bean->proxyDefinition
+		 */
 		targetDefinition.setAutowireCandidate(false);
 		targetDefinition.setPrimary(false);
 

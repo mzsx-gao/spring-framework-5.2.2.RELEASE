@@ -890,7 +890,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
         /**
          * 对实现SmartInitializingSingleton接口的bean，调用其afterSingletonsInstantiated方法
          * springcloud-alibaba环境下sentinel集成nacos数据源时，SentinelDataSourceHandler就是继承SmartInitializingSingleton接
-         * 口，然后在SmartInitializingSingleton方法中初始化NacosDataSource
+         * 口，然后在afterSingletonsInstantiated方法中初始化NacosDataSource
          */
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
